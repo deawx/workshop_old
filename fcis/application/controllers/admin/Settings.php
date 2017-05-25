@@ -14,14 +14,16 @@ class Settings extends Admin_Controller {
 		$this->session->set_flashdata('message',message_box('Setting is the coming soon feature!','danger'));
 		redirect('admin/posts/index');
 
-		$config['base_url'] = site_url('admin/categories/index/');
-		$config['total_rows'] = count($this->Category->find());
-		$config['per_page'] = 10;
-		$config["uri_segment"] = 4;
+		$config = array(
+			'base_url' => site_url('admin/categories/index/'),
+			'total_rows' => count($this->Category->find()),
+			'per_page' => 10,
+			'num_links' => 4
+		);
+		$this->pagination->initialize($config)
+		$this->data['categories'] = $this->Category->find($config['per_page'], $this->input->get('offset'));
 
-		$this->data['categories'] = $this->Category->find($config['per_page'], $this->uri->segment(4));
-
-		$this->data['pagination'] = $this->bootstrap_pagination($config);
+		$this->data['pagination'] = $this->pagination->create_links();
 		$this->render('admin/settings/index');
 	}
 
