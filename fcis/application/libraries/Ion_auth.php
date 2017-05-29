@@ -81,14 +81,18 @@ class Ion_auth
 		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
 
 		//auto-login the user if they are remembered
-		if (!$this->logged_in() && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
+		if ( ! $this->logged_in()
+			&& get_cookie($this->config->item('identity_cookie_name', 'ion_auth'))
+			&& get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		{
 			$this->ion_auth_model->login_remembered_user();
 		}
 
 		$email_config = $this->config->item('email_config', 'ion_auth');
 
-		if ($this->config->item('use_ci_email', 'ion_auth') && isset($email_config) && is_array($email_config))
+		if ($this->config->item('use_ci_email', 'ion_auth')
+			&& isset($email_config)
+			&& is_array($email_config))
 		{
 			$this->email->initialize($email_config);
 		}
