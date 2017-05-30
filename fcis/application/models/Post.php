@@ -1,30 +1,31 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Post extends CI_Model{
+class Post extends CI_Model {
 
 	var $table = 'posts';
 
-
-	function find($limit = null, $offset = 0, $user_id = null, $q = null){
-// 		SELECT pt.post_id AS `post_id`, GROUP_CONCAT(t.tag) AS `tags`
-// FROM post_tags AS pt
-// INNER JOIN tags AS t ON pt.tag_id = t.tag_id
-// GROUP BY `post_id`
+	function find($limit = null, $offset = 0, $user_id = null, $q = null)
+	{
+		// SELECT pt.post_id AS `post_id`, GROUP_CONCAT(t.tag) AS `tags`
+		// FROM post_tags AS pt
+		// INNER JOIN tags AS t ON pt.tag_id = t.tag_id
+		// GROUP BY `post_id`
 		$this->db->select('posts.*,users.username');
-        $this->db->join('users', 'users.id = posts.user_id');
-        if ($q != null) {
-            $this->db->like('title', $q);
-        }
-        if($user_id != null){
-        	$this->db->where('user_id',$user_id);
-        }
-        $this->db->where('type','post');
-        $this->db->limit($limit, $offset);
-        $this->db->order_by('published_at', 'desc');
-        $query = $this->db->get($this->table);
-
-        return $query->result_array();
+		$this->db->join('users', 'users.id = posts.user_id');
+		if ($q !== NULL)
+		{
+			$this->db->like('title', $q);
+		}
+		if ($user_id !== NULL)
+		{
+			$this->db->where('user_id',$user_id);
+		}
+		$this->db->where('type','post');
+		$this->db->limit($limit, $offset);
+		$this->db->order_by('published_at', 'desc');
+		$query = $this->db->get($this->table);
+		return $query->result_array();
 	}
 
 	function find_active($limit = null, $offset = 0, $q = null){
@@ -106,7 +107,7 @@ class Post extends CI_Model{
 				$all_urls['read/'.$post['slug']] = $post['title'];
 			}
 		}
-		
+
 		return $all_urls;
 	}
 

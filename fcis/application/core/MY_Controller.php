@@ -57,10 +57,13 @@ class MY_Controller extends CI_Controller {
 
 	protected function render($content = null, $layout = 'public')
 	{
-		if($layout == 'json' || $this->input->is_ajax_request()){
+		if ($layout == 'json' || $this->input->is_ajax_request())
+		{
 			header('Content-Type: application/json');
-      		echo json_encode($this->data);
-		}else{
+			echo json_encode($this->data);
+		}
+		else
+		{
 			$this->data['content'] = (is_null($content)) ? '' : $this->load->view($content,$this->data,TRUE);
 			$this->load->view($layout,$this->data);
 		}
@@ -69,11 +72,8 @@ class MY_Controller extends CI_Controller {
 	protected function allow_group_access($groups_allowed = array())
 	{
 		$allow_access = false;
-
 		$match_group_allowed = array_intersect($this->current_groups(), $groups_allowed);
-
 		$allow_access = !empty($match_group_allowed);
-
 		if ($allow_access == false)
 		{
 			$this->session->set_flashdata('message', message_box('You are not allowed to access this page!','danger'));
@@ -109,7 +109,8 @@ class MY_Controller extends CI_Controller {
 				'path' => $file['server_path'],
 				'parent_id' => 0,
 			);
-			if ($file['name'] != 'admin') {
+			if ($file['name'] != 'admin')
+			{
 				$methods = get_class_methods(str_replace('.php', '', $file['name']));
 			}
 			if ($file['name'] == 'admin')
@@ -159,7 +160,8 @@ class Public_Controller extends MY_Controller {
 		$this->data['page_title'] = 'CI Blog - Simple CMS based on CodeIgniter 3.x';
 
 		$this->data['main_menus'] = '';
-		if(count($this->Menu->findActive()) > 0){
+		if(count($this->Menu->findActive()) > 0)
+		{
 			$this->data['main_menus'] = $this->general->bootstrap_menu($this->Menu->findActive());
 		}
 		$this->data['header'] = $this->load->view('themes/'.$this->theme.'/header',$this->data, TRUE);

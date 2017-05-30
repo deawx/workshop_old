@@ -1,13 +1,8 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-function print_data($data){
-	echo '<pre>';
-	print_r($data);
-	echo '</pre>';
-}
-
-function message_box($msg, $status = 'success'){
+function message_box($msg, $status = 'success')
+{
 	$response = '';
 	if(!empty($msg)){
 		$response = '<div class="alert alert-'.$status.' no-margin" style="margin-bottom:15px!important;">'.$msg.'</div>';
@@ -15,7 +10,8 @@ function message_box($msg, $status = 'success'){
 	return $response;
 }
 
-function merge_urls($all_urls = array(), $url){
+function merge_urls($all_urls = array(), $url)
+{
 	$url_slugs = array_keys($all_urls);
 	if(!in_array($url, $url_slugs)){
 		$external_url = array(
@@ -29,7 +25,8 @@ function merge_urls($all_urls = array(), $url){
 }
 
 
-function limit_url_slug($slug, $limit = 20){
+function limit_url_slug($slug, $limit = 20)
+{
 	$end = '';
 	if(mb_strlen($slug) > $limit){
 		$end = '...';

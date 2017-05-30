@@ -7,20 +7,18 @@ class Users extends Admin_Controller {
 		parent::__construct();
 		$this->load->model('User');
 		$this->load->model('Group');
-		
 		$this->data['parent_menu'] = 'user';
 	}
 
 	public function index(){
 		$this->allow_group_access(array('admin'));
-		$config['base_url'] = site_url('admin/users/index/');
-		$config['total_rows'] = count($this->User->find());
-		$config['per_page'] = 10;
-		$config["uri_segment"] = 4;
-		
+		$config	= array(
+			'base_url' => site_url(uri_string()),
+			'total_rows' => count($this->User->find()),
+			'per_page' => 5
+		);
+		$this->pagination->initialize($config);
 		$this->data['users'] = $this->User->find($config['per_page'], $this->uri->segment(4));
-
-		$this->data['pagination'] = $this->bootstrap_pagination($config);
 		$this->render('admin/users/index');
 	}
 
@@ -82,16 +80,16 @@ class Users extends Admin_Controller {
             unset($data['password']);
 
             $this->User->update($data,$id);
-      
+
             $user_id = $id;
-      
+
             if(!empty($_POST['groups'])){
                 $this->db->where('user_id',$user_id);
                 $this->db->where_not_in('group_id',$_POST['groups']);
                 $this->db->delete('users_groups');
 
                 foreach($_POST['groups'] as $key => $group_id){
-                
+
                     if($this->db->where(array('user_id' => $user_id, 'group_id' => $group_id))->get('users_groups',1)->num_rows() < 1){
                         $user_group = array(
                             'user_id' => $user_id,
@@ -125,7 +123,7 @@ class Users extends Admin_Controller {
 			$this->session->set_flashdata('message',message_box('Failed, you could not delete yourself','danger'));
 			redirect('admin/users/index');
 		}
-		
+
 		if(!empty($id)){
 			$this->User->delete($id);
 			$this->session->set_flashdata('message',message_box('User has been deleted','success'));
@@ -171,7 +169,7 @@ class Users extends Admin_Controller {
 			if ($this->form_validation->run() === TRUE)
 			{
 
-				
+
 				$this->ion_auth->update($user->id, $data);
 
 				//check to see if we are creating the user

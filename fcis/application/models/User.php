@@ -5,9 +5,7 @@ class User extends CI_Model{
 
 	var $table = 'users';
 
-
 	function find($limit = null, $offset = 0){
-
 		$this->db->select('ug.user_id, u.*, GROUP_CONCAT(g.name) AS groups');
 		$this->db->join('groups g','ug.group_id=g.id');
 		$this->db->join('users u','ug.user_id=u.id');
@@ -39,15 +37,19 @@ class User extends CI_Model{
 		return $this->db->get('users_groups ug')->row_array();
 	}
 
-	function find_list(){
+	function find_list()
+	{
 		$this->db->order_by('name','asc');
 		$query = $this->db->get($this->table);
-        $data = array();
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $data[$row['id']] = $row['name'];
-            }
-        }
-        return $data;
+		$data = array();
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result_array() as $row)
+			{
+				$data[$row['id']] = $row['name'];
+			}
+		}
+		return $data;
 	}
+
 }

@@ -1,66 +1,3 @@
-<?
-ob_start();
-session_start();
-include "function_setting.php";
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/tamplate.dwt.php" codeOutsideHTMLIsLocked="false" -->
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>การพัฒนาบทเรียน E-learning วิชา เทคโนโลยีสารสนเทศ เบื้องต้น</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<!-- InstanceEndEditable -->
-<link href="stye.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/ajax.js" ></script>
-<style type="text/css">
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-			background: url(image/bg.jpg) top center ;
-	background-color:#000;
-
-background-attachment: fixed;
-
-
-}
-</style>
-<script type="text/javascript" >
-//disable back button
-history.pushState(null, null, '');
-window.addEventListener('popstate', function(event) {
-  history.pushState(null, null, '');
-});
-</script>
-<script type="text/javascript">
-function MM_swapImgRestore() { //v3.0
-  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
-}
-function MM_preloadImages() { //v3.0
-  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
-    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
-    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
-}
-
-function MM_findObj(n, d) { //v4.01
-  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
-  if(!x && d.getElementById) x=d.getElementById(n); return x;
-}
-
-function MM_swapImage() { //v3.0
-  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
-   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
-}
-</script>
-</head>
-
 <body onload="MM_preloadImages('image/images/menu2_01.jpg','image/images/menu2_02.jpg','image/images/menu2_03.jpg','image/images/menu2_04.jpg','image/images/menu2_05.jpg','image/admin2.jpg')">
 <table width="900" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
@@ -80,9 +17,7 @@ function MM_swapImage() { //v3.0
         <td></td>
       </tr>
     </table>
- <?
- if($login_status=="นักเรียน" or $login_status=="Admin"){
- ?>
+ <?php if ($login_status=="นักเรียน" or $login_status=="Admin") {  ?>
       <table width="200" height="214" border="1" cellpadding="0" cellspacing="0" class="two">
       <tr>
         <td height="212" valign="top"><img src="image/tab.jpg" width="198" height="45" />
@@ -97,7 +32,6 @@ function MM_swapImage() { //v3.0
             </tr>
 
           <?
-        include "connect.php";
 $tb="data";
 $sql="select * from $tb where status='' order by num asc";
 $result = mysql_query($sql);
@@ -113,13 +47,7 @@ $name_menu= $row["name"];
            <tr>
             <td height="7" colspan="2" class="style25"><img src="image/line.jpg" width="188" height="5" /></td>
             </tr>
-
-
-          <?
-}
-
-
-		  ?>
+          <?php } ?>
           <tr>
             <td width="12"><img src="image/book_icon.gif" width="16" height="16" /></td>
             <td width="172" class="style3"><a href="test.php?test=แบบทดสอบหลังเรียน">แบบทดสอบหลังเรียน</a>&nbsp;</td>
@@ -127,15 +55,10 @@ $name_menu= $row["name"];
            <tr>
             <td height="7" colspan="2" class="style25"><img src="image/line.jpg" width="188" height="5" /></td>
             </tr>
-
         </table></td>
       </tr>
     </table>
-
-    <?
- }
-    if($login_status=="Admin"){
-	?>
+    <?php } if ($login_status=="Admin") { ?>
       <table width="200" border="0" cellpadding="1" cellspacing="1">
         <tr>
           <td></td>
@@ -205,9 +128,7 @@ $name_menu= $row["name"];
       </table>
       <? } ?><br />
 
-      <?
-	    if($login_status=="นักเรียน"){
-	?>
+      <?php if($login_status=="นักเรียน"){ ?>
       <table width="200" border="0" cellpadding="1" cellspacing="1">
         <tr>
           <td></td>
