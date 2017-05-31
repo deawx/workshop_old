@@ -5,11 +5,6 @@ class Log_user {
 
   private $_ci;
   private $_log_table_name;
-  public $levels = array(
-    E_USER_INFO => 'User Warning',
-    E_USER_NOTICE => 'User Notice',
-    E_USER_ERROR => 'User Error'
-  );
 
   public function __construct()
   {
@@ -23,9 +18,6 @@ class Log_user {
     $user_id = isset($this->session->user_id)
       ? $this->session->user_id
       : 0;
-    $type = isset($this->levels[$type])
-      ? $this->levels[$type]
-      : $type;
     $data = array(
       'user_id' => $user_id,
       'timestamp' => time(),

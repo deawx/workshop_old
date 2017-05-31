@@ -30,7 +30,7 @@
       <?php endif;?>
     </ul>
   </li>
-  <?php if(in_array('admin',$current_groups)):?>
+  <?php // if(in_array('admin',$current_groups)):?>
     <li class="<?php echo ($parent_menu === 'pages')? 'active' : '' ?>">
       <a href="<?php echo site_url('admin/pages')?>">
         <i class="fa fa-file"></i> <span>Static Page</span>
@@ -56,7 +56,7 @@
         <i class="fa fa-gear"></i> <span>General Setting</span>
       </a>
     </li>
-  <?php endif;?>
+  <?php // endif;?>
 </ul>
 </section>
 <!-- /.sidebar -->

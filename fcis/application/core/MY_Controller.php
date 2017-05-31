@@ -131,7 +131,7 @@ class Admin_Controller extends MY_Controller {
 	{
 		parent::__construct();
 		$this->data['base_assets_url'] = BASE_URI.$this->base_assets_url;
-		$this->data['page_title'] = 'CI Blog - Dashboard';
+		$this->data['page_title'] = 'FCIS - Dashboard';
 		$this->data['header'] = $this->load->view('admin/parts/header',$this->data,TRUE);
 		$this->data['parent_menu'] = '';
 	}
@@ -140,39 +140,5 @@ class Admin_Controller extends MY_Controller {
 	{
 		$this->data['sidebar'] = $this->load->view('admin/parts/sidebar',$this->data,TRUE);
 		parent::render($content, $layout);
-	}
-}
-
-
-class Public_Controller extends MY_Controller {
-
-	protected $layout = '';
-	protected $base_assets_url = 'assets/themes/';
-	protected $theme = '';
-
-	function __construct()
-	{
-		parent::__construct();
-		$this->theme = $this->config->item('ciblog_theme');
-		$this->load->model('Menu');
-
-		$this->data['base_assets_url'] = BASE_URI.$this->base_assets_url.$this->theme.'/';
-		$this->data['page_title'] = 'CI Blog - Simple CMS based on CodeIgniter 3.x';
-
-		$this->data['main_menus'] = '';
-		if(count($this->Menu->findActive()) > 0)
-		{
-			$this->data['main_menus'] = $this->general->bootstrap_menu($this->Menu->findActive());
-		}
-		$this->data['header'] = $this->load->view('themes/'.$this->theme.'/header',$this->data, TRUE);
-		$this->data['right_sidebar'] = $this->load->view('themes/'.$this->theme.'/right_sidebar',$this->data, TRUE);
-		$this->data['footer'] = $this->load->view('themes/'.$this->theme.'/footer',$this->data, TRUE);
-
-		$this->layout = THEMES_DIR.'/'.$this->theme.'/layout';
-	}
-
-	protected function render($content = null, $layout = '')
-	{
-		parent::render(THEMES_DIR.'/'.$this->theme.'/'.$content, $this->layout);
 	}
 }

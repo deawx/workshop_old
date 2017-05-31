@@ -5,20 +5,20 @@ class Users extends Admin_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->allow_group_access(array('admin'));
 		$this->load->model('User');
 		$this->load->model('Group');
 		$this->data['parent_menu'] = 'user';
 	}
 
 	public function index(){
-		$this->allow_group_access(array('admin'));
 		$config	= array(
 			'base_url' => site_url(uri_string()),
 			'total_rows' => count($this->User->find()),
 			'per_page' => 5
 		);
 		$this->pagination->initialize($config);
-		$this->data['users'] = $this->User->find($config['per_page'], $this->uri->segment(4));
+		$this->data['users'] = $this->User->find($config['per_page'], $this->input->get('offset'));
 		$this->render('admin/users/index');
 	}
 

@@ -336,14 +336,11 @@ class Users extends MY_Controller {
 	function signup()
 	{
 		$this->data['page_title'] = "Create New Account";
-
-		// if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		// if ( ! $this->ion_auth->logged_in() || ! $this->ion_auth->is_admin())
 		// {
-		// 	redirect('auth', 'refresh');
+		// 	redirect('users', 'refresh');
 		// }
-
 		$tables = $this->config->item('tables','ion_auth');
-
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
@@ -360,7 +357,6 @@ class Users extends MY_Controller {
 			$username = strtolower($this->input->post('username'));
 			$email    = strtolower($this->input->post('email'));
 			$password = $this->input->post('password');
-
 			$additional_data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name'  => $this->input->post('last_name'),
@@ -381,7 +377,6 @@ class Users extends MY_Controller {
 			//display the create user form
 			//set the flash data error message if there is one
 			$this->data['message'] = message_box((validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message'))),'danger');
-
 			$this->data['first_name'] = array(
 				'name'  => 'first_name',
 				'id'    => 'first_name',
@@ -400,7 +395,6 @@ class Users extends MY_Controller {
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('username'),
 			);
-
 			$this->data['email'] = array(
 				'name'  => 'email',
 				'id'    => 'email',
@@ -431,12 +425,9 @@ class Users extends MY_Controller {
 				'type'  => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
-
 			$this->render(null,'admin/users/signup');
 		}
 	}
-
-
 
 	function _get_csrf_nonce()
 	{
@@ -461,6 +452,5 @@ class Users extends MY_Controller {
 			return FALSE;
 		}
 	}
-
 
 }
