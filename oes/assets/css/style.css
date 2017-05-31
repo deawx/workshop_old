@@ -1,0 +1,16 @@
+html {
+  position: relative;
+  min-height: 100%;
+  padding: 0px;
+}
+body {
+  margin-top: 1em;
+  background-image: url('../images/front.png');
+  background-repeat: repeat;
+}
+footer {
+  bottom: 0;
+  height: 6em;
+  width: 100%;
+  padding-top: 1.5em;
+}
