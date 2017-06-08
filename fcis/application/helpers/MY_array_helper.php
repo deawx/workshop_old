@@ -2,6 +2,16 @@
 
 if ( ! function_exists('any_in_array'))
 {
+  /**
+   * Lets you check trought your array
+   * If the function is empty it returns FALSE (defaul is FALSE)
+   *
+   * @param	array $needle
+   * @param	array $haystack
+   * @return boolean, TRUE if in array || FALSE if not
+   *
+   * Example : any_in_array(array('1','2'), array('1','3','5','7','9')));
+   */
   function any_in_array($needle, $haystack)
   {
     $needle = is_array($needle) ? $needle : array($needle);
@@ -15,6 +25,26 @@ if ( ! function_exists('any_in_array'))
       }
     }
     return FALSE;
+  }
+}
+
+if ( ! function_exists('clear_null_array'))
+{
+  /**
+   * Lets you check trought your array
+   * If the function is empty it returns NULL (defaul is NULL)
+   *
+   * @param	array $array
+   * @return array $array with clear couple of null value
+   *
+   * Example : clear_null_array(array('1'=>'','2'=>'true','3'=>false,'4'=>null)));
+   */
+  function clear_null_array($array)
+  {
+    $array = is_array($array) ? $array : array($array);
+    $array = array_map('trim', $array);
+		$array = array_filter($array);
+    return $array;
   }
 }
 
@@ -38,7 +68,7 @@ if ( ! function_exists('any_in_array'))
      {
        $key = func_get_arg($i);
        $order = true;
-       
+
        if($i + 1 < func_num_args())
          $order = func_get_arg($i + 1);
 

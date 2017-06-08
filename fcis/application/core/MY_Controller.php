@@ -18,12 +18,17 @@ class MY_Controller extends CI_Controller {
 		$this->load->library('pagination');
 		$this->load->library('general');
 		$this->load->model('User');
-		$this->load->model('Setting');
 
 		$this->data['page_title'] = 'FCIS';
 		$this->data['before_head'] = 'before head';
 		$this->data['before_body'] = 'before body';
 		$this->data['assets_path'] = $this->assets_path;
+
+		$this->data['patient_status'] = array(
+			0 => 'คนไข้ออกหน่วย',
+			1 => 'กลุ่ม CRC of PSU',
+			2 => 'คนไข้ CRC ส่งต่อ'
+		);
 
 		//Category status options
 		$this->data['category_status'] = array(

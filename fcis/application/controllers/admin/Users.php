@@ -3,109 +3,111 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends Admin_Controller {
 
-	public function __construct(){
+	public function __construct()
+	{
 		parent::__construct();
-		$this->allow_group_access(array('admin'));
+		// $this->allow_group_access(array('special','admin'));
+		$this->load->model('Ion_auth_model');
 		$this->load->model('User');
 		$this->load->model('Group');
-		$this->data['parent_menu'] = 'user';
+		// $this->load->library('Ion_auth');
+		$this->data['parent_menu'] = 'setting';
 	}
 
-	public function index(){
+	public function index()
+	{
 		$config	= array(
-			'base_url' => site_url(uri_string()),
+			'base_url' => uri_string(),
 			'total_rows' => count($this->User->find()),
-			'per_page' => 5
+			'per_page' => 20
 		);
 		$this->pagination->initialize($config);
 		$this->data['users'] = $this->User->find($config['per_page'], $this->input->get('offset'));
 		$this->render('admin/users/index');
 	}
 
-	public function add(){
-		$this->allow_group_access(array('admin'));
+	public function add()
+	{
+		$this->allow_group_access(array('special','admin'));
 		$this->form_validation->set_rules('first_name', 'first name', 'required');
 		$this->form_validation->set_rules('last_name', 'first name', 'required');
 		$this->form_validation->set_rules('email', 'email', 'required|is_unique[users.email]');
 		$this->form_validation->set_rules('password', 'password', 'required');
-        $this->form_validation->set_rules('confirm_password', 'confirm password', 'required|matches[password]');
-
-
-		if($this->form_validation->run() == true){
+		$this->form_validation->set_rules('confirm_password', 'confirm password', 'required|matches[password]');
+		if ($this->form_validation->run() === TRUE)
+		{
 			$username = $this->input->post('username');
 			$email    = strtolower($this->input->post('email'));
 			$password = $this->input->post('password');
-
 			$additional_data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name'  => $this->input->post('last_name'),
 				'company'    => $this->input->post('company'),
-				'phone'      => $this->input->post('phone'),
+				'phone'      => $this->input->post('phone')
 			);
-
-			if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data,$this->input->post('groups'))){
+			// if ()
+			$this->ion_auth->register($username, $password, $email, $additional_data,$this->input->post('groups'));
+			// {
 				$this->session->set_flashdata('message',message_box('User has been saved','success'));
-			}else{
-				$this->session->set_flashdata('message',message_box('Failed, please try again!','danger'));
-			}
+			// }
+			// else
+			// {
+			// 	$this->session->set_flashdata('message',message_box('Failed, please try again!','danger'));
+			// }
 			redirect('admin/users/index');
 		}
-
 		$this->data['groups'] = $this->Group->find_list();
 		$this->render('admin/users/add');
 	}
 
-	public function edit($id = null){
+	public function edit($id = null)
+	{
 		$this->allow_group_access(array('admin'));
-		if($id == null){
+		if ($id == null)
+		{
 			$id = $this->input->post('id');
 		}
-
-		if($id == $this->current_user['user_id']){
+		if ($id == $this->current_user['user_id'])
+		{
 			redirect('admin/users/profile');
 		}
-
 		$this->form_validation->set_rules('first_name', 'first name', 'required');
 		$this->form_validation->set_rules('active', 'status', 'required');
-
-		if ($this->input->post('password')):
-            $this->form_validation->set_rules('password', 'password', 'required');
-            $this->form_validation->set_rules('confirm_password', 'konfirmasi password', 'required|matches[password]');
-        endif;
-
-		if($this->form_validation->run() == true){
+		if ($this->input->post('password'))
+		{
+			$this->form_validation->set_rules('password', 'password', 'required');
+			$this->form_validation->set_rules('confirm_password', 'konfirmasi password', 'required|matches[password]');
+		}
+		if ($this->form_validation->run() == true)
+		{
 			$data = $_POST;
-            unset($data['groups']);
-            unset($data['confirm_password']);
-            unset($data['password']);
-
-            $this->User->update($data,$id);
-
-            $user_id = $id;
-
-            if(!empty($_POST['groups'])){
-                $this->db->where('user_id',$user_id);
-                $this->db->where_not_in('group_id',$_POST['groups']);
-                $this->db->delete('users_groups');
-
-                foreach($_POST['groups'] as $key => $group_id){
-
-                    if($this->db->where(array('user_id' => $user_id, 'group_id' => $group_id))->get('users_groups',1)->num_rows() < 1){
-                        $user_group = array(
-                            'user_id' => $user_id,
-                            'group_id' => $group_id
-                        );
-                        $this->db->insert('users_groups',$user_group);
-                    }
-                }
-            }
+			unset($data['groups']);
+			unset($data['confirm_password']);
+			unset($data['password']);
+			$this->User->update($data,$id);
+			$user_id = $id;
+			if ( ! empty($_POST['groups']))
+			{
+				$this->db->where('user_id',$user_id);
+				$this->db->where_not_in('group_id',$_POST['groups']);
+				$this->db->delete('users_groups');
+				foreach($_POST['groups'] as $key => $group_id)
+				{
+					if ($this->db->where(array('user_id' => $user_id, 'group_id' => $group_id))->get('users_groups',1)->num_rows() < 1)
+					{
+						$user_group = array(
+							'user_id' => $user_id,
+							'group_id' => $group_id
+						);
+						$this->db->insert('users_groups',$user_group);
+					}
+				}
+			}
 			$this->session->set_flashdata('message',message_box('User has been saved','success'));
 			redirect('admin/users/index');
 		}
-
 		$this->data['user'] = $this->User->find_by_id($id);
 		$this->data['groups'] = $this->Group->find_list();
-
 		$this->render('admin/users/edit');
 	}
 
@@ -113,27 +115,28 @@ class Users extends Admin_Controller {
 		$this->allow_group_access(array('admin'));
 		$user  = $this->User->find_by_id($id);
 		$user_groups = explode(',', $user['groups']);
-
-		if(in_array('admin', $user_groups)){
+		if (in_array('admin', $user_groups))
+		{
 			$this->session->set_flashdata('message',message_box('Failed, could not delete admin user','danger'));
 			redirect('admin/users/index');
 		}
-
-		if($current_user['user_id'] == $id){
+		if ($current_user['user_id'] == $id)
+		{
 			$this->session->set_flashdata('message',message_box('Failed, you could not delete yourself','danger'));
 			redirect('admin/users/index');
 		}
-
-		if(!empty($id)){
+		if ( ! empty($id))
+		{
 			$this->User->delete($id);
 			$this->session->set_flashdata('message',message_box('User has been deleted','success'));
 			redirect('admin/users/index');
-		}else{
+		}
+		else
+		{
 			$this->session->set_flashdata('message',message_box('Invalid id','danger'));
 			redirect('admin/users/index');
 		}
 	}
-
 
 	public function profile(){
 		$this->allow_group_access(array('admin','members'));

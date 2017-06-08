@@ -7,7 +7,7 @@ $autoload['libraries'] = array('database','session','email','form_validation','l
 
 $autoload['drivers'] = array();
 
-$autoload['helper'] = array('url','file','form','html','text','date','general','security');
+$autoload['helper'] = array('url','file','form','html','text','date','array','general','security');
 
 $autoload['config'] = array('ci-blog');
 

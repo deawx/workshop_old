@@ -6,7 +6,7 @@
                 <h3 class="box-title">Edit User</h3>
             </div><!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?php echo site_url('admin/users/edit')?>" method="post">
+						<?php echo form_open('admin/users/edit'); ?>
                 <input type="hidden" name="id" value="<?php echo $user['id']?>">
                 <div class="box-body">
                     <?php echo $this->session->flashdata('message');?>
@@ -58,10 +58,10 @@
                 </div><!-- /.box-body -->
 
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button> 
+                    <button type="submit" class="btn btn-primary">Submit</button>
                     <button type="button" class="btn btn-default" onclick="javascript:history.back()">Back</button>
                 </div>
-            </form>
+            <?php echo form_close(); ?>
         </div><!-- /.box -->
 	</div>
 </div>

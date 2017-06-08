@@ -2,7 +2,7 @@
         <header class="header">
             <a href="<?php echo site_url('/');?>" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                CI-Blog
+                NAVIGATION
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -24,7 +24,7 @@
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="<?php echo $base_assets_url;?>img/avatar3.png" class="img-circle" alt="User Image" />
+                                    <img src="<?php echo $base_assets_url;?>img/avatar.png" class="img-circle" alt="User Image" />
                                     <p>
                                         <?php echo $current_user['first_name'].' '.$current_user['last_name'];?>
                                         <small>Registered : <?php echo date('d M Y,  H:i:s', $current_user['created_on']) ?></small>

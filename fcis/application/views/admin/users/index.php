@@ -19,9 +19,9 @@
 						<th style="width: 100px">Action</th>
 					</tr>
 					<?php if(!empty($users)):?>
-						<?php foreach($users as $user):?>
+						<?php foreach($users as $key => $user):?>
 							<tr>
-								<td><?php echo $user['id']?></td>
+								<td><?php echo ++$key; ?></td>
 								<td><?php echo $user['username']?></td>
 								<td><?php echo $user['email']?></td>
 								<td><?php echo $user['first_name']?></td>
@@ -29,9 +29,11 @@
 								<td><?php echo $user['groups']?></td>
 								<td><?php echo $user_status[$user['active']]?></td>
 								<td>
-									<?php if(!in_array('admin',explode(',',$user['groups']))):?>
+									<?php if( ! any_in_array(array('special','admin'),explode(',',$user['groups']))) : ?>
 										<a href="<?php echo site_url('admin/users/edit/'.$user['id'])?>"><span class="badge bg-green">edit</span></a>
-										<a href="<?php echo site_url('admin/users/delete/'.$user['id'])?>" onclick="return confirm('Are you sure?')"><span class="badge bg-red">delete</span></a>
+										<?php if($this->session->user_id !== $user['id']) : ?>
+											<a href="<?php echo site_url('admin/users/delete/'.$user['id'])?>" onclick="return confirm('Are you sure?')"><span class="badge bg-red">delete</span></a>
+										<?php endif;?>
 									<?php endif;?>
 								</td>
 							</tr>
