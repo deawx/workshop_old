@@ -3,10 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['per_page'] = 10;
 $config['num_links'] = 5;
+$config['uri_segment'] = 4;
 $config['page_query_string'] = TRUE;
 $config['use_page_numbers'] = FALSE;
 $config['display_pages'] = TRUE;
-$config['reuse_query_string'] = FALSE;
+$config['reuse_query_string'] = TRUE;
 $config['query_string_segment'] = 'offset';
 
 $config['full_tag_open'] = '<ul class="pagination">';

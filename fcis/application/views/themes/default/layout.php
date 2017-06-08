@@ -16,15 +16,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <!-- Bootstrap -->
   <link href="<?php echo $base_assets_url;?>bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Material Design for Bootstrap -->
   <link href="<?php echo $base_assets_url;?>plugins/material-design/css/roboto.min.css" rel="stylesheet">
   <link href="<?php echo $base_assets_url;?>plugins/material-design/css/material-fullpalette.min.css" rel="stylesheet">
   <link href="<?php echo $base_assets_url;?>plugins/material-design/css/ripples.min.css" rel="stylesheet">
-
   <!-- Font awesome -->
   <link href="<?php echo $base_assets_url;?>plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
   <!-- Main Css -->
   <link href="<?php echo $base_assets_url;?>main/css/style1.css" rel="stylesheet">
 
@@ -66,9 +63,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     $.material.init();
   </script>
 
-  <?php if(!empty($home_page)):?>
+  <?php if( ! empty($home_page)):?>
     <script type="text/javascript">
-
       $(window).scroll(function(){
         if ($(this).scrollTop() > 1){
           $('.top-navbar').removeClass('navbar-transparent');
@@ -78,29 +74,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       });
     </script>
   <?php endif;?>
-
   <script type="text/javascript">
     $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
   </script>
-
-  <!-- Start of StatCounter Code for Default Guide -->
-  <script type="text/javascript">
-    var sc_project=10765102;
-    var sc_invisible=1;
-    var sc_security="6f05b87b";
-    var scJsHost = (("https:" == document.location.protocol) ?
-    "https://secure." : "http://www.");
-    document.write("<sc"+"ript type='text/javascript' src='" +
-    scJsHost+
-    "statcounter.com/counter/counter.js'></"+"script>");
-  </script>
-  <noscript><div class="statcounter"><a title="shopify
-    analytics" href="http://statcounter.com/shopify/"
-    target="_blank"><img class="statcounter"
-    src="http://c.statcounter.com/10765102/0/6f05b87b/1/"
-    alt="shopify analytics"></a></div></noscript>
-    <!-- End of StatCounter Code for Default Guide -->
-  </body>
-  </html>
+</body>
+</html>

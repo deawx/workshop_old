@@ -11,33 +11,37 @@ class Search extends Admin_Controller {
 		$this->data['parent_menu'] = 'search';
 	}
 
-	public function index($id=NULL)
+	public function index()
+	{
+		$id = $this->input->get('id');
+		if (intval($id) > 0) :
+			$this->_view($id);
+		else :
+			$this->_search($id);
+		endif;
+	}
+
+	function _search()
 	{
 		$search = NULL;
-		$this->form_validation->set_rules('id_card', 'Personal ID', 'is_numeric|exact_length[13]');
-		$this->form_validation->set_rules('firstname', 'Firstname', 'max_length[100]');
-		$this->form_validation->set_rules('lastname', 'Lastname', 'max_length[150]');
-		if ($this->form_validation->run() == true) :
+		$get = clear_null_array($this->input->get());
+		if ($get) :
+			$config	= array(
+				'total_rows' => $this->patient->count($get,'like'),
+				'per_page' => 1
+			);
+			$this->pagination->initialize($config);
+			$search = $this->patient->find($get,$config['per_page'],$this->input->get('offset'),$this->input->get('order_by'));
 		endif;
 
-		$get = clear_null_array($this->input->get());
-		if ($get)
-			$search = $this->patient->find($get);
-
-		$config	= array(
-			'base_url' => uri_string(),
-			'total_rows' => count($search),
-			'per_page' => 10
-		);
-		$this->pagination->initialize($config);
-
-		$this->data['search'] = $this->patient->find($get);
+		$this->data['search'] = $search;
 		$this->render('admin/search/index');
 	}
 
-	function view($id=NULL)
+	function _view($id=NULL)
 	{
-		echo $this->load->view();
+		$this->data['patient'] = $this->patient->search_id($id);
+		$this->render('admin/search/view');
 	}
 
 }

@@ -28,6 +28,9 @@
   <link href="<?php echo $base_assets_url;?>plugins/datepicker/css/datepicker.css" type="text/css" rel="stylesheet"/>
   <!-- Select2 -->
   <link href="<?php echo $base_assets_url;?>plugins/select2/css/select2.css" rel="stylesheet" type="text/css" />
+  <!-- Datatables Bootstrap -->
+  <link href="<?php echo $base_assets_url;?>plugins/bootstrap-datatables/datatables.bootstrap.min.css" rel="stylesheet">
+
   <link href="<?php echo $base_assets_url;?>css/custom.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript">
   var SERVER = '<?php echo site_url("/")?>';
@@ -100,13 +103,17 @@
   <script src="<?php echo $base_assets_url;?>js/AdminLTE/dashboard.js" type="text/javascript"></script>
   <!-- Select2 -->
   <script src="<?php echo $base_assets_url;?>plugins/select2/js/select2.min.js"></script>
+  <!-- Datatables Bootstrap -->
+  <script src="<?php echo $base_assets_url;?>plugins/bootstrap-datatables/datatables.jquery.min.js"></script>
+  <script src="<?php echo $base_assets_url;?>plugins/bootstrap-datatables/datatables.bootstrap.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
       $('.datepicker').datepicker();
       $('.select2').select2();
       $(".select2-tags").select2({
         tags: true
-      })
+      });
+      $('.datatables').DataTable();
     })
   </script>
 </body>

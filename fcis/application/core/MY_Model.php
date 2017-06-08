@@ -4,74 +4,109 @@ class MY_Model extends CI_Model {
 
   public $table_name = '';
   public $primary_key = 'id';
-  public $order_by = 'id DESC';
+  public $order_by = 'id ASC';
+
+  function find($conditions=NULL,$limit=NULL,$offset=0,$order_by=NULL,$table_name=NULL)
+	{
+    if ($table_name === NULL)
+      $table_name = $this->table_name;
+
+    if ($order_by === NULL)
+      $order_by = $this->order_by;
+
+		$conditions = $this->_filter_data($this->table_name, $conditions);
+
+		return $this->db
+			->like($conditions)
+			->limit($limit)
+			->offset($offset)
+			->order_by($order_by)
+			->get($this->table_name)
+			->result_array();
+	}
 
   function search($conditions=NULL,$limit=NULL,$offset=0,$order_by=NULL,$table_name=NULL)
   {
     if ($table_name === NULL)
       $table_name = $this->table_name;
 
-    if ($conditions != NULL) :
-      if (is_array($conditions)) :
-        foreach ($conditions as $key => $value) :
-          $this->db->where($key,$value);
-        endforeach;
-      else :
-        $this->db->where($conditions);
-      endif;
-    endif;
+    if ($order_by === NULL)
+      $order_by = $this->order_by;
 
-    if ($limit != NULL)
-      $this->db->limit($limit);
+    $conditions = $this->_filter_data($this->table_name, $conditions);
 
-    if ($offset != NULL)
-      $this->db->offset($offset);
+    // if ($conditions != NULL) :
+    //   if (is_array($conditions)) :
+    //     $conditions = $this->_filter_data($table_name, $conditions);
+    //     foreach ($conditions as $key => $value) :
+    //       $this->db->where($key,$value);
+    //     endforeach;
+    //   else :
+    //     $this->db->where($conditions);
+    //   endif;
+    // endif;
 
-    if ($order_by !== NULL) :
-      if (is_array($order_by)) :
-        foreach ($order_by as $key => $value) :
-          $this->db->order_by($key,$value);
-        endforeach;
-      else:
-        $this->db->order_by($order_by);
-      endif;
-    else:
-      $this->db->order_by($this->order_by);
-    endif;
+    // if ($limit != NULL)
+    //   $this->db->limit($limit);
 
-    return $this->db->get($table_name);
+    // if ($offset != NULL)
+    //   $this->db->offset($offset);
+
+    // if ($order_by !== NULL) :
+    //   if (is_array($order_by)) :
+    //     foreach ($order_by as $key => $value) :
+    //       $this->db->order_by($key,$value);
+    //     endforeach;
+    //   else:
+    //     $this->db->order_by($order_by);
+    //   endif;
+    // else:
+    //   $this->db->order_by($this->order_by);
+    // endif;
+
+    return $this->db
+      ->where($conditions)
+      ->limit($limit)
+      ->offset($offset)
+      ->order_by($order_by)
+      ->get($table_name)
+      ->result_array();
   }
 
   function search_id($id=NULL,$table_name=NULL)
   {
-    $id = intval($id);
-    if ($id !== NULL)
-      $this->db->where($this->primary_key, $id);
-
     if ($table_name === NULL)
       $table_name = $this->table_name;
 
-    return $this->db->get($table_name);
+    if (intval($id) > 0)
+      $this->db->where($this->primary_key, $id);
+
+    return $this->db
+      ->get($table_name)
+      ->row_array();
   }
 
-  function count($conditions=NULL,$table_name=NULL)
+  function count($conditions=NULL,$type='where',$table_name=NULL)
   {
     if ($table_name === NULL)
       $table_name = $this->table_name;
 
     $conditions = $this->_filter_data($table_name, $conditions);
 
-    if ($conditions != NULL) :
-      if (is_array($conditions)) :
-        foreach ($conditions as $key => $value) :
-          $this->db->where($key,$value);
-        endforeach;
-      else :
-        $this->db->where($conditions);
-      endif;
-    endif;
+    // if ($conditions != NULL) :
+    //   if (is_array($conditions)) :
+    //     foreach ($conditions as $key => $value) :
+    //       $this->db->where($key,$value);
+    //     endforeach;
+    //   else :
+    //     $this->db->where($conditions);
+    //   endif;
+    // endif;
 
-    return $this->db->get($table_name)->num_rows();
+    return $this->db
+      ->$type($conditions)
+      ->get($table_name)
+      ->num_rows();
   }
 
   function save($data,$table_name=NULL)
