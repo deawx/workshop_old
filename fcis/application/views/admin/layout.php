@@ -29,7 +29,7 @@
   <!-- Select2 -->
   <link href="<?php echo $base_assets_url;?>plugins/select2/css/select2.css" rel="stylesheet" type="text/css" />
   <!-- Datatables Bootstrap -->
-  <link href="<?php echo $base_assets_url;?>plugins/bootstrap-datatables/datatables.bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="<?php echo $base_assets_url;?>plugins/bootstrap-datatables/datatables.bootstrap.min.css" rel="stylesheet"> -->
 
   <link href="<?php echo $base_assets_url;?>css/custom.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript">
@@ -103,9 +103,11 @@
   <script src="<?php echo $base_assets_url;?>js/AdminLTE/dashboard.js" type="text/javascript"></script>
   <!-- Select2 -->
   <script src="<?php echo $base_assets_url;?>plugins/select2/js/select2.min.js"></script>
+  <!-- Select2 -->
+  <script src="<?php echo $base_assets_url;?>plugins/jquery-uploadpreview/jquery.uploadpreview.min.js"></script>
   <!-- Datatables Bootstrap -->
-  <script src="<?php echo $base_assets_url;?>plugins/bootstrap-datatables/datatables.jquery.min.js"></script>
-  <script src="<?php echo $base_assets_url;?>plugins/bootstrap-datatables/datatables.bootstrap.min.js"></script>
+  <!-- <script src="<?php echo $base_assets_url;?>plugins/bootstrap-datatables/datatables.jquery.min.js"></script> -->
+  <!-- <script src="<?php echo $base_assets_url;?>plugins/bootstrap-datatables/datatables.bootstrap.min.js"></script> -->
   <script type="text/javascript">
     $(document).ready(function(){
       $('.datepicker').datepicker();

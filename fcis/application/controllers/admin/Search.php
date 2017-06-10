@@ -6,7 +6,7 @@ class Search extends Admin_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		// $this->allow_group_access(array('special','admin','member'));
+		$this->allow_group_access(array('special','admin','edior','member'));
 		$this->load->model('Patient_model', 'patient');
 		$this->data['parent_menu'] = 'search';
 	}
@@ -28,10 +28,11 @@ class Search extends Admin_Controller {
 		if ($get) :
 			$config	= array(
 				'total_rows' => $this->patient->count($get,'like'),
-				'per_page' => 1
+				'per_page' => 20
 			);
 			$this->pagination->initialize($config);
 			$search = $this->patient->find($get,$config['per_page'],$this->input->get('offset'),$this->input->get('order_by'));
+			$this->data['count'] = $config['total_rows'];
 		endif;
 
 		$this->data['search'] = $search;

@@ -9,21 +9,21 @@
           <div class="col-md-6">
               <?php echo form_open('',array('class'=>'form-horizontal','method'=>'GET')); ?>
               <div class="form-group">
-                <?php echo form_label('Personal ID:','id_card',array('class'=>'control-label col-sm-2')); ?>
+                <?php echo form_label('personal id:','id_card',array('class'=>'control-label col-sm-2')); ?>
                 <div class="col-sm-10">
-                  <?php echo form_input(array('name'=>'id_card','class'=>'form-control','placeholder'=>'Personal ID','maxlength'=>'13','pattern'=>'[0-9]{13}')); ?>
+                  <?php echo form_input(array('name'=>'id_card','class'=>'form-control','placeholder'=>'personal id','maxlength'=>'13','pattern'=>'[0-9]{13}')); ?>
                 </div>
               </div>
               <div class="form-group">
-                <?php echo form_label('Firstname:','firstname',array('class'=>'control-label col-sm-2')); ?>
+                <?php echo form_label('firstname:','firstname',array('class'=>'control-label col-sm-2')); ?>
                 <div class="col-sm-10">
-                  <?php echo form_input(array('name'=>'firstname','class'=>'form-control','placeholder'=>'Firstname')); ?>
+                  <?php echo form_input(array('name'=>'firstname','class'=>'form-control','placeholder'=>'firstname')); ?>
                 </div>
               </div>
               <div class="form-group">
-                <?php echo form_label('Lastname:','lastname',array('class'=>'control-label col-sm-2')); ?>
+                <?php echo form_label('lastname:','lastname',array('class'=>'control-label col-sm-2')); ?>
                 <div class="col-sm-10">
-                  <?php echo form_input(array('name'=>'lastname','class'=>'form-control','placeholder'=>'Lastname')); ?>
+                  <?php echo form_input(array('name'=>'lastname','class'=>'form-control','placeholder'=>'lastname')); ?>
                 </div>
               </div>
               <div class="form-group">
@@ -40,9 +40,12 @@
           </div>
         </div>
         <hr>
-        <div class="row pull-right">
-          <?php echo anchor('#','export to csv',array('class'=>'btn btn-info')); ?>
-          <?php echo anchor('#','export to sql',array('class'=>'btn btn-info')); ?>
+        <div class="row">
+          total : <?php echo isset($count) ? $count : ''; ?> record(s) | show : 20 record(s) per page
+          <span class="pull-right">
+            <?php echo anchor('#','export to csv',array('class'=>'btn btn-info')); ?>
+            <?php echo anchor('#','export to sql',array('class'=>'btn btn-info')); ?>
+          </span>
           <br>
         </div>
         <div class="row">
@@ -58,10 +61,11 @@
                     $order_by = $this->input->get('order_by');
                   ?>
                   <th>#</th>
-                  <th><?php echo anchor($uri_string.'&order_by=firstname',($order_by === 'firstname') ? 'Firstname <i class="fa fa-caret-up"></i>' : 'Firstname'); ?></th>
-                  <th><?php echo anchor($uri_string.'&order_by=lastname',($order_by === 'lastname') ? 'Lastname <i class="fa fa-caret-up"></i>' : 'Lastname'); ?></th>
-                  <th><?php echo anchor($uri_string.'&order_by=status',($order_by === 'status') ? 'Status <i class="fa fa-caret-up"></i>' : 'Status'); ?></th>
-                  <th>Action</th>
+                  <th><?php echo anchor($uri_string.'&order_by=firstname',($order_by === 'firstname') ? 'firstname <i class="fa fa-caret-up"></i>' : 'firstname'); ?></th>
+                  <th><?php echo anchor($uri_string.'&order_by=lastname',($order_by === 'lastname') ? 'lastname <i class="fa fa-caret-up"></i>' : 'lastname'); ?></th>
+                  <!-- <th><?php echo anchor($uri_string.'&order_by=status',($order_by === 'status') ? 'status <i class="fa fa-caret-up"></i>' : 'status'); ?></th> -->
+                  <th>status</th>
+                  <th>action</th>
                 </tr>
               </thead>
               <?php foreach ($search as $key => $value) : ?>

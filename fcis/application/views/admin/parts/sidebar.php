@@ -16,7 +16,7 @@
       <i class="fa fa-search"></i> <span>Search</span>
     </a>
   </li>
-  <li class="treeview <?php echo ($parent_menu == 'patients')? 'active' : '' ?>">
+  <li class="treeview <?php echo ($parent_menu == 'patient')? 'active' : '' ?>">
     <a href="#">
       <i class="fa fa-users"></i> <span>Patients</span>
       <i class="fa fa-angle-left pull-right"></i>
