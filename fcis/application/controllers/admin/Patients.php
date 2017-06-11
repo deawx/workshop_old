@@ -25,18 +25,37 @@ class Patients extends Admin_Controller {
 		$this->render('admin/patient/index');
 	}
 
-	function patient($id=NULL)
+	public function add()
 	{
-		$post = $this->input->post();
-		$patient = $this->patient->search_id($id);
-		if ($id !== NULL) :
-			$post['updated'] = time();
-			$this->data['patient'] = $patient;
-		else :
+		$this->form_validation->set_rules('id_card', 'personal id', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
+		$this->form_validation->set_rules('types', 'types', 'required|in_list[คนไข้ออกหน่วย,กลุ่ม CRC of PSU,คนไข้ CRC ส่งต่อ]');
+		$this->form_validation->set_rules('groups', 'groups', 'required|in_list[FAP,HNPCC,PJS/JPS]');
+		$this->form_validation->set_rules('title', 'title', 'required|in_list[นาย,นาง,นางสาว]');
+		$this->form_validation->set_rules('firstname', 'firstname', 'required|max_length[100]');
+		$this->form_validation->set_rules('lastname', 'lastname', 'required|max_length[150]');
+		if ($this->form_validation->run() === TRUE) :
 			$post['created'] = time();
+			$post['user_id'] = $this->session->user_id;
+			$this->_upload(isset($patient['id_card']) ? $patient['id_card'] : $this->input->post('id_card'));
+			if ($this->patient->save($post)) :
+				$this->session->set_flashdata('message',message_box('patient has been saved','success'));
+			else:
+				$this->session->set_flashdata('message',message_box('save failed, check your data','danger'));
+			endif;
+			redirect($this->agent->referrer());
+		else:
+			$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
 		endif;
 
-		if ($this->input->post('old_id_card') === '' OR $this->input->post('old_id_card') !== $this->input->post('id_card'))
+		$this->render('admin/patient/add');
+	}
+
+	function info($id=NULL)
+	{
+		$post = $this->input->post();
+		$this->data['patient'] = $this->patient->search_id($id);
+
+		if ($this->input->post('old_id_card') !== $this->input->post('id_card'))
 			$this->form_validation->set_rules('id_card', 'personal id', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
 
 		$this->form_validation->set_rules('types', 'types', 'required|in_list[คนไข้ออกหน่วย,กลุ่ม CRC of PSU,คนไข้ CRC ส่งต่อ]');
@@ -45,19 +64,112 @@ class Patients extends Admin_Controller {
 		$this->form_validation->set_rules('firstname', 'firstname', 'required|max_length[100]');
 		$this->form_validation->set_rules('lastname', 'lastname', 'required|max_length[150]');
 		if ($this->form_validation->run() === TRUE) :
+			$post['updated'] = time();
 			$post['user_id'] = $this->session->user_id;
 			$this->_upload(isset($patient['id_card']) ? $patient['id_card'] : $this->input->post('id_card'));
 			if ($this->patient->save($post)) :
 				$this->session->set_flashdata('message',message_box('patient has been saved','success'));
 			else :
-				$this->session->set_flashdata('message',message_box('save failed, check your data','danger'));
+				$this->session->set_flashdata('message',message_box('save failed, check your data','warning'));
 			endif;
 			redirect($this->agent->referrer());
 		else :
 			$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
 		endif;
 
-		$this->render('admin/patient/patient');
+		$this->render('admin/patient/info');
+	}
+
+	function filtered($id=NULL)
+	{
+		$post = $this->input->post();
+		$this->data['filtered'] = $this->patient->search_id($id);
+
+		// if ($this->input->post('old_id_card') !== $this->input->post('id_card'))
+			// $this->form_validation->set_rules('id_card', 'personal id', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
+
+		$this->form_validation->set_rules('lastname', 'lastname', 'required|max_length[150]');
+		if ($this->form_validation->run() === TRUE) :
+		// 	if ($this->patient->save($post)) :
+		// 		$this->session->set_flashdata('message',message_box('patient has been saved','success'));
+		// 	else :
+		// 		$this->session->set_flashdata('message',message_box('save failed, check your data','warning'));
+		// 	endif;
+		// 	redirect($this->agent->referrer());
+		// else :
+		// 	$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
+		endif;
+
+		$this->render('admin/patient/filtered');
+	}
+
+	function family($id=NULL)
+	{
+		$post = $this->input->post();
+		$this->data['family'] = $this->patient->search_id($id);
+
+		// if ($this->input->post('old_id_card') !== $this->input->post('id_card'))
+			// $this->form_validation->set_rules('id_card', 'personal id', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
+
+		$this->form_validation->set_rules('lastname', 'lastname', 'required|max_length[150]');
+		if ($this->form_validation->run() === TRUE) :
+		// 	if ($this->patient->save($post)) :
+		// 		$this->session->set_flashdata('message',message_box('patient has been saved','success'));
+		// 	else :
+		// 		$this->session->set_flashdata('message',message_box('save failed, check your data','warning'));
+		// 	endif;
+		// 	redirect($this->agent->referrer());
+		// else :
+		// 	$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
+		endif;
+
+		$this->render('admin/patient/family');
+	}
+
+	function labs($id=NULL)
+	{
+		$post = $this->input->post();
+		$this->data['labs'] = $this->patient->search_id($id);
+
+		// if ($this->input->post('old_id_card') !== $this->input->post('id_card'))
+			// $this->form_validation->set_rules('id_card', 'personal id', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
+
+		$this->form_validation->set_rules('lastname', 'lastname', 'required|max_length[150]');
+		if ($this->form_validation->run() === TRUE) :
+		// 	if ($this->patient->save($post)) :
+		// 		$this->session->set_flashdata('message',message_box('patient has been saved','success'));
+		// 	else :
+		// 		$this->session->set_flashdata('message',message_box('save failed, check your data','warning'));
+		// 	endif;
+		// 	redirect($this->agent->referrer());
+		// else :
+		// 	$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
+		endif;
+
+		$this->render('admin/patient/labs');
+	}
+
+	function clinic($id=NULL)
+	{
+		$post = $this->input->post();
+		$this->data['clinic'] = $this->patient->search_id($id);
+
+		// if ($this->input->post('old_id_card') !== $this->input->post('id_card'))
+			// $this->form_validation->set_rules('id_card', 'personal id', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
+
+		$this->form_validation->set_rules('lastname', 'lastname', 'required|max_length[150]');
+		if ($this->form_validation->run() === TRUE) :
+		// 	if ($this->patient->save($post)) :
+		// 		$this->session->set_flashdata('message',message_box('patient has been saved','success'));
+		// 	else :
+		// 		$this->session->set_flashdata('message',message_box('save failed, check your data','warning'));
+		// 	endif;
+		// 	redirect($this->agent->referrer());
+		// else :
+		// 	$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
+		endif;
+
+		$this->render('admin/patient/clinic');
 	}
 
 	function delete($id=NULL)
@@ -94,11 +206,11 @@ class Patients extends Admin_Controller {
         $this->image_lib->initialize($resize);
         $this->image_lib->resize();
 			else :
-				$this->session->set_flashdata('message',message_box($this->image_lib->display_errors(),'danger'));
+				$this->session->set_flashdata('message',message_box($this->image_lib->display_errors(),'warning'));
 				return $file_name;
       endif;
 		else :
-			$this->session->set_flashdata('message',message_box($this->upload->display_errors(),'danger'));
+			$this->session->set_flashdata('message',message_box($this->upload->display_errors(),'warning'));
 			return $file_name;
     endif;
 		return NULL;

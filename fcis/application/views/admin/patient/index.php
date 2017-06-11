@@ -61,7 +61,7 @@ $order_by = $this->input->get('order_by');
                   <td><?php echo unix_to_human($value['created']); ?></td>
                   <td><?php echo unix_to_human($value['updated']); ?></td>
                   <td>
-                    <?php echo anchor(uri_string().'/patient/'.$value['id'],'<i class="fa fa-pencil"></i>',array('class'=>'btn btn-info')); ?>
+                    <?php echo anchor(uri_string().'/info/'.$value['id'],'<i class="fa fa-pencil"></i>',array('class'=>'btn btn-info')); ?>
                     <?php echo anchor(uri_string().'/delete/'.$value['id'],'<i class="fa fa-trash-o"></i>',array('class'=>'btn btn-danger','onclick'=>"return confirm('confirm to delete?');")); ?>
                   </td>
                 </tr>
