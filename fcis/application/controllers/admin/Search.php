@@ -23,19 +23,20 @@ class Search extends Admin_Controller {
 
 	function _search()
 	{
-		$search = NULL;
+		$patients = array();
 		$get = clear_null_array($this->input->get());
+		unset($get['order_by']);
 		if ($get) :
 			$config	= array(
 				'total_rows' => $this->patient->count($get,'like'),
 				'per_page' => 20
 			);
 			$this->pagination->initialize($config);
-			$search = $this->patient->find($get,$config['per_page'],$this->input->get('offset'),$this->input->get('order_by'));
+			$patients = $this->patient->find($get,$config['per_page'],$this->input->get('offset'),$this->input->get('order_by'));
 			$this->data['count'] = $config['total_rows'];
 		endif;
 
-		$this->data['search'] = $search;
+		$this->data['patients'] = $patients;
 		$this->render('admin/search/index');
 	}
 

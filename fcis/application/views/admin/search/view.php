@@ -2,7 +2,14 @@
   <div class="col-md-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Patient Details</h3>
+        <h3 class="box-title">
+          Patient Details
+          <span class="text-info">
+            <?php echo anchor('#','export to csv',array('class'=>'btn btn-default')); ?>
+            <?php echo anchor('#','export to sql',array('class'=>'btn btn-default')); ?>
+            <?php echo anchor('#','export to pdf',array('class'=>'btn btn-default')); ?>
+          </span>
+        </h3>
       </div>
       <div class="box-body" style="padding:2em;">
         <div class="row">

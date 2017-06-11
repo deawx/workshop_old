@@ -15,13 +15,12 @@ class MY_Model extends CI_Model {
       $order_by = $this->order_by;
 
 		$conditions = $this->_filter_data($this->table_name, $conditions);
-		$order_by = $this->_filter_data($this->table_name, $order_by);
 
 		return $this->db
 			->like($conditions)
+      ->order_by($order_by)
 			->limit($limit)
 			->offset($offset)
-			->order_by($order_by)
 			->get($this->table_name)
 			->result_array();
 	}
@@ -35,7 +34,6 @@ class MY_Model extends CI_Model {
       $order_by = $this->order_by;
 
     $conditions = $this->_filter_data($this->table_name, $conditions);
-    $order_by = $this->_filter_data($this->table_name, $order_by);
 
     // if ($conditions != NULL) :
     //   if (is_array($conditions)) :
@@ -77,13 +75,14 @@ class MY_Model extends CI_Model {
 
   function search_id($id=NULL,$table_name=NULL)
   {
+    if (intval($id) < 1)
+      return NULL;
+
     if ($table_name === NULL)
       $table_name = $this->table_name;
 
-    if (intval($id) > 0)
-      $this->db->where($this->primary_key, $id);
-
     return $this->db
+      ->where($this->primary_key, $id)
       ->get($table_name)
       ->row_array();
   }
@@ -118,7 +117,6 @@ class MY_Model extends CI_Model {
 
     $op = 'update';
     $keyExists = FALSE;
-    $data = $this->_filter_data($table_name, $data);
     $fields = $this->db->field_data($this->table_name);
 
     foreach ($fields as $field) :
@@ -132,6 +130,7 @@ class MY_Model extends CI_Model {
       endif;
     endforeach;
 
+    $data = $this->_filter_data($table_name, $data);
     $this->db->set($data);
 
     if ($keyExists && $op=='update') :

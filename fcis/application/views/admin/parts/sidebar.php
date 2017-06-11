@@ -22,7 +22,7 @@
       <i class="fa fa-angle-left pull-right"></i>
     </a>
     <ul class="treeview-menu" <?php echo ($parent_menu == 'patients')? 'style="display:block"' : 'style="display:none"' ?>>
-      <li><a href="<?php echo site_url('admin/patients/add')?>"><i class="fa fa-angle-double-right"></i> Add New</a></li>
+      <li><a href="<?php echo site_url('admin/patients/patient')?>"><i class="fa fa-angle-double-right"></i> Add New</a></li>
       <li><a href="<?php echo site_url('admin/patients/')?>"><i class="fa fa-angle-double-right"></i> All Patients</a></li>
     </ul>
   </li>

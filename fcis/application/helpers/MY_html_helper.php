@@ -75,21 +75,3 @@ if ( ! function_exists('script_tag'))
     return $link." charset='UTF-8'></script>\n";
   }
 }
-
-// html tag hr
-if ( ! function_exists('hr'))
-{
-	function hr($count = 1)
-	{
-		return str_repeat('<hr />', $count);
-	}
-}
-
-// html tag p
-if ( ! function_exists('p'))
-{
-	function p($data = '', $attributes = '')
-	{
-		return '<p'._stringify_attributes($attributes).'>'.$data.'</p>';
-	}
-}
