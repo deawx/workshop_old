@@ -35,7 +35,6 @@
               <?php echo form_close(); ?>
           </div>
           <div class="col-md-6">
-            <?php echo validation_errors('<div class="alert alert-info">', '</div>'); ?>
             <?php echo $this->session->flashdata('message'); ?>
           </div>
         </div>

@@ -14,9 +14,12 @@ $patient = array(
           <div class="col-md-6">
             <?php echo form_open_multipart('',array('class'=>'form-horizontal')); ?>
             <div class="form-group">
-              <?php echo form_label('picture:','file',array('class'=>'control-label col-sm-2')); ?>
+              <?php echo form_label('','file',array('class'=>'control-label col-sm-2')); ?>
               <div class="col-sm-10">
-                <?php echo form_upload(array('name'=>'file','class'=>'form-control','id'=>'image-upload')); ?>
+                <div class="btn btn-default btn-file">
+                  <i class="fa fa-paperclip"></i> Attachment
+                  <?php echo form_upload(array('name'=>'file','class'=>'form-control','id'=>'image-upload')); ?>
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -28,11 +31,19 @@ $patient = array(
             <div class="form-group">
               <?php echo form_label('title:','title',array('class'=>'control-label col-sm-2')); ?>
               <div class="col-sm-10">
-                <?php echo form_radio(array('name'=>'title','class'=>'form-control'),'นาย',(isset($patient['title']) === 'นาย')); ?> นาย
+                <?php echo $patient['title']; ?>
+                <label class="radio-inline">
+                  <?php echo form_radio(array('name'=>'title','class'=>'form-control'),'นาย',set_radio('title',$patient['title'],TRUE)); ?> นาย
+                </label>
+                <label class="radio-inline">
+                  <?php echo form_radio(array('name'=>'title','class'=>'form-control'),'นาง',set_radio('title',$patient['title'])); ?> นาง
+                </label>
+                <label class="radio-inline">
+                  <?php echo form_radio(array('name'=>'title','class'=>'form-control'),'นางสาว',set_radio('title',$patient['title'])); ?> นางสาว
+                </label>
+
                 <p class="help-block"></p>
-                <?php echo form_radio(array('name'=>'title','class'=>'form-control'),'นาง',(isset($patient['title']) === 'นาง')); ?> นาง
                 <p class="help-block"></p>
-                <?php echo form_radio(array('name'=>'title','class'=>'form-control'),'นางสาว',(isset($patient['title']) === 'นางสาว')); ?> นางสาว
                 <p class="help-block"></p>
               </div>
             </div>
@@ -58,7 +69,7 @@ $patient = array(
           </div>
           <div class="col-md-6">
             <div class="row">
-              <div id="image-preview" class="img-responsive well well-sm" style="margin:0 auto;width:300px;height:300px;"></div>
+              <div id="image-preview" class="img-responsive well well-sm" style="width:300px;height:300px;"></div>
             </div>
             <div class="row" style="padding:1em;">
               <p>* max file size 2 MB</p>
