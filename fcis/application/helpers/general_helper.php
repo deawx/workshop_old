@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 function message_box($msg, $status = 'success')
 {
 	$response = '';
-	if(!empty($msg)){
+	if($msg !== '')
+	{
 		$response = '<div class="alert alert-'.$status.' no-margin" style="margin-bottom:15px!important;">'.$msg.'</div>';
 	}
 	return $response;

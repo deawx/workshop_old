@@ -55,8 +55,16 @@ class Patients extends Admin_Controller {
 		$post = $this->input->post();
 		$this->data['patient'] = $this->patient->search_id($id);
 
-		if ($this->input->post('old_id_card') !== $this->input->post('id_card'))
+		if ($this->input->post('old_id_card') !== '' && $this->input->post('old_id_card') !== $this->input->post('id_card')) :
 			$this->form_validation->set_rules('id_card', 'personal id', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
+			$path = APPPATH.'../uploads/';
+			$filenames = get_filenames($path);
+			$old_file = $this->input->post('old_id_card').'.jpg';
+			$new_file = $this->input->post('id_card').'.jpg';
+			if (array_search($old_file,$filenames)) :
+				rename($path.$old_file,$path.$new_file);
+			endif;
+		endif;
 
 		$this->form_validation->set_rules('types', 'types', 'required|in_list[คนไข้ออกหน่วย,กลุ่ม CRC of PSU,คนไข้ CRC ส่งต่อ]');
 		$this->form_validation->set_rules('groups', 'groups', 'required|in_list[FAP,HNPCC,PJS/JPS]');
@@ -69,11 +77,10 @@ class Patients extends Admin_Controller {
 			$this->_upload(isset($patient['id_card']) ? $patient['id_card'] : $this->input->post('id_card'));
 			if ($this->patient->save($post)) :
 				$this->session->set_flashdata('message',message_box('patient has been saved','success'));
-			else :
+			else:
 				$this->session->set_flashdata('message',message_box('save failed, check your data','warning'));
 			endif;
-			redirect($this->agent->referrer());
-		else :
+		else:
 			$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
 		endif;
 
@@ -179,6 +186,21 @@ class Patients extends Admin_Controller {
 		else :
 			$this->session->set_flashdata('message',message_box('delete failed, check your data','danger'));
 		endif;
+		redirect($this->agent->referrer());
+	}
+
+	function delete_file($id=NULL)
+	{
+		if ($id === '')
+			return FALSE;
+
+		$file = realpath(APPPATH.'../uploads/'.$id.'.jpg');
+		if (unlink($file)) :
+			$this->session->set_flashdata('message',message_box('file has been deleted','success'));
+		else:
+			$this->session->set_flashdata('message',message_box('delete failed, check your data','danger'));
+		endif;
+
 		redirect($this->agent->referrer());
 	}
 

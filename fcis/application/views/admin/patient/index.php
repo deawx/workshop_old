@@ -38,6 +38,7 @@ $order_by = $this->input->get('order_by');
               <tr>
                 <th>#</th>
                 <th><?php echo anchor($uri_string.'&order_by=types',($order_by === 'types') ? 'types <i class="fa fa-caret-up"></i>' : 'types'); ?></th>
+                <th><?php echo anchor($uri_string.'&order_by=counts',($order_by === 'counts') ? 'counts <i class="fa fa-caret-up"></i>' : 'counts'); ?></th>
                 <th><?php echo anchor($uri_string.'&order_by=groups',($order_by === 'groups') ? 'groups <i class="fa fa-caret-up"></i>' : 'groups'); ?></th>
                 <th><?php echo anchor($uri_string.'&order_by=id_card',($order_by === 'id_card') ? 'id_card <i class="fa fa-caret-up"></i>' : 'id_card'); ?></th>
                 <th><?php echo anchor($uri_string.'&order_by=title',($order_by === 'title') ? 'title <i class="fa fa-caret-up"></i>' : 'title'); ?></th>
@@ -53,6 +54,7 @@ $order_by = $this->input->get('order_by');
                 <tr>
                   <td><?php echo ++$key; ?></td>
                   <td><?php echo $value['types']; ?></td>
+                  <td><?php echo $value['counts']; ?></td>
                   <td><?php echo $value['groups']; ?></td>
                   <td><?php echo $value['id_card']; ?></td>
                   <td><?php echo $value['title']; ?></td>
