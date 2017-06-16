@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Merriweather:400,400italic,700italic" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,500,400italic,700,700italic,900,900italic,300,300italic,500italic" rel="stylesheet" type="text/css">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title><?php echo $page_title?> - CI Blog</title>
+  <title><?php echo $page_title?> - FCIS</title>
 
   <!-- Bootstrap -->
   <link href="<?php echo $base_assets_url;?>bootstrap/css/bootstrap.min.css" rel="stylesheet">

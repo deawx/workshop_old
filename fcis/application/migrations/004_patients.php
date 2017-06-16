@@ -16,6 +16,10 @@ class Migration_Patients extends CI_Migration {
         'type' => 'VARCAHR',
         'constraint' => '20'
       ),
+      'times' => array(
+        'type' => 'INT',
+        'constraint' => '6'
+      ),
       'groups' => array(
         'type' => 'VARCAHR',
         'constraint' => '10'

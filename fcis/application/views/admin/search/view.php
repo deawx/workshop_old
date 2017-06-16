@@ -3,7 +3,6 @@
     <div class="box">
       <div class="box-header">
         <h3 class="box-title">
-          Patient Details
           <span class="text-info">
             <?php echo anchor('#','export to csv',array('class'=>'btn btn-default')); ?>
             <?php echo anchor('#','export to sql',array('class'=>'btn btn-default')); ?>

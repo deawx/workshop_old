@@ -20,6 +20,8 @@ class MY_Controller extends CI_Controller {
 		$this->load->model('User');
 
 		$this->data['page_title'] = 'FCIS';
+		$this->data['page_header'] = '';
+		$this->data['page_header_small'] = '';
 		$this->data['before_head'] = 'before head';
 		$this->data['before_body'] = 'before body';
 		$this->data['assets_path'] = $this->assets_path;
