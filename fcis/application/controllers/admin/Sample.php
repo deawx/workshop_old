@@ -7,13 +7,15 @@ class Sample extends Admin_Controller {
 	{
 		parent::__construct();
 		$this->allow_group_access(array('special','admin'));
-		// $this->load->model('Example_model', 'example');
+		$this->load->model('Sample_model', 'sample');
+		$this->data['page_header'] = 'Sample';
+		$this->data['page_header_small'] = 'details';
 		$this->data['parent_menu'] = 'sample';
 	}
 
 	function index()
 	{
-		$this->render('admin/sample/add');
+		$this->render('admin/sample/index');
 	}
 
 	function add()
