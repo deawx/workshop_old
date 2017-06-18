@@ -8,8 +8,7 @@ class Patients extends Admin_Controller {
 		parent::__construct();
 		$this->allow_group_access(array('special','admin'));
 		$this->load->model('Patient_model','patient');
-		$this->data['page_header'] = 'Patient';
-		$this->data['page_header_small'] = 'details';
+		$this->data['page_header_small'] = 'patient details';
 		$this->data['parent_menu'] = 'patient';
 	}
 
@@ -35,11 +34,15 @@ class Patients extends Admin_Controller {
 			$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
 		endif;
 
+		$this->data['page_header'] = 'Add New';
 		$this->render('admin/patient/add');
 	}
 
 	function edit($id=NULL)
 	{
+		if ( ! intval($id) > 0)
+			redirect('admin/search');
+
 		$post = $this->input->post();
 		$this->data['patient'] = $this->patient->search_id($id);
 
@@ -72,6 +75,7 @@ class Patients extends Admin_Controller {
 			$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
 		endif;
 
+		$this->data['page_header'] = 'Edit';
 		$this->render('admin/patient/edit');
 	}
 

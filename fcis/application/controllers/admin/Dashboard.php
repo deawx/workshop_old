@@ -24,8 +24,10 @@ class Dashboard extends Admin_Controller {
 		// $ulogs = $this->db->get('users_logs')->result_array();
 		// print_data($ulogs);
 
-		$this->data['welcome'] = 'Ini adalah halaman admin';
-		$this->render('admin/dashboard/index');
+		// $this->data['welcome'] = 'Ini adalah halaman admin';
+		// $this->render('admin/dashboard/index');
+
+		redirect('admin/search');
 	}
 
 }

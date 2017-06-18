@@ -12,6 +12,10 @@ class Migration_Patients extends CI_Migration {
         'unsigned' => TRUE,
         'auto_increment' => TRUE
       ),
+      'user_id' => array(
+        'type' => 'INT',
+        'constraint' => '11'
+      ),
       'types' => array(
         'type' => 'VARCAHR',
         'constraint' => '20'
@@ -40,9 +44,13 @@ class Migration_Patients extends CI_Migration {
         'type' => 'VARCHAR',
         'constraint' => '150'
       ),
-      'picture' => array(
+      'age' => array(
+        'type' => 'INT',
+        'constraint' => '3'
+      ),
+      'hn' => array(
         'type' => 'VARCHAR',
-        'constraint' => '100'
+        'constraint' => '8'
       ),
       'created' => array(
         'type' => 'INT',
@@ -52,10 +60,10 @@ class Migration_Patients extends CI_Migration {
         'type' => 'INT',
         'constraint' => '11'
       ),
-      'added_by' => array(
+      'user_id' => array(
         'type' => 'INT',
         'constraint' => '11'
-      ),
+      )
     ));
     $this->dbforge->add_key('id', TRUE);
     $this->dbforge->create_table('patients');
