@@ -20,16 +20,33 @@ class Patients extends Admin_Controller {
 		$this->form_validation->set_rules('title', 'title', 'required|in_list[นาย,นาง,นางสาว]');
 		$this->form_validation->set_rules('firstname', 'firstname', 'required|max_length[100]');
 		$this->form_validation->set_rules('lastname', 'lastname', 'required|max_length[150]');
+		$this->form_validation->set_rules('age', 'age', 'is_numeric|max_length[3]');
+		$this->form_validation->set_rules('hn', 'hn', 'alpha_numeric|max_length[8]');
+		$this->form_validation->set_rules('zipcode', 'zipcode', 'is_numeric|max_length[7]');
+		$this->form_validation->set_rules('telephone', 'telephone', 'is_numeric|max_length[10]');
+		$this->form_validation->set_rules('mobile', 'mobile', 'is_numeric|max_length[10]');
 		if ($this->form_validation->run() === TRUE) :
+			$post = $this->input->post();
 			$post['created'] = time();
 			$post['user_id'] = $this->session->user_id;
-			$this->_upload(isset($patient['id_card']) ? $patient['id_card'] : $this->input->post('id_card'));
-			if ($this->patient->save($post)) :
-				$this->session->set_flashdata('message',message_box('patient has been saved','success'));
-			else:
-				$this->session->set_flashdata('message',message_box('save failed, check your data','danger'));
-			endif;
-			redirect($this->agent->referrer());
+			$post['address'] = serialize(array(
+				$this->input->post('address_number'),
+				$this->input->post('address_soi'),
+				$this->input->post('address_street'),
+				$this->input->post('address_moo'),
+				$this->input->post('address_tambon'),
+				$this->input->post('address_amphur'),
+				$this->input->post('address_province'),
+				$this->input->post('address_zipcode')
+			));
+			print_data($post); die();
+			// $this->_upload(isset($patient['id_card']) ? $patient['id_card'] : $this->input->post('id_card'));
+			// if ($this->patient->save($post)) :
+			// 	$this->session->set_flashdata('message',message_box('patient has been saved','success'));
+			// else:
+			// 	$this->session->set_flashdata('message',message_box('save failed, check your data','danger'));
+			// endif;
+			// redirect($this->agent->referrer());
 		else:
 			$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
 		endif;

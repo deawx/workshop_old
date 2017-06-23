@@ -1,17 +1,9 @@
 <div class="row">
   <div class="col-md-8">
     <div class="box box-info">
-      <div class="box-header">  <h3 class="box-title">Search for Inpatient <small>total : <?php echo count($results); ?> record(s)</small></h3> </div>
+      <div class="box-header">  <h3 class="box-title">Search for Patient <small>total : <?php echo count($results); ?> record(s)</small></h3> </div>
       <div class="box-body">
-        <?php echo form_open('#',array('class'=>'form-horizontal')); ?>
-        <div class="form-group">
-          <?php echo form_label('case:','case',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <?=form_dropdown(array('name'=>'case','class'=>'form-control','onchange'=>"window.location='sample?case='+this.value"),array('inpatient'=>'INPATIENT','outpatient'=>'OUTPATIENT'),set_value('case',($this->input->get('case'))));?>
-          </div>
-        </div>
-        <?php echo form_close(); ?>
-        <?php echo form_open(uri_string(),array('method'=>'get','class'=>'form-horizontal')); ?>
+        <?php echo form_open_multipart(uri_string(),array('method'=>'get','class'=>'form-horizontal')); ?>
         <div class="form-group">
           <?php echo form_label('type here:','',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
@@ -25,9 +17,10 @@
         </div>
         <?php echo form_close(); ?>
         <hr>
+
         <div class="list-group">
           <?php foreach ($results as $key => $value): ?>
-            <a href="<?php echo site_url('admin/sample/add_inpatient/'.$value['id']); ?>" class="list-group-item">
+            <a href="<?php echo site_url('admin/labs/add/'.$value['id']); ?>" class="list-group-item">
               <h4 class="list-group-item-heading">
                 <?php echo $value['title'].nbs().$value['firstname'].nbs().$value['lastname']?>
                 <small class="text-primary">(H.N. : <?php echo $value['hn']; ?>)</small>
@@ -46,6 +39,7 @@
             </a>
           <?php endforeach; ?>
         </div>
+
       </div>
       <div class="box-footer clearfix"></div>
     </div>

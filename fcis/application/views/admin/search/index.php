@@ -42,7 +42,7 @@ $order_by = $this->input->get('order_by');
                     <?php
                     // echo anchor('admin/search?id='.$value['id'],'<i class="fa fa-eye"></i>',array('class'=>'btn btn-default'));
                     if (any_in_array(array('special','admin','editor'),$current_groups)) :
-                      echo anchor('admin/patients/edit/'.$value['id'],'<i class="fa fa-edit"></i>',array('class'=>'btn btn-info'));
+                      echo anchor('admin/search?id='.$value['id'],'view',array('class'=>'badge bg-green'));
                     endif;
                     ?>
                   </td>

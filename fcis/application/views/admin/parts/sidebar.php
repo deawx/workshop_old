@@ -21,36 +21,11 @@
       <i class="fa fa-users"></i> <span>Patients</span>
     </a>
   </li>
-  <li class="treeview <?php echo ($parent_menu === 'sample')? 'active' : '' ?>">
-    <a href="">
+  <li class="<?php echo ($parent_menu === 'sample')? 'active' : '' ?>">
+    <a href="<?php echo site_url('admin/sample')?>">
       <i class="fa fa-copy"></i> <span>Sample</span>
-      <i class="fa fa-angle-left pull-right"></i>
     </a>
-    <ul class="treeview-menu" <?php echo ($parent_menu == 'sample')? 'style="display:block"' : 'style="display:none"' ?>>
-      <li><a href="<?php echo site_url('admin/sample/add')?>"><i class="fa fa-angle-double-right"></i> Add New</a></li>
-      <li><a href="<?php echo site_url('admin/sample/')?>"><i class="fa fa-angle-double-right"></i> All Samples</a></li>
-    </ul>
   </li>
-  <!-- <li class="treeview <?php echo ($parent_menu == 'patient')? 'active' : '' ?>">
-    <a href="#">
-      <i class="fa fa-users"></i> <span>Patients</span>
-      <i class="fa fa-angle-left pull-right"></i>
-    </a>
-    <ul class="treeview-menu" <?php echo ($parent_menu == 'patient')? 'style="display:block"' : 'style="display:none"' ?>>
-      <li><a href="<?php echo site_url('admin/patients/add')?>"><i class="fa fa-angle-double-right"></i> Add New</a></li>
-      <li><a href="<?php echo site_url('admin/patients/')?>"><i class="fa fa-angle-double-right"></i> All Patients</a></li>
-    </ul>
-  </li>
-  <li class="treeview <?php echo ($parent_menu === 'sample')? 'active' : '' ?>">
-    <a href="#">
-      <i class="fa fa-copy"></i> <span>Sample</span>
-      <i class="fa fa-angle-left pull-right"></i>
-    </a>
-    <ul class="treeview-menu" <?php echo ($parent_menu == 'sample')? 'style="display:block"' : 'style="display:none"' ?>>
-      <li><a href="<?php echo site_url('admin/sample/add')?>"><i class="fa fa-angle-double-right"></i> Add New</a></li>
-      <li><a href="<?php echo site_url('admin/sample/')?>"><i class="fa fa-angle-double-right"></i> All Sample</a></li>
-    </ul>
-  </li> -->
   <li class="<?php echo ($parent_menu === 'labs')? 'active' : '' ?>">
     <a href="<?php echo site_url('admin/labs')?>">
       <i class="fa fa-stethoscope"></i> <span>Labs</span>
