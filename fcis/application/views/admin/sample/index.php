@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-8">
-    <div class="box box-info">
+    <div class="box box-primary">
       <div class="box-header">  <h3 class="box-title">Search for Inpatient <small>total : <?php echo count($results); ?> record(s)</small></h3> </div>
       <div class="box-body">
         <?php echo form_open('#',array('class'=>'form-horizontal')); ?>

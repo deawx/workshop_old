@@ -2,7 +2,7 @@
   <?php echo form_open(uri_string().'/add_inpatient',array('class'=>'form-horizontal')); ?>
   <?php echo form_hidden('user_id',$patient['id']); ?>
   <div class="col-md-8">
-    <div class="box box-info">
+    <div class="box box-primary">
       <div class="box-header">  <h3 class="box-title">Inpatient Details</h3> </div>
       <div class="box-body">
         <?php echo form_close(); ?>
@@ -101,7 +101,7 @@
         <p class="" id=""></p>
       </div>
       <div class="box-footer clearfix">
-        <?=anchor(uri_string(),'<i class="fa fa-refresh"></i>',array('class'=>'btn btn-default'));?>
+        <?=anchor('admin/sample','<i class="fa fa-refresh"></i>',array('class'=>'btn btn-default'));?>
         <span class="pull-right">
           <?=form_submit('','Submit',array('class'=>'btn btn-success',''=>'','autocomplete'=>'off'));?>
         </span>

@@ -10,7 +10,7 @@ class Users extends Admin_Controller {
 		$this->load->model('Ion_auth_model');
 		$this->load->model('User');
 		$this->load->model('Group');
-		// $this->load->library('Ion_auth');
+		$this->load->library('Ion_auth');
 		$this->data['parent_menu'] = 'setting';
 	}
 
@@ -139,7 +139,6 @@ class Users extends Admin_Controller {
 	}
 
 	public function profile(){
-		$this->allow_group_access(array('admin','members'));
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');

@@ -36,11 +36,6 @@
       <i class="fa fa-hospital-o"></i> <span>Clinic</span>
     </a>
   </li>
-  <li class="<?php echo ($parent_menu === 'statistic')? 'active' : '' ?>">
-    <a href="<?php echo site_url('admin/statistic')?>">
-      <i class="fa fa-tasks"></i> <span>Statistic</span>
-    </a>
-  </li>
   <?php if(any_in_array(array('special','admin'),$current_groups)):?>
     <li class="treeview <?php echo ($parent_menu === 'setting')? 'active' : '' ?>">
       <a href="#">

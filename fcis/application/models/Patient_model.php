@@ -5,11 +5,6 @@ class Patient_model extends MY_Model {
 
 	public $table_name = 'patients';
 
-	// public function __construct()
-	// {
-	// 	parent::__construct();
-	// }
-
 	function find_by_all($q=null, $limit=0, $offset=null)
 	{
 		return $this->db
@@ -21,6 +16,18 @@ class Patient_model extends MY_Model {
 			->offset($offset)
 			->get($this->table_name)
 			->result_array();
+	}
+
+	function find_gallery($id=null)
+	{
+		$files = $this->db
+			->select('as.file_name,as.upload_date,as.upload_by')
+			->order_by('as.id','desc')
+			->where('ap.patients_id',$id)
+			->join('assets_patients as ap','as.id = ap.assets_id')
+			->get('assets as as');
+
+		return $files->result_array();
 	}
 
 }

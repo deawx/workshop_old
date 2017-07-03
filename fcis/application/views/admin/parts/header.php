@@ -15,6 +15,18 @@
     </a>
     <div class="navbar-right">
       <ul class="nav navbar-nav">
+        <li class="dropdown user">
+          <a href="<?php echo site_url(); ?>">
+            <i class="fa fa-dashboard"></i>
+            <span> Statistics </span>
+          </a>
+        </li>
+        <li class="dropdown user">
+          <a href="<?php echo site_url(); ?>">
+            <i class="fa fa-history"></i>
+            <span> Monitor Logs </span>
+          </a>
+        </li>
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">

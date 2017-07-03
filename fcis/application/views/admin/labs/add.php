@@ -2,7 +2,7 @@
   <?php echo form_open_multipart(uri_string(),array('class'=>'form-horizontal')); ?>
   <?php echo form_hidden('user_id',$patient['id']); ?>
   <div class="col-md-8">
-    <div class="box box-info">
+    <div class="box box-primary">
       <div class="box-header">  <h3 class="box-title">Patient Details</h3> </div>
       <div class="box-body">
         <div class="list-group-item">
@@ -25,63 +25,24 @@
       </div>
       <div class="box-footer clearfix"></div>
     </div>
-
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs pull-right">
-        <li class="active"><a href="#tab_1-1" data-toggle="tab">Tab 1</a></li>
-        <li><a href="#tab_2-2" data-toggle="tab">Tab 2</a></li>
-        <li><a href="#tab_3-2" data-toggle="tab">Tab 3</a></li>
+        <li class="<?php if ($tab === 'endoscope') echo 'active'; ?>">
+          <a href="<?php echo '?tab=endoscope'; ?>">Endoscope report</a>
+        </li>
+        <li class="<?php if ($tab === 'fap') echo 'active'; ?>">
+          <a href="<?php echo '?tab=fap'; ?>">FAP report</a>
+        </li>
+        <li class="<?php if ($tab === 'hnpcc') echo 'active'; ?>">
+          <a href="<?php echo '?tab=hnpcc'; ?>">HNPCC report</a>
+        </li>
+        <li class="<?php if ($tab === 'pjsjps') echo 'active'; ?>">
+          <a href="<?php echo '?tab=pjsjps'; ?>">PJS/JPS report</a>
+        </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane active" id="tab_1-1">
-          <div class="form-group">
-            <?php echo form_label('result of:','result',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-10">
-              <div class="radio-inline">
-                <label><?php echo form_radio(array('name'=>'result','class'=>'form-control'),'',TRUE); ?>normal</label>
-                <p class="help-block"></p>
-              </div>
-              <div class="radio-inline">
-                <label><?php echo form_radio(array('name'=>'result','class'=>'form-control'),''); ?>polyp</label>
-                <p class="help-block"></p>
-              </div>
-              <div class="radio-inline">
-                <label><?php echo form_radio(array('name'=>'result','class'=>'form-control'),''); ?>tumor</label>
-                <p class="help-block"></p>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <?php echo form_label('upload file(s):','file',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-4">
-              <a href="#" data-toggle="modal" data-target="#fileupload">
-                <div class="btn btn-default btn-file">
-                  <i class="fa fa-paperclip"></i> Attachment
-                </div>
-              </a>
-            </div>
-          </div>
-          <hr>
-          <div class="well">
-          </div>
-        </div>
-        <div class="tab-pane" id="tab_2-2">
-          The European languages are members of the same family. Their separate existence is a myth.
-          For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
-          in their grammar, their pronunciation and their most common words. Everyone realizes why a
-          new common language would be desirable: one could refuse to pay expensive translators. To
-          achieve this, it would be necessary to have uniform grammar, pronunciation and more common
-          words. If several languages coalesce, the grammar of the resulting language is more simple
-          and regular than that of the individual languages.
-        </div>
-        <div class="tab-pane" id="tab_3-2">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-          It has survived not only five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-          sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-          like Aldus PageMaker including versions of Lorem Ipsum.
+        <div class="tab-pane active">
+          <?php if ($tab) $this->load->view('admin/labs/_'.$tab); ?>
         </div>
       </div>
     </div>
@@ -93,32 +54,36 @@
       <div class="box-body">
         <h4><i class="fa fa-info-circle"></i> message(s)</h4><hr>
         <?php echo $this->session->flashdata('message'); ?>
+        <p class="dz-error-message text-danger"></p>
         <h4><i class="fa fa-info-circle"></i> file attachment(s)</h4><hr>
-        <p class="" id=""></p>
+        <p>* max file size 1 MB</p>
+        <p>* max file width and height 1200px</p>
+        <p>* mime type is only image/*</p>
+        <p>* file scale will change to 400x400px with maintain ratio</p>
       </div>
       <div class="box-footer clearfix">
         <?=anchor(uri_string(),'<i class="fa fa-refresh"></i>',array('class'=>'btn btn-default'));?>
         <span class="pull-right">
-          <?=form_submit('','Submit',array('class'=>'btn btn-success',''=>'','autocomplete'=>'off'));?>
+          <?=form_submit('','Submit',array('class'=>'btn btn-success','autocomplete'=>'off'));?>
         </span>
       </div>
+      <?php echo form_close(); ?>
     </div>
-  </div>
-  <?php echo form_close(); ?>
-</div>
-
-<div class="modal fade" id="fileupload" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id=""></h4>
+    <div class="box box-info">
+      <div class="box-header"></div>
+      <div class="box-body">
+        <h4><i class="fa fa-info-circle"></i> upload file(s)</h4><hr>
+        <?php echo form_open_multipart('admin/labs/upload_'.$tab,array(
+          'class'=>'dropzone',
+          'id'=>'dropzone-upload',
+          'style'=>'min-height:75px;padding:0;border:1px dotted;background:#f5f5f5;'))?>
       </div>
-      <div class="modal-body">
+      <div class="box-footer clearfix">
+        <span class="pull-right">
+          <?=form_submit('','Upload',array('class'=>'btn btn-info','id'=>'dropzone-submit'));?>
+        </span>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      <?php echo form_close(); ?>
     </div>
   </div>
 </div>

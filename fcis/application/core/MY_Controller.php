@@ -31,18 +31,6 @@ class MY_Controller extends CI_Controller {
 			1 => 'กลุ่ม CRC of PSU',
 			2 => 'คนไข้ CRC ส่งต่อ'
 		);
-
-		//Category status options
-		$this->data['category_status'] = array(
-			0 => 'Inactive',
-			1 => 'Active'
-		);
-		//Post status option
-		$this->data['post_status'] = array(
-			0 => 'Draft',
-			1 => 'Publish',
-			2 => 'Block'
-		);
 		//User status option
 		$this->data['user_status'] = array(
 			0 => 'Pending',
@@ -98,35 +86,6 @@ class MY_Controller extends CI_Controller {
 		return $current_groups;
 	}
 
-	protected function generate_acl_db()
-	{
-		$controllers = array();
-		$this->load->helper('file');
-
-		// Scan files in the /application/controllers directory
-		// Set the second param to TRUE or remove it if you
-		// don't have controllers in sub directories
-		$files = get_dir_file_info(APPPATH.'controllers');
-
-		// Loop through file names removing .php extension
-		foreach ($files as $file)
-		{
-			$controller = array(
-				'name' => $file['name'],
-				'path' => $file['server_path'],
-				'parent_id' => 0,
-			);
-			if ($file['name'] != 'admin')
-			{
-				$methods = get_class_methods(str_replace('.php', '', $file['name']));
-			}
-			if ($file['name'] == 'admin')
-			{
-				$admin_files = get_dir_file_info(APPPATH.'controllers/admin');
-				print_data($admin_files);exit;
-			}
-		}
-	}
 }
 
 class Admin_Controller extends MY_Controller {
@@ -138,7 +97,7 @@ class Admin_Controller extends MY_Controller {
 	{
 		parent::__construct();
 		$this->data['base_assets_url'] = BASE_URI.$this->base_assets_url;
-		$this->data['page_title'] = 'FCIS - Dashboard';
+		$this->data['page_title'] = 'FCIS - Admin Panel';
 		$this->data['header'] = $this->load->view('admin/parts/header',$this->data,TRUE);
 		$this->data['parent_menu'] = '';
 	}

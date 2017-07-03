@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-8">
-    <div class="box box-info">
+    <div class="box box-primary">
       <div class="box-header">  <h3 class="box-title">Search for Patient <small>total : <?php echo count($results); ?> record(s)</small></h3> </div>
       <div class="box-body">
         <?php echo form_open_multipart(uri_string(),array('method'=>'get','class'=>'form-horizontal')); ?>
@@ -55,7 +55,7 @@
         <p class="" id=""></p>
       </div>
       <div class="box-footer clearfix">
-        <?=anchor(uri_string(),'<i class="fa fa-refresh"></i>',array('class'=>'btn btn-default'));?>
+        <?=anchor('admin/labs','<i class="fa fa-refresh"></i>',array('class'=>'btn btn-default'));?>
         <span class="pull-right">
           <?=form_submit('','Submit',array('class'=>'btn btn-success',''=>'','autocomplete'=>'off','disabled'=>TRUE));?>
         </span>

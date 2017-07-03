@@ -17,7 +17,7 @@
         <div class="form-group">
           <?php echo form_label('fullname:','fullname',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-2">
-            <?php echo form_dropdown(array('name'=>'title','class'=>'form-control'),array('นาย'=>'นาย','นาง'=>'นาง','นางสาว'=>'นางสาว')); ?>
+            <?php echo form_dropdown(array('name'=>'title','class'=>'form-control'),array(''=>'คำนำหน้าชื่อ','นาย'=>'นาย','นาง'=>'นาง','นางสาว'=>'นางสาว')); ?>
           </div>
           <div class="col-md-3">
             <?php echo form_input(array('name'=>'firstname','class'=>'form-control','placeholder'=>'firstname'),set_value('firstname')); ?>
@@ -145,9 +145,192 @@
         <?php echo form_fieldset_close(); ?>
         <?php echo form_fieldset('Filtered'); ?>
         <div class="form-group">
+          <?php echo form_label('a month ago activities:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'1',set_select('activity','1')); ?>
+              รับประทานอาหารมันๆ เป็นประจำ <small class="pull-right">[1]</small>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'2',set_select('activity','2')); ?>
+              รับประทานเน้ือสัตว์ระเภททอดปิ้งย่างไส้กรอกกุนเชียงบ่อยๆ <small class="pull-right">[1]</small>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'3',set_select('activity','3')); ?>
+              อ้วน <small class="pull-right">[1]</small>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
+              เป็นโรคเบาหวาน <small class="pull-right">[1]</small>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
+              ท้องผูกสลับท้องเสีย <small class="pull-right">[3]</small>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
+              ถ่ายอุจจาระไม่สุด(รู้สึกว่าถ่ายไม่หมด) <small class="pull-right">[3]</small>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
+              เคยอุจจาระมีเลือดปน <small class="pull-right">[3]</small>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
+              ลักษณะอุจจาระลีบ เล็ก แบน <small class="pull-right">[9]</small>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
+              เคยตรวจพบติ่งเนื้อในลำไส้ <small class="pull-right">[10]</small>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
+              มีญาติที่ใกล้ชิดกันโดยสายเลือดเช่น พ่อ แม่ พี่ น้อง เป็นโรคมะเร็งลำไส้ใหญ่เมื่ออายุมากกว่า 50 ปี <small class="pull-right">[12]</small>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
+              มีญาติที่ใกล้ชิดกันโดยสายเลือดเช่น พ่อ แม่ พี่ น้อง เป็นโรคมะเร็งลำไส้ใหญ่เมื่ออายุน้อยกว่า 50 ปี <small class="pull-right">[11]</small>
+              <p class="help-block"></p>
+            </div>
+          </div>
+        </div>
+        <!-- <?php echo form_fieldset_close(); ?> -->
+        <!-- <?php echo form_fieldset('Family'); ?> -->
+        <!-- <div class="form-group">
           <?php echo form_label('relationship:','relationship',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-10">
             <?php echo form_dropdown(array('name'=>'relationship','class'=>'form-control'),array('1'=>'พ่อ','2'=>'แม่','3'=>'พี่','4'=>'น้อง','5'=>'5'),set_value('relationship')); ?>
+          </div>
+        </div> -->
+        <div class="form-group">
+          <?php echo form_label('how to educate:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <div class="radio-inline">
+              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>บรรยาย
+              <p class="help-block"></p>
+            </div>
+            <div class="radio-inline">
+              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>จัดบอร์ด
+              <p class="help-block"></p>
+            </div>
+            <div class="radio-inline">
+              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>ให้ความรู้ คำปรึกษาแนะนำจากบุคลากรและทีมงาน
+              <p class="help-block"></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <?php echo form_label('assessment:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <div class="radio-inline">
+              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>มากที่สุด
+              <p class="help-block"></p>
+            </div>
+            <div class="radio-inline">
+              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>มาก
+              <p class="help-block"></p>
+            </div>
+            <div class="radio-inline">
+              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>ปานกลาง
+              <p class="help-block"></p>
+            </div>
+            <div class="radio-inline">
+              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>น้อย
+              <p class="help-block"></p>
+            </div>
+            <div class="radio-inline">
+              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>ควรปรับปรุง
+              <p class="help-block"></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <?php echo form_label('endoscope result:','endoscope_result',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <div class="radio-inline">
+              <label><?php echo form_radio(array('name'=>'endoscope_result','class'=>'form-control'),''); ?>normal</label>
+              <p class="help-block"></p>
+            </div>
+            <div class="radio-inline">
+              <label><?php echo form_radio(array('name'=>'endoscope_result','class'=>'form-control'),''); ?>polyp</label>
+              <p class="help-block"></p>
+            </div>
+            <div class="radio-inline">
+              <label><?php echo form_radio(array('name'=>'endoscope_result','class'=>'form-control'),''); ?>tumor</label>
+              <p class="help-block"></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <?php echo form_label('protection:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <div class="checkbox">
+              <label> <?php echo form_checkbox(array('name'=>'protection','class'=>'form-control'),''); ?> แนะนำให้ทำการตรวจลำไส้ด้วยการส่องกล้อง เริ่มก่อน 10 ปี </label>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <label><?php echo form_checkbox(array('name'=>'protection','class'=>'form-control'),''); ?> แนะนำให้ทำการตรวจลำไส้ด้วยการส่องกล้อง เริ่มตั้งแต่อายุ 20-25 ปี </label>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <label><?php echo form_checkbox(array('name'=>'protection','class'=>'form-control'),''); ?>
+                ตรวจภายในและติดตามระดับสารบ่งชี้มะเร็ง CA-125 ในเลือด ตรวจทุกๆ 2 ปี ให้เริ่มเมื่ออายุ 30 ปี เพื่อป้องกันมะเร็งโพรงมดลูกและรังไข่
+              </label>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <label><?php echo form_checkbox(array('name'=>'protection','class'=>'form-control'),''); ?>
+                ส่องกล้องดูกระเพาะอาหารและลำไส้เล็กและตรวจวัดระดับค่าการทำงานของตับหรืออัลตร้าซาวด์ตับทุกๆ 2 ปี เพื่อตรวจหาความผิดปกติของกระเพาะอาหารและระบบทางเดินน้ำดี
+              </label>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <label><?php echo form_checkbox(array('name'=>'protection','class'=>'form-control'),''); ?>
+                ตรวจปัสสาวะทุกปีหรือทำการส่องกล้องของระบบทางเดินปัสสาวะทุก 2 ปี เพื่อตรวจหาเนื้องอกของระบบทางเดินปัสสาวะตั้งแต่ 30 ปี
+              </label>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <label><?php echo form_checkbox(array('name'=>'protection','class'=>'form-control'),''); ?>
+                การให้คำแนะนำด้านโภชนาการที่สอดคล้องกับผลการวินิจฉัยของแพทย์ตามมาตรฐานในการดูแลผู้ป่วยด้านโภชนบำบัด
+              </label>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <label><?php echo form_input(array('name'=>'protection','class'=>'form-control','placeholder'=>'อื่นๆ ระบุ')); ?></label>
+              <p class="help-block"></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <?php echo form_label('treatment:','treatment planning',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <div class="checkbox">
+              <label> <?php echo form_checkbox(array('name'=>'treatment','class'=>'form-control'),''); ?> นัด Fu </label>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <label> <?php echo form_checkbox(array('name'=>'treatment','class'=>'form-control'),''); ?> ผ่าตัด </label>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <label> <?php echo form_checkbox(array('name'=>'treatment','class'=>'form-control'),''); ?> รับยาเคมีบำบัด </label>
+              <p class="help-block"></p>
+            </div>
+            <div class="checkbox">
+              <label><?php echo form_input(array('name'=>'treatment','class'=>'form-control','placeholder'=>'อื่นๆ ระบุ')); ?></label>
+              <p class="help-block"></p>
+            </div>
           </div>
         </div>
         <?php echo form_fieldset_close(); ?>
@@ -156,7 +339,7 @@
           <?php echo form_label('groups:','groups',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-10">
             <label class="radio-inline">
-              <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'FAP',TRUE); ?> FAP
+              <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'FAP'); ?> FAP
             </label>
             <label class="radio-inline">
               <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'HNPCC'); ?> HNPCC
@@ -168,13 +351,12 @@
               <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'OTHER'); ?> OTHER
             </label>
           </div>
-        </div>
-        <br>
+        </div> <br>
         <div class="form-group">
           <?php echo form_label('types:','types',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-10">
             <div class="radio col-md-6">
-              <label><?php echo form_radio(array('name'=>'types','class'=>'form-control'),'คนไข้ออกหน่วย',TRUE); ?> คนไข้ออกหน่วย</label>
+              <label><?php echo form_radio(array('name'=>'types','class'=>'form-control'),'คนไข้ออกหน่วย'); ?> คนไข้ออกหน่วย</label>
             </div>
             <div class="col-md-6">
               <div class="input-group">
@@ -197,7 +379,7 @@
           <?php echo form_label('insurance:','health insurance',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-10">
             <div class="radio">
-              <label><?php echo form_radio(array('name'=>'insurance','class'=>'form-control'),'ผู้ยากไร้',TRUE); ?>ผู้ยากไร้</label>
+              <label><?php echo form_radio(array('name'=>'insurance','class'=>'form-control'),'ผู้ยากไร้'); ?>ผู้ยากไร้</label>
               <p class="help-block"></p>
             </div>
             <div class="radio">
@@ -216,12 +398,9 @@
               <label><?php echo form_radio(array('name'=>'insurance','class'=>'form-control'),'องค์กรปกครองส่วนท้องถิ่น'); ?>องค์กรปกครองส่วนท้องถิ่น</label>
               <p class="help-block"></p>
             </div>
-            <div class="radio col-md-6">
-              <label><?php echo form_radio(array('name'=>'insurance','class'=>'form-control'),'na_province'); ?>อื่นๆ(ระบุจังหวัด)</label>
+            <div class="radio">
+              <label><?php echo form_input(array('name'=>'insurance','class'=>'form-control','placeholder'=>'อื่นๆ ระบุ')); ?></label>
               <p class="help-block"></p>
-            </div>
-            <div class="col-md-6">
-              <?php echo form_input(array('name'=>'','class'=>'form-control','placeholder'=>'etc.'),set_value('')); ?>
             </div>
           </div>
         </div>
@@ -288,19 +467,6 @@
       <div class="box-body">
         <h4><i class="fa fa-info-circle"></i> message(s)</h4><hr>
         <?php echo $this->session->flashdata('message'); ?>
-        <br>
-        <h4><i class="fa fa-info-circle"></i> file attachment</h4><hr>
-        <div class="form-group" id="image-preview" style="margin:0 auto;">
-          <?php echo form_label('Choose File','image-upload',array('class'=>'control-label','id'=>'image-label')); ?>
-          <?php echo form_upload(array('name'=>'file','class'=>'form-control','id'=>'image-upload')); ?>
-        </div>
-        <br>
-        <h4><i class="fa fa-info-circle"></i> file description</h4><hr>
-        <p>* max file size 2 MB</p>
-        <p>* mime type is only image/jpeg</p>
-        <p>* file extension will change to .jpg</p>
-        <p>* file scale will change to 300x300px</p>
-        <p>* file will overwite automatically by personal id number</p>
       </div>
       <div class="box-footer clearfix">
         <?=anchor(uri_string(),'<i class="fa fa-refresh"></i>',array('class'=>'btn btn-default'));?>
@@ -313,25 +479,15 @@
   <?php echo form_close(); ?>
 </div>
 
-<?=link_tag('assets/admin/plugins/jquery-uploadpreview/jquery-uploadpreview.min.css');?>
-<?=script_tag('assets/admin/plugins/jquery-uploadpreview/jquery-uploadpreview.min.js');?>
 <!-- <?=script_tag('assets/admin/js/plugins/autoprovince/autoprovince.js');?> -->
 <script type="text/javascript">
-  $(document).ready(function() {
-    $.uploadPreview({
-      input_field: "#image-upload",
-      preview_box: "#image-preview",
-      label_field: "#image-label",
-      label_default: "choose file",
-      label_selected: "change file",
-      no_label: false
-    });
-    // $('div#address').AutoProvince({
-    //   PROVINCE: '#province',
-    //   AMPHUR: '#amphur',
-    //   DISTRICT: '#district',
-    //   POSTCODE: '#postcode',
-    //   arrangeByName: false
-    // });
-  });
+$(document).ready(function() {
+  // $('div#address').AutoProvince({
+  //   PROVINCE: '#province',
+  //   AMPHUR: '#amphur',
+  //   DISTRICT: '#district',
+  //   POSTCODE: '#postcode',
+  //   arrangeByName: false
+  // });
+});
 </script>
