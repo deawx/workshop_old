@@ -2,51 +2,135 @@
   <div class="col-md-12">
     <?php echo form_fieldset('Polyposis'); ?>
     <div class="form-group">
-      <?php echo form_label(':','',array('class'=>'control-label col-md-2')); ?>
+      <?php echo form_label('polyposis:','',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-10">
+        <div class="radio-inline">
+          <label><?php echo form_radio(array('name'=>'polyposis','class'=>'form-control'),''); ?> มากกว่าหรือเท่ากับ 1,000 </label>
+        </div>
+        <div class="radio-inline">
+          <label><?php echo form_radio(array('name'=>'polyposis','class'=>'form-control'),''); ?> มากกว่า 100 | น้อยกว่า 1,000 </label>
+        </div>
+        <div class="radio-inline">
+          <label><?php echo form_radio(array('name'=>'polyposis','class'=>'form-control'),''); ?> มากกว่าหรือเท่ากับ 100 </label>
+        </div>
       </div>
     </div>
     <?php echo form_fieldset_close(); ?>
     <?php echo form_fieldset('Clinical'); ?>
     <div class="form-group">
-      <?php echo form_label('exon:','exon',array('class'=>'control-label col-md-2')); ?>
-      <div class="col-md-4">
-        <?php $dropdown_exon = array_combine(range('1','15'),range('1','15')); ?>
-        <?php echo form_dropdown(array('name'=>'exon','class'=>'form-control'),$dropdown_exon,set_value('exon')); ?>
-        <p class="help-block"></p>
-      </div>
-      <?php echo form_label('intron:','intron',array('class'=>'control-label col-md-2')); ?>
-      <div class="col-md-4">
-        <?php $dropdown_exon = array_combine(range('1','14'),range('1','14')); ?>
-        <?php echo form_dropdown(array('name'=>'intron','class'=>'form-control'),$dropdown_exon,set_value('intron')); ?>
+      <?php echo form_label('type of FAP:','',array('class'=>'control-label col-md-2')); ?>
+      <div class="col-md-10">
+        <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),array(),set_value('')); ?>
         <p class="help-block"></p>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('position codon:','codon',array('class'=>'control-label col-md-2')); ?>
-      <div class="col-md-4">
-        <?php echo form_input(array('name'=>'codon','class'=>'form-control'),set_value('codon')); ?>
-        <p class="help-block"></p>
-      </div>
-      <?php echo form_label('position amino acid:','amino_acid',array('class'=>'control-label col-md-2')); ?>
-      <div class="col-md-4">
-        <?php echo form_input(array('name'=>'amino_acid','class'=>'form-control'),set_value('amino_acid')); ?>
+      <?php echo form_label('Malignant extracolonic manifestation:','',array('class'=>'control-label col-md-2')); ?>
+      <div class="col-md-10">
+        <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),array(),set_value('')); ?>
         <p class="help-block"></p>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('type of mutation:','type_mutation',array('class'=>'control-label col-md-2')); ?>
-      <div class="col-md-4">
-        <?php $type_mutation = array_combine(range('1','10'),range('1','10')); ?>
-        <?php echo form_dropdown(array('name'=>'type_mutation','class'=>'form-control'),$type_mutation,set_value('type_mutation')); ?>
+      <?php echo form_label('Extracolonic manifestation of FAP:','',array('class'=>'control-label col-md-2')); ?>
+      <div class="col-md-10">
+        <?php $dropdown_emof = array(''=>'เลือกรายการ','gastric_polyp'=>'Gastric Polyp','duodenal_polyps'=>'Duodenal polyps','desmoid_tumor'=>'Desmoid tumor'); ?>
+        <!-- <?php echo form_dropdown(array('name'=>'case','class'=>'form-control','ng-model'=>'select_emof'),$dropdown_emof); ?> -->
+        <?php echo form_dropdown(array('name'=>'case','class'=>'form-control','onchange'=>"window.location='?tab=fap&select_emof='+this.value"),$dropdown_emof,set_value('',$this->input->get('select_emof'))); ?>
         <p class="help-block"></p>
       </div>
-      <?php echo form_label('effect of mutation:','effect_mutation',array('class'=>'control-label col-md-2')); ?>
-      <div class="col-md-4">
-        <?php $effect_mutation = array_combine(range('1','10'),range('1','10')); ?>
-        <?php echo form_dropdown(array('name'=>'effect_mutation','class'=>'form-control'),$effect_mutation,set_value('effect_mutation')); ?>
-        <p class="help-block"></p>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-12" ng-switch="select_emof">
+        <div class="well well-sm" ng-switch-when="gastric_polyp|duodenal_polyps" ng-switch-when-separator="|">
+          <div class="form-group">
+            <?php echo form_label('treatment:','',array('class'=>'control-label col-md-2')); ?>
+            <div class="col-md-10" >
+              <div class="radio">
+                <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Endoscopic treatment
+                <p class="help-block"></p>
+              </div>
+              <div class="radio">
+                <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Surgical resection
+                <p class="help-block"></p>
+              </div>
+              <div class="radio">
+                <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Pharmacologic therapy
+                <p class="help-block"></p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <?php echo form_label('operative date:','',array('class'=>'control-label col-md-2')); ?>
+            <div class="col-md-10">
+              <?php echo form_input(array('name'=>'','class'=>'form-control datepicker')); ?>
+            </div>
+          </div>
+          <div class="form-group">
+            <?php echo form_label('details:','',array('class'=>'control-label col-md-2')); ?>
+            <div class="col-md-10">
+              <?php echo form_textarea(array('name'=>'','class'=>'form-control')); ?>
+            </div>
+          </div>
+        </div>
+        <div class="well well-sm" ng-switch-when="desmoid_tumor">
+          <div class="form-group">
+            <?php echo form_label(':','',array('class'=>'control-label col-md-2')); ?>
+            <div class="col-md-10">
+              <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),array(),set_value('')); ?>
+              <p class="help-block"></p>
+            </div>
+          </div>
+        </div>
       </div>
+    </div> -->
+    <div class="well">
+      <?php
+      switch ($select_emof) :
+        case 'gastric_polyp':
+        case 'duodenal_polyps': ?>
+        <div class="form-group">
+          <?php echo form_label('treatment:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10" >
+            <div class="radio">
+              <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Endoscopic treatment
+              <p class="help-block"></p>
+            </div>
+            <div class="radio">
+              <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Surgical resection
+              <p class="help-block"></p>
+            </div>
+            <div class="radio">
+              <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Pharmacologic therapy
+              <p class="help-block"></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <?php echo form_label('operative date:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <?php echo form_input(array('name'=>'','class'=>'form-control datepicker')); ?>
+          </div>
+        </div>
+        <div class="form-group">
+          <?php echo form_label('details:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <?php echo form_textarea(array('name'=>'','class'=>'form-control')); ?>
+          </div>
+        </div>
+        <?php
+        break;
+        case 'desmoid_tumor':
+        ?>
+        <div class="form-group">
+          <label for=""></label>
+          <input type="text" class="form-control" id="" placeholder="">
+          <p class="help-block">Help text here.</p>
+        </div>
+        <?php
+        break;
+      endswitch;
+      ?>
     </div>
     <?php echo form_fieldset_close(); ?>
   </div>

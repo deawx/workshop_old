@@ -15,8 +15,8 @@ class Log_user {
 
   function trigger_user($message, $type)
   {
-    $user_id = isset($this->session->user_id)
-      ? $this->session->user_id
+    $user_id = $this->_ci->session->has_userdata('user_id')
+      ? $this->_ci->session->user_id
       : 0;
     $data = array(
       'user_id' => $user_id,

@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 23, 2017 at 03:04 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.23
+-- Host: localhost
+-- Generation Time: Jul 10, 2017 at 12:38 PM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,19 +25,40 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `errors_logs`
+-- Table structure for table `assets`
 --
 
-CREATE TABLE `errors_logs` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `errno` int(2) NOT NULL,
-  `errtype` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `errstr` text COLLATE utf8_unicode_ci NOT NULL,
-  `errfile` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `errline` int(4) NOT NULL,
-  `user_agent` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
-  `ip_address` varchar(45) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `timestamp` int(11) NOT NULL
+CREATE TABLE `assets` (
+  `id` int(11) NOT NULL,
+  `file_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `file_type` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `file_path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `full_path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `raw_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `orig_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `client_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `file_ext` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `file_size` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_image` int(1) DEFAULT NULL,
+  `image_width` varchar(4) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_height` varchar(4) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_type` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_size_str` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `upload_date` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `upload_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assets_patients`
+--
+
+CREATE TABLE `assets_patients` (
+  `id` int(11) NOT NULL,
+  `assets_id` int(11) NOT NULL,
+  `patients_id` int(11) NOT NULL,
+  `assets_from` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -111,7 +134,15 @@ INSERT INTO `patients` (`id`, `user_id`, `types`, `times`, `groups`, `hn`, `id_c
 (5, 0, 'คนไข้ CRC ส่งต่อ', 0, 'PJS/JPS', '', '5000000000000', 'นางสาว', 'first5', 'last5', 0, '', '', '', '', '0', '1497271056'),
 (6, 0, '', 0, '', '', '1231231231231', 'นาง', 'test1', 'test', 0, '', '', '', '', '0', '1497165573'),
 (7, 0, '', 0, '', '', '1212121212121', 'นาย', 'ะำหะ', 'ะำหะ', 0, '', '', '', '', '0', '1497184832'),
-(8, 0, '', 0, '', '', '1212121212120', 'นาย', 'test1', 'test1', 0, '', '', '', '', '0', '1497185784');
+(8, 0, '', 0, '', '', '1212121212120', 'นาย', 'test1', 'test1', 0, '', '', '', '', '0', '1497185784'),
+(9, 0, 'กลุ่ม CRC of PSU', 0, 'HNPCC', '', '1000000000000', 'นาย', 'first1', 'last1', 0, '', '', '', '', '0', '1497270803'),
+(10, 0, 'คนไข้ออกหน่วย', 0, 'FAP', '', '2000000000000', 'นาย', 'first2', 'last2', 0, '', '', '', '', '0', '1497233271'),
+(11, 0, 'กลุ่ม CRC of PSU', 0, 'HNPCC', '', '3000000000000', 'นาง', 'first3', 'last3', 0, '', '', '', '', '0', '1497754880'),
+(12, 0, 'คนไข้ CRC ส่งต่อ', 0, 'FAP', '', '4000000000000', 'นาง', 'first4', 'last4', 0, '', '', '', '', '0', '1497630670'),
+(13, 0, 'คนไข้ CRC ส่งต่อ', 0, 'PJS/JPS', '', '5000000000000', 'นางสาว', 'first5', 'last5', 0, '', '', '', '', '0', '1497271056'),
+(14, 0, '', 0, '', '', '1231231231231', 'นาง', 'test1', 'test', 0, '', '', '', '', '0', '1497165573'),
+(15, 0, '', 0, '', '', '1212121212121', 'นาย', 'ะำหะ', 'ะำหะ', 0, '', '', '', '', '0', '1497184832'),
+(16, 0, '', 0, '', '', '1212121212120', 'นาย', 'test1', 'test1', 0, '', '', '', '', '0', '1497185784');
 
 -- --------------------------------------------------------
 
@@ -170,7 +201,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '::1', 'special', '$2y$08$6PwzsRJmKgjTWuabxlyDCuQf.IvqLbkFNUBz57h.oncNIo1cIAaF.', NULL, 'special@email.com', NULL, NULL, NULL, 'Yp/wtvbNeuCEaSA2JZIYwO', 1496754920, 1498180066, 1, 'Cristiano', 'Ronaldo', 'SPECIAL', '0000000000'),
+(1, '::1', 'special', '$2y$08$6PwzsRJmKgjTWuabxlyDCuQf.IvqLbkFNUBz57h.oncNIo1cIAaF.', NULL, 'special@email.com', NULL, NULL, NULL, 'y30WBBENGNrIhcA26lV6vO', 1496754920, 1499661917, 1, 'Cristiano', 'Ronaldo', 'SPECIAL', '0000000000'),
 (2, '::1', 'admin', '$2y$08$uHhUqYzF9fSYhCRQBP8gRu8t0xGsD.JyP8fot8uFrzb8ddVU21xLG', NULL, 'admin@email.com', '8c56e53216f8e5288687c98a0f2aa8657dff6445', NULL, NULL, NULL, 1496756561, 1497448710, 1, 'Zinedine', 'Zedane', 'ADMIN', '0000000000'),
 (3, '::1', 'editor', '$2y$08$LVvHxFHDq9CmPzET1qzFfuPsoV7ZGwEOFvoWrTcPHPi7lDwo82yoK', NULL, 'editor@email.com', 'c959066d4bd6854f4602860b9fcdf7b3ae867f90', NULL, NULL, NULL, 1496756963, 1496756963, 1, 'Mario', 'Balotelli', 'EDITOR', '2222222222'),
 (4, '::1', 'member', '$2y$08$BodKuh8mpB8w0XQS1aDMGeIxBbNXL62.XOPTJ8/QV1a1VBtczLEcC', NULL, 'member@email.com', NULL, NULL, NULL, NULL, 1496755255, 1496755255, 1, 'Lionel', 'Messi', 'MEMBER', '1111111111');
@@ -220,9 +251,15 @@ CREATE TABLE `users_logs` (
 --
 
 --
--- Indexes for table `errors_logs`
+-- Indexes for table `assets`
 --
-ALTER TABLE `errors_logs`
+ALTER TABLE `assets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `assets_patients`
+--
+ALTER TABLE `assets_patients`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -272,10 +309,15 @@ ALTER TABLE `users_logs`
 --
 
 --
--- AUTO_INCREMENT for table `errors_logs`
+-- AUTO_INCREMENT for table `assets`
 --
-ALTER TABLE `errors_logs`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `assets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `assets_patients`
+--
+ALTER TABLE `assets_patients`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -290,7 +332,7 @@ ALTER TABLE `login_attempts`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `settings`
 --
@@ -310,7 +352,8 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `users_logs`
 --
 ALTER TABLE `users_logs`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

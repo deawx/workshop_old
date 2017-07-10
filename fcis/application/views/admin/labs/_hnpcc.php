@@ -1,14 +1,39 @@
-<?php echo form_fieldset('APC Gene'); ?>
-<div class="form-group">
-  <?php echo form_label(':','',array('class'=>'control-label col-md-2')); ?>
-  <div class="col-md-10">
-    <div class="checkbox">
-      <label> <?php echo form_checkbox(array('name'=>'','class'=>'form-control'),'',set_value('')); ?> </label>
-      <p class="help-block"></p>
+<div class="row">
+  <div class="col-md-12">
+    <?php echo form_fieldset('MSI'); ?>
+    <div class="form-group">
+      <?php echo form_label('H:','',array('class'=>'control-label col-md-2')); ?>
+      <div class="col-md-10">
+        <div class="checkbox">
+          <label> <?php echo form_checkbox(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>BAT26 </label>
+        </div>
+      </div>
     </div>
+    <div class="form-group">
+      <?php echo form_label('L:','',array('class'=>'control-label col-md-2')); ?>
+      <div class="col-md-10">
+        <div class="checkbox">
+          <label> <?php echo form_checkbox(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>BAT26 </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <?php echo form_label('S:','',array('class'=>'control-label col-md-2')); ?>
+      <div class="col-md-1">
+        <div class="checkbox">
+          <label> <?php echo form_checkbox(array('name'=>'','class'=>'form-control'),''); ?> </label>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),array(''=>'choose one.'),set_value('')); ?>
+      </div>
+      <div class="col-md-5">
+        <?php echo form_input(array('name'=>'','class'=>'form-control'),set_value('')); ?>
+      </div>
+    </div>
+    <?php echo form_fieldset_close(); ?>
   </div>
 </div>
-<?php echo form_fieldset_close(); ?>
 
 <?=link_tag('assets/admin/plugins/dropzone/dropzone.min.css');?>
 <?=link_tag('assets/admin/plugins/dropzone/basic.min.css');?>

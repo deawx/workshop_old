@@ -36,6 +36,8 @@ class Clinic extends Admin_Controller {
 			$tab = $this->input->get('tab') ? $this->input->get('tab') : 'fap';
 			$tab = (in_array($tab,array('fap','hnpcc','pjsjps'))) ? $tab : 'fap';
 			$assets = $this->assets->find_gallery($tab,$id);
+			$select_emof = $this->input->get('select_emof') ? $this->input->get('select_emof') : 'gastric_polyp';
+			$select_emof = (in_array($select_emof,array('gastric_polyp','hnpcc','pjsjps'))) ? $select_emof : 'gastric_polyp';
 			switch ($tab) :
 				case 'fap':
 				$this->form_validation->set_rules('','','required');
@@ -49,6 +51,7 @@ class Clinic extends Admin_Controller {
 					break;
 			endswitch;
 		endif;
+		$this->data['select_emof'] = $select_emof;
 		$this->data['tab'] = $tab;
 		$this->data['assets'] = $assets;
 		$this->data['patient'] = $patient;

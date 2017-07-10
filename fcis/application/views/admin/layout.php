@@ -15,10 +15,12 @@
   <?=link_tag('assets/admin/css/custom.css');?>
   <?=link_tag('assets/admin/plugins/line_control_editor/editor.css');?>
   <?=link_tag('assets/admin/plugins/select2/select2.min.css');?>
+  <?=link_tag('assets/admin/plugins/datepicker/datepicker.css');?>
 
   <?=script_tag('assets/admin/js/jquery.min.js');?>
   <?=script_tag('assets/admin/js/jquery-ui.min.js');?>
   <?=script_tag('assets/admin/js/bootstrap.min.js');?>
+  <?=script_tag('assets/admin/js/angular.min.js');?>
 
   <script type="text/javascript">
   var SERVER = '<?php echo site_url("/")?>';
@@ -53,13 +55,15 @@
 
   <?=script_tag('assets/admin/plugins/select2/select2.full.min.js');?>
   <?=script_tag('assets/admin/plugins/line_control_editor/editor.js');?>
+  <?=script_tag('assets/admin/plugins/datepicker/datepicker.js');?>
   <?=script_tag('assets/admin/js/adminlte/app.js');?>
   <?=script_tag('assets/admin/js/custom.js');?>
 
   <script type="text/javascript">
     $(document).ready(function(){
+      $('.datepicker').datepicker();
       $('.select2').select2();
-      $(".select2-tags").select2({
+      $('.select2-tags').select2({
         tags: true
       });
     })

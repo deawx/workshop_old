@@ -1,3 +1,9 @@
+<?php
+$uri_get = $this->input->get();
+unset($uri_get['order_by']);
+$uri_get = http_build_query($uri_get);
+$uri_string = uri_string().'?'.$uri_get;
+?>
 <div class="row">
   <div class="col-md-8">
     <div class="box box-primary">
