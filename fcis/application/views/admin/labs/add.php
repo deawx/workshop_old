@@ -1,5 +1,5 @@
 <div class="row">
-  <?php echo form_open_multipart(uri_string(),array('class'=>'form-horizontal')); ?>
+  <?php echo form_open_multipart(uri_string(),array('class'=>'form-horizontal','onkeypress'=>"return event.keyCode != 13;")); ?>
   <?php echo form_hidden('user_id',$patient['id']); ?>
   <div class="col-md-8">
     <div class="box box-primary">

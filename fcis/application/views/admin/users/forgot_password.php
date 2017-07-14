@@ -9,7 +9,7 @@
         <!-- font Awesome -->
         <link href="<?php echo $base_assets_url;?>css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
-        <link href="<?php echo $base_assets_url;?>css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo $base_assets_url;?>css/adminlte.css" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,7 +22,7 @@
 
         <div class="form-box" id="login-box">
             <div class="header"><?php echo lang('forgot_password_heading');?></div>
-            
+
             <?php echo form_open("users/forgot_password");?>
                 <div class="body bg-gray">
                 	<p><?php echo sprintf(lang('forgot_password_subheading'), $identity_label);?></p>
@@ -31,8 +31,8 @@
                         <?php echo form_input($email,null,array('class' => 'form-control','placeholder' => 'Your email'));?>
                     </div>
                 </div>
-                <div class="footer">                                                               
-                    <button type="submit" class="btn bg-olive btn-block"><?php echo lang('forgot_password_submit_btn') ?></button>  
+                <div class="footer">
+                    <button type="submit" class="btn bg-olive btn-block"><?php echo lang('forgot_password_submit_btn') ?></button>
                      <p><a href="<?php echo site_url('signin')?>">Back to Sign In</a></p>
                 </div>
             <?php echo form_close();?>
@@ -42,7 +42,7 @@
         <!-- jQuery 2.0.2 -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
         <!-- Bootstrap -->
-        <script src="<?php echo $base_assets_url;?>js/bootstrap.min.js" type="text/javascript"></script>        
+        <script src="<?php echo $base_assets_url;?>js/bootstrap.min.js" type="text/javascript"></script>
 
     </body>
 </html>

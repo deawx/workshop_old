@@ -20,70 +20,42 @@
     <div class="form-group">
       <?php echo form_label('type of FAP:','',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-10">
-        <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),array(),set_value('')); ?>
+        <?php $dropdown_tof = array(''=>'เลือกรายการ',
+          'Familial Adenomatous polyposis'=>'Familial Adenomatous polyposis',
+          'Attenuated FAP(AFAP) or Attenuated adenomatous polyposis coli (AAPC)'=>'Attenuated FAP(AFAP) or Attenuated adenomatous polyposis coli (AAPC)',
+          'Other Adenomotous polyposis syndrome'=>'Other Adenomotous polyposis syndrome'); ?>
+        <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),$dropdown_tof,set_value('')); ?>
         <p class="help-block"></p>
       </div>
     </div>
     <div class="form-group">
       <?php echo form_label('Malignant extracolonic manifestation:','',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-10">
-        <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),array(),set_value('')); ?>
+        <?php $dropdown_mem = array(''=>'เลือกรายการ',
+          'Hepatoblastoma'=>'Hepatoblastoma',
+          'Thyroid cancer'=>'Thyroid cancer',
+          'Pancreatic cancer'=>'Pancreatic cancer',
+          'Gardner syndrome'=>'Gardner syndrome',
+          'Epidermoid cyst'=>'Epidermoid cyst',
+          'Osteomas'=>'Osteomas',
+          'Turcot syndrome (FAP Turcot หรือ Crail syndrome Adenomatous polyposis Celebellar medulloblastoma)'=>'Turcot syndrome (FAP Turcot หรือ Crail syndrome Adenomatous polyposis Celebellar medulloblastoma)'); ?>
+        <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),$dropdown_mem,set_value('')); ?>
         <p class="help-block"></p>
       </div>
     </div>
     <div class="form-group">
       <?php echo form_label('Extracolonic manifestation of FAP:','',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-10">
-        <?php $dropdown_emof = array(''=>'เลือกรายการ','gastric_polyp'=>'Gastric Polyp','duodenal_polyps'=>'Duodenal polyps','desmoid_tumor'=>'Desmoid tumor'); ?>
-        <!-- <?php echo form_dropdown(array('name'=>'case','class'=>'form-control','ng-model'=>'select_emof'),$dropdown_emof); ?> -->
+        <?php $dropdown_emof = array(''=>'เลือกรายการ',
+          'gastric_polyp'=>'Gastric Polyp',
+          'duodenal_polyps'=>'Duodenal polyps',
+          'desmoid_tumor'=>'Desmoid tumor',
+          'chrpe'=>'Congenital hypertrophy of the retinal pigment epithelium(CHRPE)',
+          'nasopharyngeal_angiofibroma'=>'Nasopharyngeal angiofibroma'); ?>
         <?php echo form_dropdown(array('name'=>'case','class'=>'form-control','onchange'=>"window.location='?tab=fap&select_emof='+this.value"),$dropdown_emof,set_value('',$this->input->get('select_emof'))); ?>
         <p class="help-block"></p>
       </div>
     </div>
-    <!-- <div class="row">
-      <div class="col-md-12" ng-switch="select_emof">
-        <div class="well well-sm" ng-switch-when="gastric_polyp|duodenal_polyps" ng-switch-when-separator="|">
-          <div class="form-group">
-            <?php echo form_label('treatment:','',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-10" >
-              <div class="radio">
-                <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Endoscopic treatment
-                <p class="help-block"></p>
-              </div>
-              <div class="radio">
-                <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Surgical resection
-                <p class="help-block"></p>
-              </div>
-              <div class="radio">
-                <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Pharmacologic therapy
-                <p class="help-block"></p>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <?php echo form_label('operative date:','',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-10">
-              <?php echo form_input(array('name'=>'','class'=>'form-control datepicker')); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <?php echo form_label('details:','',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-10">
-              <?php echo form_textarea(array('name'=>'','class'=>'form-control')); ?>
-            </div>
-          </div>
-        </div>
-        <div class="well well-sm" ng-switch-when="desmoid_tumor">
-          <div class="form-group">
-            <?php echo form_label(':','',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-10">
-              <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),array(),set_value('')); ?>
-              <p class="help-block"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="well">
       <?php
       switch ($select_emof) :
@@ -93,15 +65,15 @@
           <?php echo form_label('treatment:','',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-10" >
             <div class="radio">
-              <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Endoscopic treatment
+              <?php echo form_radio(array('name'=>'_treatment','class'=>''),''); ?>Endoscopic treatment
               <p class="help-block"></p>
             </div>
             <div class="radio">
-              <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Surgical resection
+              <?php echo form_radio(array('name'=>'_treatment','class'=>''),''); ?>Surgical resection
               <p class="help-block"></p>
             </div>
             <div class="radio">
-              <?php echo form_radio(array('name'=>'{{select_emof}}_treatment','class'=>''),''); ?>Pharmacologic therapy
+              <?php echo form_radio(array('name'=>'_treatment','class'=>''),''); ?>Pharmacologic therapy
               <p class="help-block"></p>
             </div>
           </div>
@@ -123,11 +95,55 @@
         case 'desmoid_tumor':
         ?>
         <div class="form-group">
-          <label for=""></label>
-          <input type="text" class="form-control" id="" placeholder="">
-          <p class="help-block">Help text here.</p>
+          <?php echo form_label('location:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <?php $dropdown_lct = array(''=>'เลือกรายการ',
+              'Abdominal  wall desmoids tumor'=>'Abdominal  wall desmoids tumor',
+              'Extrimities desmoids tumor'=>'Extrimities desmoids tumor',
+              'Intraabnominal desmoids tumor'=>'Intraabnominal desmoids tumor',
+              'Mesenteric desmoids tumor'=>'Mesenteric desmoids tumor'); ?>
+            <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),$dropdown_lct,set_value('')); ?>
+          </div>
+        </div>
+        <div class="form-group">
+          <?php echo form_label('management medical treatment:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <?php $dropdown_mmt = array(''=>'เลือกรายการ','NSAIDS'=>'NSAIDS','Antiestrogen therapy'=>'Antiestrogen therapy','Cytotoxic chemotherpy'=>'Cytotoxic chemotherpy'); ?>
+            <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),$dropdown_mmt,set_value('')); ?>
+          </div>
+        </div>
+        <div class="form-group">
+          <?php echo form_label('surgical resection:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <div class="radio">
+              <?php echo form_radio(array('name'=>'surgical_resection','class'=>''),''); ?>Wide excision
+              <p class="help-block"></p>
+            </div>
+            <div class="radio">
+              <?php echo form_radio(array('name'=>'surgical_resection','class'=>''),''); ?>Explore lap
+              <p class="help-block"></p>
+            </div>
+            <div class="radio">
+              <?php echo form_radio(array('name'=>'surgical_resection','class'=>''),''); ?>Radiation therapy
+              <p class="help-block"></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <?php echo form_label('operative date:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <?php echo form_input(array('name'=>'','class'=>'form-control datepicker')); ?>
+          </div>
+        </div>
+        <div class="form-group">
+          <?php echo form_label('details:','',array('class'=>'control-label col-md-2')); ?>
+          <div class="col-md-10">
+            <?php echo form_textarea(array('name'=>'','class'=>'form-control')); ?>
+          </div>
         </div>
         <?php
+        break;
+        default:
         break;
       endswitch;
       ?>

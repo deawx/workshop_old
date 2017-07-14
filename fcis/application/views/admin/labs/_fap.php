@@ -28,14 +28,12 @@
 <div class="form-group">
   <?php echo form_label('type of mutation:','type_mutation',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php $type_mutation = array_combine(range('1','10'),range('1','10')); ?>
-    <?php echo form_dropdown(array('name'=>'type_mutation','class'=>'form-control'),$type_mutation,set_value('type_mutation')); ?>
+    <?php echo form_input(array('name'=>'type_mutation','class'=>'form-control typeahead','autocomplete'=>'off'),set_value('')); ?>
     <p class="help-block"></p>
   </div>
   <?php echo form_label('effect of mutation:','effect_mutation',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php $effect_mutation = array_combine(range('1','10'),range('1','10')); ?>
-    <?php echo form_dropdown(array('name'=>'effect_mutation','class'=>'form-control'),$effect_mutation,set_value('effect_mutation')); ?>
+    <?php echo form_input(array('name'=>'effect_mutation','class'=>'form-control typeahead','autocomplete'=>'off'),set_value('')); ?>
     <p class="help-block"></p>
   </div>
 </div>
@@ -70,14 +68,12 @@
 <div class="form-group">
   <?php echo form_label('type of mutation:','type_mutation',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php $type_mutation = array_combine(range('1','10'),range('1','10')); ?>
-    <?php echo form_dropdown(array('name'=>'type_mutation','class'=>'form-control'),$type_mutation,set_value('type_mutation')); ?>
+    <?php echo form_input(array('name'=>'type_mutation','class'=>'form-control typeahead','autocomplete'=>'off'),set_value('')); ?>
     <p class="help-block"></p>
   </div>
   <?php echo form_label('effect of mutation:','effect_mutation',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php $effect_mutation = array_combine(range('1','10'),range('1','10')); ?>
-    <?php echo form_dropdown(array('name'=>'effect_mutation','class'=>'form-control'),$effect_mutation,set_value('effect_mutation')); ?>
+    <?php echo form_input(array('name'=>'effect_mutation','class'=>'form-control typeahead','autocomplete'=>'off'),set_value('')); ?>
     <p class="help-block"></p>
   </div>
 </div>
@@ -87,7 +83,7 @@
   <?php echo form_label('negative:','negative',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-10">
     <div class="radio">
-      <label><?php echo form_checkbox(array('name'=>'negative','class'=>'form-control'),'',TRUE); ?>Negative</label>
+      <label><?php echo form_checkbox(array('name'=>'negative','class'=>'form-control'),''); ?>Negative</label>
       <p class="help-block"></p>
     </div>
   </div>
@@ -137,6 +133,7 @@
 <?=link_tag('assets/admin/plugins/dropzone/dropzone.min.css');?>
 <?=link_tag('assets/admin/plugins/dropzone/basic.min.css');?>
 <?=script_tag('assets/admin/plugins/dropzone/dropzone.min.js');?>
+<?=script_tag('assets/admin/plugins/typeahead/typeahead.min.js');?>
 <script type="text/javascript">
 $(document).ready(function() {
   Dropzone.options.dropzoneUpload = {
@@ -154,5 +151,30 @@ $(document).ready(function() {
       });
     }
   };
+  var $input = $(".typeahead");
+  $input.typeahead({
+    source: [
+      {id: "test1", name: "test1"},
+      {id: "test2", name: "test2"},
+      {id: "test3", name: "test3"},
+      {id: "test4", name: "test4"},
+      {id: "test5", name: "test5"}
+    ],
+    autoSelect: true
+  });
+  $input.change(function() {
+    var current = $input.typeahead("getActive");
+    if (current) {
+      // Some item from your model is active!
+      if (current.name == $input.val()) {
+        // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
+      } else {
+        // This means it is only a partial match, you can either add a new item
+        // or take the active if you don't want new items
+      }
+    } else {
+      // Nothing is active so it is a new value (or maybe empty value)
+    }
+  });
 });
 </script>

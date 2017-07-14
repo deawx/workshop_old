@@ -5,7 +5,7 @@
       <?php echo form_label('H:','',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-10">
         <div class="checkbox">
-          <label> <?php echo form_checkbox(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>BAT26 </label>
+          <label> <?php echo form_checkbox(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>BAT25 </label>
         </div>
       </div>
     </div>

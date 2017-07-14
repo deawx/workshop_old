@@ -9,7 +9,7 @@
         <!-- font Awesome -->
         <link href="<?php echo $base_assets_url;?>css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
-        <link href="<?php echo $base_assets_url;?>css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo $base_assets_url;?>css/adminlte.css" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,16 +31,16 @@
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" placeholder="Password"/>
-                    </div>          
+                    </div>
                     <div class="form-group">
                         <input type="checkbox" name="remember" value="1" /> Remember me
                     </div>
                 </div>
-                <div class="footer">                                                               
-                    <button type="submit" class="btn bg-olive btn-block">Sign me in</button>  
-                    
+                <div class="footer">
+                    <button type="submit" class="btn bg-olive btn-block">Sign me in</button>
+
                     <p><a href="<?php echo site_url('users/forgot_password')?>">I forgot my password</a></p>
-                    
+
                     <a href="<?php echo site_url('signup')?>" class="text-center">Create new account</a>
                 </div>
             <?php echo form_close();?>
@@ -50,7 +50,7 @@
         <!-- jQuery 2.0.2 -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
         <!-- Bootstrap -->
-        <script src="<?php echo $base_assets_url;?>js/bootstrap.min.js" type="text/javascript"></script>        
+        <script src="<?php echo $base_assets_url;?>js/bootstrap.min.js" type="text/javascript"></script>
 
     </body>
 </html>

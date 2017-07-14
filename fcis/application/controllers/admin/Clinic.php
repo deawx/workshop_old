@@ -36,14 +36,14 @@ class Clinic extends Admin_Controller {
 			$tab = $this->input->get('tab') ? $this->input->get('tab') : 'fap';
 			$tab = (in_array($tab,array('fap','hnpcc','pjsjps'))) ? $tab : 'fap';
 			$assets = $this->assets->find_gallery($tab,$id);
-			$select_emof = $this->input->get('select_emof') ? $this->input->get('select_emof') : 'gastric_polyp';
-			$select_emof = (in_array($select_emof,array('gastric_polyp','hnpcc','pjsjps'))) ? $select_emof : 'gastric_polyp';
+			$select_emof = $this->input->get('select_emof') ? $this->input->get('select_emof') : '';
+			$select_emof = (in_array($select_emof,array('gastric_polyp','duodenal_polyps','desmoid_tumor','chrpe','nasopharyngeal_angiofibroma'))) ? $select_emof : '';
 			switch ($tab) :
 				case 'fap':
-				$this->form_validation->set_rules('','','required');
-				if ($this->form_validation->run() !== FALSE) :
-					print_data($this->input->post());
-				endif;
+					$this->form_validation->set_rules('','','required');
+					if ($this->form_validation->run() !== FALSE) :
+						print_data($this->input->post());
+					endif;
 					break;
 				case 'hnpcc':
 					break;

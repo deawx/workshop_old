@@ -61,4 +61,16 @@ class Sample extends Admin_Controller {
 		$this->render('admin/sample/add_outpatient');
 	}
 
+	function lists()
+	{
+		$view = $this->input->get('view') ? $this->input->get('view') : 'fap';
+		$samples = $this->sample->find_list($view);
+
+		// print_data($samples);
+
+		$this->data['view'] = $view;
+		$this->data['samples'] = $samples;
+		$this->render('admin/sample/list');
+	}
+
 }
