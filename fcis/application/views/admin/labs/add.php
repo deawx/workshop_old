@@ -1,6 +1,6 @@
 <div class="row">
   <?php echo form_open_multipart(uri_string(),array('class'=>'form-horizontal','onkeypress'=>"return event.keyCode != 13;")); ?>
-  <?php echo form_hidden('user_id',$patient['id']); ?>
+  <?php echo form_hidden('patient_id',$patient['id']); ?>
   <div class="col-md-8">
     <div class="box box-primary">
       <div class="box-header">  <h3 class="box-title">Patient Details</h3> </div>
@@ -8,17 +8,14 @@
         <div class="list-group-item">
           <h4 class="list-group-item-heading">
             <?php echo $patient['title'].nbs().$patient['firstname'].nbs().$patient['lastname']?>
-            <small class="text-primary">(H.N. : <?php echo $patient['hn']; ?>)</small>
+            <small class="text-mute">(H.N. : <?php echo $patient['hn']; ?>)</small>
             <small class="pull-right"><?php echo $patient['types']; ?> - <?php echo $patient['groups']; ?></small>
           </h4>
           <p class="list-group-item-text">
             <dl class="dl-horizontal">
-              <dt>id card:</dt>
-              <dd><?php echo $patient['id_card']; ?></dd>
-              <dt>address:</dt>
-              <dd><?php echo $patient['age']; ?></dd>
-              <dt>created:</dt>
-              <dd><?php echo $patient['created']; ?></dd>
+              <dt>id card:</dt> <dd><?php echo $patient['id_card']; ?></dd>
+              <dt>address:</dt> <dd><?php echo $patient['age']; ?></dd>
+              <dt>created:</dt> <dd><?php echo $patient['created']; ?></dd>
             </dl>
           </p>
         </div>
@@ -28,16 +25,16 @@
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs pull-right">
         <li class="<?php if ($tab === 'endoscope') echo 'active'; ?>">
-          <a href="<?php echo '?tab=endoscope'; ?>">Endoscope report</a>
+          <a href="<?php echo site_url('admin/labs/add_endoscope/'.$patient['id']); ?>">Endoscope report</a>
         </li>
         <li class="<?php if ($tab === 'fap') echo 'active'; ?>">
-          <a href="<?php echo '?tab=fap'; ?>">FAP report</a>
+          <a href="<?php echo site_url('admin/labs/add_fap/'.$patient['id']); ?>">FAP report</a>
         </li>
         <li class="<?php if ($tab === 'hnpcc') echo 'active'; ?>">
-          <a href="<?php echo '?tab=hnpcc'; ?>">HNPCC report</a>
+          <a href="<?php echo site_url('admin/labs/add_hnpcc/'.$patient['id']); ?>">HNPCC report</a>
         </li>
         <li class="<?php if ($tab === 'pjsjps') echo 'active'; ?>">
-          <a href="<?php echo '?tab=pjsjps'; ?>">PJS/JPS report</a>
+          <a href="<?php echo site_url('admin/labs/add_pjsjps/'.$patient['id']); ?>">PJS/JPS report</a>
         </li>
       </ul>
       <div class="tab-content">
@@ -46,7 +43,6 @@
         </div>
       </div>
     </div>
-
   </div>
   <div class="col-md-4">
     <div class="box box-info">
@@ -87,3 +83,7 @@
     </div>
   </div>
 </div>
+
+<?=link_tag('assets/admin/plugins/dropzone/dropzone.min.css');?>
+<?=link_tag('assets/admin/plugins/dropzone/basic.min.css');?>
+<?=script_tag('assets/admin/plugins/dropzone/dropzone.min.js');?>

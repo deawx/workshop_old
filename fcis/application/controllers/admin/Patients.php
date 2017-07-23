@@ -14,17 +14,17 @@ class Patients extends Admin_Controller {
 
 	public function index()
 	{
-		$this->form_validation->set_rules('id_card', 'personal id', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
-		$this->form_validation->set_rules('types', 'types', 'required|in_list[คนไข้ออกหน่วย,กลุ่ม CRC of PSU,คนไข้ CRC ส่งต่อ]');
-		$this->form_validation->set_rules('groups', 'groups', 'required|in_list[FAP,HNPCC,PJS/JPS]');
-		$this->form_validation->set_rules('title', 'title', 'required|in_list[นาย,นาง,นางสาว]');
-		$this->form_validation->set_rules('firstname', 'firstname', 'required|max_length[100]');
-		$this->form_validation->set_rules('lastname', 'lastname', 'required|max_length[150]');
-		$this->form_validation->set_rules('age', 'age', 'is_numeric|max_length[3]');
-		$this->form_validation->set_rules('hn', 'hn', 'alpha_numeric|max_length[8]');
-		$this->form_validation->set_rules('zipcode', 'zipcode', 'is_numeric|max_length[7]');
-		$this->form_validation->set_rules('telephone', 'telephone', 'is_numeric|max_length[10]');
-		$this->form_validation->set_rules('mobile', 'mobile', 'is_numeric|max_length[10]');
+		$this->form_validation->set_rules('id_card', 'หมายเลขบัตรประชาชน', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
+		$this->form_validation->set_rules('types', 'ชนิก', 'required|in_list[คนไข้ออกหน่วย,กลุ่ม CRC of PSU,คนไข้ CRC ส่งต่อ]');
+		$this->form_validation->set_rules('groups', 'กลุ่ม', 'required|in_list[FAP,HNPCC,PJS/JPS]');
+		$this->form_validation->set_rules('title', 'คำนำหน้า', 'required|in_list[นาย,นาง,นางสาว]');
+		$this->form_validation->set_rules('firstname', 'ชื่อ', 'required|max_length[100]');
+		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required|max_length[150]');
+		$this->form_validation->set_rules('age', 'อายุ', 'is_numeric|max_length[3]');
+		$this->form_validation->set_rules('hn', 'H.M.', 'alpha_numeric|max_length[8]');
+		$this->form_validation->set_rules('zipcode', 'รหัสไปรษณีย์', 'is_numeric|max_length[7]');
+		$this->form_validation->set_rules('telephone', 'เบอร์โทรศัพท์', 'is_numeric|max_length[10]');
+		$this->form_validation->set_rules('mobile', 'โทรศัพท์มือถือ', 'is_numeric|max_length[10]');
 		if ($this->form_validation->run() === TRUE) :
 			$post = $this->input->post();
 			$post['created'] = time();
@@ -39,14 +39,14 @@ class Patients extends Admin_Controller {
 				$this->input->post('address_province'),
 				$this->input->post('address_zipcode')
 			));
-			print_data($post); die();
+			// print_data($post); die();
 			// $this->_upload(isset($patient['id_card']) ? $patient['id_card'] : $this->input->post('id_card'));
-			// if ($this->patient->save($post)) :
-			// 	$this->session->set_flashdata('message',message_box('patient has been saved','success'));
-			// else:
-			// 	$this->session->set_flashdata('message',message_box('save failed, check your data','danger'));
-			// endif;
-			// redirect($this->agent->referrer());
+			if ($this->patient->save($post)) :
+				$this->session->set_flashdata('message',message_box('patient has been saved','success'));
+			else:
+				$this->session->set_flashdata('message',message_box('save failed, check your data','danger'));
+			endif;
+			redirect('admin/search');
 		else:
 			$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
 		endif;

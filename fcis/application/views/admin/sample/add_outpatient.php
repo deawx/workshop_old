@@ -1,35 +1,10 @@
 <div class="row">
-  <?php echo form_open(uri_string().'/add_outpatient',array('class'=>'form-horizontal')); ?>
+  <?php echo form_open('admin/sample/add_outpatient',array('class'=>'form-horizontal')); ?>
   <div class="col-md-8">
     <div class="box box-primary">
       <div class="box-header">  <h3 class="box-title">Outpatient Details</h3> </div>
       <div class="box-body">
-        <?php echo form_open('#',array('class'=>'form-horizontal')); ?>
-        <div class="form-group">
-          <?php echo form_label('case:','case',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <?=form_dropdown(array('name'=>'case','class'=>'form-control','onchange'=>"window.location='sample?case='+this.value"),array('inpatient'=>'INPATIENT','outpatient'=>'OUTPATIENT'),set_value('case',($this->input->get('case'))));?>
-          </div>
-        </div>
-        <?php echo form_close(); ?>
-        <div class="form-group">
-          <?php echo form_label('institution:','institution',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <?php echo form_input(array('name'=>'institution','class'=>'form-control','placeholder'=>'institution')); ?>
-          </div>
-        </div>
-        <div class="form-group">
-          <?php echo form_label('department:','department',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <?php echo form_input(array('name'=>'department','class'=>'form-control','placeholder'=>'department')); ?>
-          </div>
-        </div>
-        <div class="form-group">
-          <?php echo form_label("sample's name:","sample_name",array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <?php echo form_input(array('name'=>"sample_name",'class'=>'form-control','placeholder'=>"sample's name")); ?>
-          </div>
-        </div>
+        <?php $this->load->view('admin/sample/_search'); ?>
       </div>
       <div class="box-footer clearfix"></div>
     </div>
@@ -53,7 +28,7 @@
       <div class="box-footer clearfix">
         <?=anchor(uri_string(),'<i class="fa fa-refresh"></i>',array('class'=>'btn btn-default'));?>
         <span class="pull-right">
-          <?=form_submit('','Submit',array('class'=>'btn btn-success',''=>'','autocomplete'=>'off'));?>
+          <?=form_submit('','Submit',array('class'=>'btn btn-success','autocomplete'=>'off'));?>
         </span>
       </div>
     </div>

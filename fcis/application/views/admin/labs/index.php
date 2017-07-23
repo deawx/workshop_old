@@ -17,10 +17,9 @@
         </div>
         <?php echo form_close(); ?>
         <hr>
-
         <div class="list-group">
           <?php foreach ($results as $key => $value): ?>
-            <a href="<?php echo site_url('admin/labs/add/'.$value['id']); ?>" class="list-group-item">
+            <a href="<?php echo site_url('admin/labs/add_endoscope/'.$value['id']); ?>" class="list-group-item">
               <h4 class="list-group-item-heading">
                 <?php echo $value['title'].nbs().$value['firstname'].nbs().$value['lastname']?>
                 <small class="text-primary">(H.N. : <?php echo $value['hn']; ?>)</small>
@@ -28,22 +27,17 @@
               </h4>
               <p class="list-group-item-text">
                 <dl class="dl-horizontal">
-                  <dt>id card:</dt>
-                  <dd><?php echo $value['id_card']; ?></dd>
-                  <dt>address:</dt>
-                  <dd><?php echo $value['age']; ?></dd>
-                  <dt>created:</dt>
-                  <dd><?php echo $value['created']; ?></dd>
+                  <dt>id card:</dt> <dd><?php echo $value['id_card']; ?></dd>
+                  <dt>address:</dt> <dd><?php echo $value['age']; ?></dd>
+                  <dt>created:</dt> <dd><?php echo $value['created']; ?></dd>
                 </dl>
               </p>
             </a>
           <?php endforeach; ?>
         </div>
-
       </div>
       <div class="box-footer clearfix"></div>
     </div>
-
   </div>
   <div class="col-md-4">
     <div class="box box-info">
@@ -57,7 +51,7 @@
       <div class="box-footer clearfix">
         <?=anchor('admin/labs','<i class="fa fa-refresh"></i>',array('class'=>'btn btn-default'));?>
         <span class="pull-right">
-          <?=form_submit('','Submit',array('class'=>'btn btn-success',''=>'','autocomplete'=>'off','disabled'=>TRUE));?>
+          <?=form_submit('','Submit',array('class'=>'btn btn-success','autocomplete'=>'off','disabled'=>TRUE));?>
         </span>
       </div>
     </div>

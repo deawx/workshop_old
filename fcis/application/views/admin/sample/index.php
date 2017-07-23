@@ -3,14 +3,7 @@
     <div class="box box-primary">
       <div class="box-header">  <h3 class="box-title">Search for Inpatient <small>total : <?php echo count($results); ?> record(s)</small></h3> </div>
       <div class="box-body">
-        <?php echo form_open('#',array('class'=>'form-horizontal')); ?>
-        <div class="form-group">
-          <?php echo form_label('case:','case',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <?=form_dropdown(array('name'=>'case','class'=>'form-control','onchange'=>"window.location='sample?case='+this.value"),array('inpatient'=>'INPATIENT','outpatient'=>'OUTPATIENT'),set_value('case',($this->input->get('case'))));?>
-          </div>
-        </div>
-        <?php echo form_close(); ?>
+        <?php $this->load->view('admin/sample/_search'); ?>
         <?php echo form_open(uri_string(),array('method'=>'get','class'=>'form-horizontal')); ?>
         <div class="form-group">
           <?php echo form_label('type here:','',array('class'=>'control-label col-md-2')); ?>
@@ -49,7 +42,6 @@
       </div>
       <div class="box-footer clearfix"></div>
     </div>
-
   </div>
   <div class="col-md-4">
     <div class="box box-info">

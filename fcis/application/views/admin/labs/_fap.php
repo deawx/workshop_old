@@ -1,79 +1,83 @@
 <?php echo form_fieldset('APC Gene'); ?>
 <div class="form-group">
-  <?php echo form_label('exon:','exon',array('class'=>'control-label col-md-2')); ?>
+  <?php echo form_label('exon:','apc_exon',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php $dropdown_exon = array_combine(range('1','15'),range('1','15')); ?>
-    <?php echo form_dropdown(array('name'=>'exon','class'=>'form-control'),$dropdown_exon,set_value('exon')); ?>
+    <?php $dropdown_exon[''] = 'เลือกรายการ';
+      foreach (range('1','15') as $key => $value) $dropdown_exon[++$key] = $value; ?>
+    <?php echo form_dropdown(array('name'=>'apc_exon','class'=>'form-control'),$dropdown_exon,set_value('apc_exon',$labs['apc_exon'])); ?>
     <p class="help-block"></p>
   </div>
-  <?php echo form_label('intron:','intron',array('class'=>'control-label col-md-2')); ?>
+  <?php echo form_label('intron:','apc_intron',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php $dropdown_exon = array_combine(range('1','14'),range('1','14')); ?>
-    <?php echo form_dropdown(array('name'=>'intron','class'=>'form-control'),$dropdown_exon,set_value('intron')); ?>
-    <p class="help-block"></p>
-  </div>
-</div>
-<div class="form-group">
-  <?php echo form_label('position codon:','codon',array('class'=>'control-label col-md-2')); ?>
-  <div class="col-md-4">
-    <?php echo form_input(array('name'=>'codon','class'=>'form-control'),set_value('codon')); ?>
-    <p class="help-block"></p>
-  </div>
-  <?php echo form_label('position amino acid:','amino_acid',array('class'=>'control-label col-md-2')); ?>
-  <div class="col-md-4">
-    <?php echo form_input(array('name'=>'amino_acid','class'=>'form-control'),set_value('amino_acid')); ?>
+    <?php $dropdown_intron[''] = 'เลือกรายการ';
+      foreach (range('1','14') as $key => $value) $dropdown_intron[++$key] = $value; ?>
+    <?php echo form_dropdown(array('name'=>'apc_intron','class'=>'form-control'),$dropdown_intron,set_value('apc_intron',$labs['apc_intron'])); ?>
     <p class="help-block"></p>
   </div>
 </div>
 <div class="form-group">
-  <?php echo form_label('type of mutation:','type_mutation',array('class'=>'control-label col-md-2')); ?>
+  <?php echo form_label('position codon:','apc_codon',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php echo form_input(array('name'=>'type_mutation','class'=>'form-control typeahead','autocomplete'=>'off'),set_value('')); ?>
+    <?php echo form_input(array('name'=>'apc_codon','class'=>'form-control'),set_value('apc_codon',$labs['apc_codon'])); ?>
     <p class="help-block"></p>
   </div>
-  <?php echo form_label('effect of mutation:','effect_mutation',array('class'=>'control-label col-md-2')); ?>
+  <?php echo form_label('position amino acid:','apc_amino_acid',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php echo form_input(array('name'=>'effect_mutation','class'=>'form-control typeahead','autocomplete'=>'off'),set_value('')); ?>
+    <?php echo form_input(array('name'=>'apc_amino_acid','class'=>'form-control'),set_value('apc_amino_acid',$labs['apc_amino_acid'])); ?>
+    <p class="help-block"></p>
+  </div>
+</div>
+<div class="form-group">
+  <?php echo form_label('type of mutation:','apc_type_mutation',array('class'=>'control-label col-md-2')); ?>
+  <div class="col-md-4">
+    <?php echo form_input(array('name'=>'apc_type_mutation','class'=>'form-control apc_type_mutation','autocomplete'=>'off'),set_value('apc_type_mutation',$labs['apc_type_mutation'])); ?>
+    <p class="help-block"></p>
+  </div>
+  <?php echo form_label('effect of mutation:','apc_effect_mutation',array('class'=>'control-label col-md-2')); ?>
+  <div class="col-md-4">
+    <?php echo form_input(array('name'=>'apc_effect_mutation','class'=>'form-control effect_mutation','autocomplete'=>'off'),set_value('apc_effect_mutation',$labs['apc_effect_mutation'])); ?>
     <p class="help-block"></p>
   </div>
 </div>
 <?php echo form_fieldset_close(); ?>
 <?php echo form_fieldset('MUTYH Gene'); ?>
 <div class="form-group">
-  <?php echo form_label('exon:','exon',array('class'=>'control-label col-md-2')); ?>
+  <?php echo form_label('exon:','mutyh_exon',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php $dropdown_exon = array_combine(range('1','15'),range('1','15')); ?>
-    <?php echo form_dropdown(array('name'=>'exon','class'=>'form-control'),$dropdown_exon,set_value('exon')); ?>
+    <?php $dropdown_exon[''] = 'เลือกรายการ';
+      foreach (range('1','16') as $key => $value) $dropdown_intron[++$key] = $value; ?>
+    <?php echo form_dropdown(array('name'=>'mutyh_exon','class'=>'form-control'),$dropdown_exon,set_value('mutyh_exon',$labs['mutyh_exon'])); ?>
     <p class="help-block"></p>
   </div>
-  <?php echo form_label('intron:','intron',array('class'=>'control-label col-md-2')); ?>
+  <?php echo form_label('intron:','mutyh_intron',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php $dropdown_exon = array_combine(range('1','14'),range('1','14')); ?>
-    <?php echo form_dropdown(array('name'=>'intron','class'=>'form-control'),$dropdown_exon,set_value('intron')); ?>
-    <p class="help-block"></p>
-  </div>
-</div>
-<div class="form-group">
-  <?php echo form_label('position codon:','codon',array('class'=>'control-label col-md-2')); ?>
-  <div class="col-md-4">
-    <?php echo form_input(array('name'=>'codon','class'=>'form-control'),set_value('codon')); ?>
-    <p class="help-block"></p>
-  </div>
-  <?php echo form_label('position amino acid:','amino_acid',array('class'=>'control-label col-md-2')); ?>
-  <div class="col-md-4">
-    <?php echo form_input(array('name'=>'amino_acid','class'=>'form-control'),set_value('amino_acid')); ?>
+    <?php $dropdown_intron[''] = 'เลือกรายการ';
+      foreach (range('1','15') as $key => $value) $dropdown_intron[++$key] = $value; ?>
+    <?php echo form_dropdown(array('name'=>'mutyh_intron','class'=>'form-control'),$dropdown_intron,set_value('mutyh_intron',$labs['mutyh_intron'])); ?>
     <p class="help-block"></p>
   </div>
 </div>
 <div class="form-group">
-  <?php echo form_label('type of mutation:','type_mutation',array('class'=>'control-label col-md-2')); ?>
+  <?php echo form_label('position codon:','mutyh_codon',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php echo form_input(array('name'=>'type_mutation','class'=>'form-control typeahead','autocomplete'=>'off'),set_value('')); ?>
+    <?php echo form_input(array('name'=>'mutyh_codon','class'=>'form-control'),set_value('mutyh_codon',$labs['mutyh_codon'])); ?>
     <p class="help-block"></p>
   </div>
-  <?php echo form_label('effect of mutation:','effect_mutation',array('class'=>'control-label col-md-2')); ?>
+  <?php echo form_label('position amino acid:','mutyh_amino_acid',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-4">
-    <?php echo form_input(array('name'=>'effect_mutation','class'=>'form-control typeahead','autocomplete'=>'off'),set_value('')); ?>
+    <?php echo form_input(array('name'=>'mutyh_amino_acid','class'=>'form-control'),set_value('mutyh_amino_acid',$labs['mutyh_amino_acid'])); ?>
+    <p class="help-block"></p>
+  </div>
+</div>
+<div class="form-group">
+  <?php echo form_label('type of mutation:','mutyh_type_mutation',array('class'=>'control-label col-md-2')); ?>
+  <div class="col-md-4">
+    <?php echo form_input(array('name'=>'mutyh_type_mutation','class'=>'form-control mutyh_type_mutation','autocomplete'=>'off'),set_value('mutyh_type_mutation',$labs['mutyh_type_mutation'])); ?>
+    <p class="help-block"></p>
+  </div>
+  <?php echo form_label('effect of mutation:','mutyh_effect_mutation',array('class'=>'control-label col-md-2')); ?>
+  <div class="col-md-4">
+    <?php echo form_input(array('name'=>'mutyh_effect_mutation','class'=>'form-control effect_mutation','autocomplete'=>'off'),set_value('mutyh_effect_mutation',$labs['mutyh_effect_mutation'])); ?>
     <p class="help-block"></p>
   </div>
 </div>
@@ -82,10 +86,8 @@
 <div class="form-group">
   <?php echo form_label('negative:','negative',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-10">
-    <div class="radio">
-      <label><?php echo form_checkbox(array('name'=>'negative','class'=>'form-control'),''); ?>Negative</label>
-      <p class="help-block"></p>
-    </div>
+    <div class="checkbox"> <label><?php echo form_checkbox(array('name'=>'negative','class'=>'form-control'),'negative',set_checkbox('negative','negative',($labs['negative'] === 'negative'))); ?>negative</label> </div>
+    <p class="help-block"></p>
   </div>
 </div>
 <?php echo form_fieldset_close(); ?>
@@ -130,9 +132,6 @@
   </div>
 </div>
 
-<?=link_tag('assets/admin/plugins/dropzone/dropzone.min.css');?>
-<?=link_tag('assets/admin/plugins/dropzone/basic.min.css');?>
-<?=script_tag('assets/admin/plugins/dropzone/dropzone.min.js');?>
 <?=script_tag('assets/admin/plugins/typeahead/typeahead.min.js');?>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -151,30 +150,57 @@ $(document).ready(function() {
       });
     }
   };
-  var $input = $(".typeahead");
-  $input.typeahead({
+  var apc_type_mutation = $(".apc_type_mutation");
+  apc_type_mutation.typeahead({
     source: [
-      {id: "test1", name: "test1"},
-      {id: "test2", name: "test2"},
-      {id: "test3", name: "test3"},
-      {id: "test4", name: "test4"},
-      {id: "test5", name: "test5"}
+      {id: "substitution", name: "substitution"},
+      {id: "deletion", name: "deletion"},
+      {id: "insertion", name: "insertion"},
+      {id: "duplication", name: "duplication"},
+      {id: "Indel", name: "Indel"},
+      {id: "deletion-large (>1exon)", name: "deletion-large (>1exon)"},
+      {id: "deletion-small (1exon)", name: "deletion-small (1exon)"},
+      {id: "insertion-large (>1exon)", name: "insertion-large (>1exon)"},
+      {id: "insertion-small (1exon)", name: "insertion-small (1exon)"},
+      {id: "point mutation", name: "point mutation"},
+      {id: "Intronic variations", name: "Intronic variations"},
+      <?php foreach ($apc_type_mutation as $key => $value) : ?>
+      {id: "<?=$value['apc_type_mutation']?>", name: "<?=$value['apc_type_mutation']?>"},
+      <?php endforeach; ?>
     ],
     autoSelect: true
   });
-  $input.change(function() {
-    var current = $input.typeahead("getActive");
-    if (current) {
-      // Some item from your model is active!
-      if (current.name == $input.val()) {
-        // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
-      } else {
-        // This means it is only a partial match, you can either add a new item
-        // or take the active if you don't want new items
-      }
-    } else {
-      // Nothing is active so it is a new value (or maybe empty value)
-    }
+  var mutyh_type_mutation = $(".mutyh_type_mutation");
+  mutyh_type_mutation.typeahead({
+    source: [
+      {id: "substitution", name: "substitution"},
+      {id: "deletion", name: "deletion"},
+      {id: "insertion", name: "insertion"},
+      {id: "duplication", name: "duplication"},
+      {id: "Indel", name: "Indel"},
+      {id: "deletion-large (>1exon)", name: "deletion-large (>1exon)"},
+      {id: "deletion-small (1exon)", name: "deletion-small (1exon)"},
+      {id: "insertion-large (>1exon)", name: "insertion-large (>1exon)"},
+      {id: "insertion-small (1exon)", name: "insertion-small (1exon)"},
+      {id: "point mutation", name: "point mutation"},
+      {id: "Intronic variations", name: "Intronic variations"},
+      <?php foreach ($mutyh_type_mutation as $key => $value) : ?>
+      {id: "<?=$value['mutyh_type_mutation']?>", name: "<?=$value['mutyh_type_mutation']?>"},
+      <?php endforeach; ?>
+    ],
+    autoSelect: true
+  });
+  var effect_mutation = $(".effect_mutation");
+  effect_mutation.typeahead({
+    source: [
+      {id: "Nonsense", name: "Nonsense"},
+      {id: "frameshift", name: "frameshift"},
+      {id: "missense", name: "missense"},
+      {id: "deletion, large", name: "deletion, large"},
+      {id: "splice mutation", name: "splice mutation"},
+      {id: "silence", name: "silence"}
+    ],
+    autoSelect: true
   });
 });
 </script>

@@ -42,6 +42,21 @@
 <?=script_tag('assets/admin/plugins/typeahead/typeahead.min.js');?>
 <script type="text/javascript">
   $(document).ready(function() {
+    Dropzone.options.dropzoneUpload = {
+      parallelUploads: '10',
+      maxFilesize: '1',
+      maxFiles: '10',
+      params: { lab_id: '<?php echo $this->uri->segment('4'); ?>' },
+      acceptedFiles: 'image/*',
+      autoProcessQueue: false,
+      init: function() {
+        var submitButton = document.querySelector("#dropzone-submit")
+        myDropzone = this;
+        submitButton.addEventListener("click", function() {
+          myDropzone.processQueue();
+        });
+      }
+    };
     var $input = $(".typeahead");
     $input.typeahead({
       source: [

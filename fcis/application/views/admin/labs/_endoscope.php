@@ -1,18 +1,15 @@
 <?php echo form_fieldset('Result'); ?>
 <div class="form-group">
-  <?php echo form_label('endoscope result:','endoscope_result',array('class'=>'control-label col-md-2')); ?>
+  <?php echo form_label('endoscope result:','endoscope',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-10">
     <div class="radio-inline">
-      <label><?php echo form_radio(array('name'=>'endoscope_result','class'=>'form-control'),'',TRUE); ?>normal</label>
-      <p class="help-block"></p>
+      <label><?php echo form_radio(array('name'=>'endoscope','class'=>'form-control'),'normal',set_radio('endoscope','normal',($labs['endoscope'] === 'normal'))); ?>normal</label>
     </div>
     <div class="radio-inline">
-      <label><?php echo form_radio(array('name'=>'endoscope_result','class'=>'form-control'),''); ?>polyp</label>
-      <p class="help-block"></p>
+      <label><?php echo form_radio(array('name'=>'endoscope','class'=>'form-control'),'polyp',set_radio('endoscope','polyp',($labs['endoscope'] === 'polyp'))); ?>polyp</label>
     </div>
     <div class="radio-inline">
-      <label><?php echo form_radio(array('name'=>'endoscope_result','class'=>'form-control'),''); ?>tumor</label>
-      <p class="help-block"></p>
+      <label><?php echo form_radio(array('name'=>'endoscope','class'=>'form-control'),'tumor',set_radio('endoscope','tumor',($labs['endoscope'] === 'tumor'))); ?>tumor</label>
     </div>
   </div>
 </div>
@@ -58,9 +55,6 @@
   </div>
 </div>
 
-<?=link_tag('assets/admin/plugins/dropzone/dropzone.min.css');?>
-<?=link_tag('assets/admin/plugins/dropzone/basic.min.css');?>
-<?=script_tag('assets/admin/plugins/dropzone/dropzone.min.js');?>
 <script type="text/javascript">
 $(document).ready(function() {
   Dropzone.options.dropzoneUpload = {

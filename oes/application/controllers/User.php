@@ -70,6 +70,7 @@ class User extends Public_Controller {
 
 	function login()
 	{
+		dump($this->session->userdata());
 		if ($this->session->login)
 			redirect();
 
