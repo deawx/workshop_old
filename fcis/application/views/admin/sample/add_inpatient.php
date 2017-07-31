@@ -15,8 +15,8 @@
           <p class="list-group-item-text">
             <dl class="dl-horizontal">
               <dt>id card:</dt> <dd><?php echo $patient['id_card']; ?></dd>
-              <dt>address:</dt> <dd><?php echo $patient['age']; ?></dd>
-              <dt>created:</dt> <dd><?php echo $patient['created']; ?></dd>
+              <dt>created:</dt> <dd><?php echo ($patient['created']) ? mdate('%d/%m/%Y',$patient['created']) : '-'; ?></dd>
+              <dt>updated:</dt> <dd><?php echo ($patient['updated']) ? mdate('%d/%m/%Y',$patient['updated']) : '-'; ?></dd>
             </dl>
           </p>
         </div>

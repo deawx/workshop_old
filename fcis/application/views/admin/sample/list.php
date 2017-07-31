@@ -1,4 +1,5 @@
 <div class="row">
+  <div class="col-md-12"> <?php echo $this->session->flashdata('message'); ?> </div>
   <div class="col-md-12">
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
@@ -31,7 +32,13 @@
                 ​<?php foreach ($samples as $key => $value) : ?>
                   <tbody>
                     <tr>
-                      <td></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
                     </tr>
                   </tbody>
                 <?php endforeach; ?>
@@ -52,7 +59,15 @@
                 ​<?php foreach ($samples as $key => $value) : ?>
                   <tbody>
                     <tr>
-                      <td></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
+                      <td><?php echo $key; ?></td>
                     </tr>
                   </tbody>
                 <?php endforeach; ?>

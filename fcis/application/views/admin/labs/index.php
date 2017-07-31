@@ -28,8 +28,8 @@
               <p class="list-group-item-text">
                 <dl class="dl-horizontal">
                   <dt>id card:</dt> <dd><?php echo $value['id_card']; ?></dd>
-                  <dt>address:</dt> <dd><?php echo $value['age']; ?></dd>
-                  <dt>created:</dt> <dd><?php echo $value['created']; ?></dd>
+                  <dt>created:</dt> <dd><?php echo ($value['created']) ? mdate('%d/%m/%Y',$value['created']) : '-'; ?></dd>
+                  <dt>updated:</dt> <dd><?php echo ($value['updated']) ? mdate('%d/%m/%Y',$value['updated']) : '-'; ?></dd>
                 </dl>
               </p>
             </a>

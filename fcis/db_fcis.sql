@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 10, 2017 at 12:38 PM
+-- Generation Time: Jul 24, 2017 at 02:27 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -64,6 +64,20 @@ CREATE TABLE `assets_patients` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `clinic`
+--
+
+CREATE TABLE `clinic` (
+  `id` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
+  `fap` text COLLATE utf8_unicode_ci NOT NULL,
+  `hnpcc` text COLLATE utf8_unicode_ci NOT NULL,
+  `pjsjps` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `groups`
 --
 
@@ -82,6 +96,65 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (2, 'admin', 'Administrator'),
 (3, 'editor', 'Editor'),
 (4, 'member', 'General User');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `labs`
+--
+
+CREATE TABLE `labs` (
+  `id` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
+  `endoscope` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `apc_exon` int(3) NOT NULL,
+  `apc_intron` int(3) NOT NULL,
+  `apc_codon` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `apc_amino_acid` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `apc_type_mutation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `apc_effect_mutation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `mutyh_exon` int(3) NOT NULL,
+  `mutyh_intron` int(3) NOT NULL,
+  `mutyh_codon` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `mutyh_amino_acid` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `mutyh_type_mutation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `mutyh_effect_mutation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `negative` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `msi_h` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `msi_l` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `msi_s` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `msi_methylation` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `ihc` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `gene` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `germline` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `germline_exon` int(3) NOT NULL,
+  `germline_intron` int(3) NOT NULL,
+  `germline_codon` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `germline_amino_acid` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `germline_type_mutation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `germline_effect_mutation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `somatic` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `somatic_exon` int(3) NOT NULL,
+  `somatic_intron` int(3) NOT NULL,
+  `somatic_codon` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `somatic_amino_acid` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `somatic_type_mutation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `somatic_effect_mutation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `stk11_exon` int(3) NOT NULL,
+  `stk11_intron` int(3) NOT NULL,
+  `stk11_codon` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `stk11_amino_acid` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `stk11_type_mutation` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `stk11_effect_mutation` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `labs`
+--
+
+INSERT INTO `labs` (`id`, `patient_id`, `endoscope`, `apc_exon`, `apc_intron`, `apc_codon`, `apc_amino_acid`, `apc_type_mutation`, `apc_effect_mutation`, `mutyh_exon`, `mutyh_intron`, `mutyh_codon`, `mutyh_amino_acid`, `mutyh_type_mutation`, `mutyh_effect_mutation`, `negative`, `msi_h`, `msi_l`, `msi_s`, `msi_methylation`, `ihc`, `gene`, `germline`, `germline_exon`, `germline_intron`, `germline_codon`, `germline_amino_acid`, `germline_type_mutation`, `germline_effect_mutation`, `somatic`, `somatic_exon`, `somatic_intron`, `somatic_codon`, `somatic_amino_acid`, `somatic_type_mutation`, `somatic_effect_mutation`, `stk11_exon`, `stk11_intron`, `stk11_codon`, `stk11_amino_acid`, `stk11_type_mutation`, `stk11_effect_mutation`) VALUES
+(2, 1, 'normal', 1, 2, 'test', 'test', 'test', 'test', 3, 2, 'test', 'test', 'test', 'test', 'negative', 'BAT25', 'BAT26', '', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, '', '', '', '', 4, 3, 'test', 'test', 'insertion-large (>1exon)', 'silence'),
+(5, 6, 'none', 4, 5, '123', '123', '123', '123', 5, 4, '123', '123', '123', '123', 'none', '', '', '', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, '', '', '', '', 0, 0, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -147,6 +220,27 @@ INSERT INTO `patients` (`id`, `user_id`, `types`, `times`, `groups`, `hn`, `id_c
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `samples`
+--
+
+CREATE TABLE `samples` (
+  `id` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
+  `institution` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `department` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `sample_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `blood_ml` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `blood_code` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `fresh_tissue` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `fresh_tissue_code` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `ffpe_code` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `fcc` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `ihc` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `settings`
 --
 
@@ -201,8 +295,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '::1', 'special', '$2y$08$6PwzsRJmKgjTWuabxlyDCuQf.IvqLbkFNUBz57h.oncNIo1cIAaF.', NULL, 'special@email.com', NULL, NULL, NULL, 'y30WBBENGNrIhcA26lV6vO', 1496754920, 1499661917, 1, 'Cristiano', 'Ronaldo', 'SPECIAL', '0000000000'),
-(2, '::1', 'admin', '$2y$08$uHhUqYzF9fSYhCRQBP8gRu8t0xGsD.JyP8fot8uFrzb8ddVU21xLG', NULL, 'admin@email.com', '8c56e53216f8e5288687c98a0f2aa8657dff6445', NULL, NULL, NULL, 1496756561, 1497448710, 1, 'Zinedine', 'Zedane', 'ADMIN', '0000000000'),
+(1, '::1', 'special', '$2y$08$6PwzsRJmKgjTWuabxlyDCuQf.IvqLbkFNUBz57h.oncNIo1cIAaF.', NULL, 'special@email.com', NULL, NULL, NULL, 'Rq2em73n.znxBR8nb2.jse', 1496754920, 1500899178, 1, 'Cristiano', 'Ronaldo', 'SPECIAL', '0000000000'),
+(2, '::1', 'admin', '$2y$08$uHhUqYzF9fSYhCRQBP8gRu8t0xGsD.JyP8fot8uFrzb8ddVU21xLG', NULL, 'admin@email.com', '8c56e53216f8e5288687c98a0f2aa8657dff6445', NULL, NULL, 'OcrjhG6DOUwD6dvHT1hfbe', 1496756561, 1500880563, 1, 'Zinedine', 'Zedane', 'ADMIN', '0000000000'),
 (3, '::1', 'editor', '$2y$08$LVvHxFHDq9CmPzET1qzFfuPsoV7ZGwEOFvoWrTcPHPi7lDwo82yoK', NULL, 'editor@email.com', 'c959066d4bd6854f4602860b9fcdf7b3ae867f90', NULL, NULL, NULL, 1496756963, 1496756963, 1, 'Mario', 'Balotelli', 'EDITOR', '2222222222'),
 (4, '::1', 'member', '$2y$08$BodKuh8mpB8w0XQS1aDMGeIxBbNXL62.XOPTJ8/QV1a1VBtczLEcC', NULL, 'member@email.com', NULL, NULL, NULL, NULL, 1496755255, 1496755255, 1, 'Lionel', 'Messi', 'MEMBER', '1111111111');
 
@@ -263,9 +357,21 @@ ALTER TABLE `assets_patients`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `clinic`
+--
+ALTER TABLE `clinic`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `groups`
 --
 ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `labs`
+--
+ALTER TABLE `labs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -278,6 +384,12 @@ ALTER TABLE `login_attempts`
 -- Indexes for table `patients`
 --
 ALTER TABLE `patients`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `samples`
+--
+ALTER TABLE `samples`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -319,10 +431,20 @@ ALTER TABLE `assets`
 ALTER TABLE `assets_patients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `clinic`
+--
+ALTER TABLE `clinic`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `labs`
+--
+ALTER TABLE `labs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --
@@ -333,6 +455,11 @@ ALTER TABLE `login_attempts`
 --
 ALTER TABLE `patients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `samples`
+--
+ALTER TABLE `samples`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `settings`
 --

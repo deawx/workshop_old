@@ -14,7 +14,7 @@
     <div class="form-group">
       <?php echo form_label('S:','msi_s',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-4">
-        <?php echo form_input(array('name'=>'msi_s','class'=>'form-control msi_s','id'=>'msi_s'),set_value('msi_s',$labs['msi_s'])); ?>
+        <?php echo form_input(array('name'=>'msi_s','class'=>'form-control msi_s','id'=>'msi_s'),set_value('msi_s',$labs['msi_s'],FALSE)); ?>
       </div>
       <?php echo form_label('MLH1 methylation:','',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-4">
@@ -31,7 +31,7 @@
     <div class="form-group">
       <?php echo form_label('ihc:','ihc',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-4">
-        <?php echo form_input(array('name'=>'ihc','class'=>'form-control ihc'),set_value('ihc')); ?>
+        <?php echo form_input(array('name'=>'ihc','class'=>'form-control ihc'),set_value('ihc',$labs['ihc'],FALSE)); ?>
       </div>
     </div>
     <?php echo form_fieldset_close(); ?>
@@ -49,7 +49,7 @@
         <div class="form-group">
           <?php echo form_label('germline (mmr gene):','germline',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-10">
-            <?php echo form_input(array('name'=>'germline','class'=>'form-control germline','autocomplete'=>'off'),set_value('germline',$labs['germline'])); ?>
+            <?php echo form_input(array('name'=>'germline','class'=>'form-control germline','autocomplete'=>'off'),set_value('germline',$labs['germline'],FALSE)); ?>
           </div>
         </div>
         <div class="form-group">
@@ -57,45 +57,45 @@
           <div class="col-md-4">
             <?php $dropdown_exon[''] = 'เลือกรายการ';
               foreach (range('1','30') as $key => $value) $dropdown_exon[++$key] = $value; ?>
-            <?php echo form_dropdown(array('name'=>'germline_exon','class'=>'form-control'),$dropdown_exon,set_value('germline_exon',$labs['germline_exon'])); ?>
+            <?php echo form_dropdown(array('name'=>'germline_exon','class'=>'form-control'),$dropdown_exon,set_select('germline_exon',$labs['germline_exon'])); ?>
             <p class="help-block"></p>
           </div>
           <?php echo form_label('intron:','germline_intron',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
             <?php $dropdown_intron[''] = 'เลือกรายการ';
               foreach (range('1','30') as $key => $value) $dropdown_intron[++$key] = $value; ?>
-            <?php echo form_dropdown(array('name'=>'germline_intron','class'=>'form-control'),$dropdown_intron,set_value('germline_intron',$labs['germline_intron'])); ?>
+            <?php echo form_dropdown(array('name'=>'germline_intron','class'=>'form-control'),$dropdown_intron,set_select('germline_intron',$labs['germline_intron'])); ?>
             <p class="help-block"></p>
           </div>
         </div>
         <div class="form-group">
           <?php echo form_label('position codon:','germline_codon',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
-            <?php echo form_input(array('name'=>'germline_codon','class'=>'form-control'),set_value('germline_codon',$labs['germline_codon'])); ?>
+            <?php echo form_input(array('name'=>'germline_codon','class'=>'form-control'),set_value('germline_codon',$labs['germline_codon'],FALSE)); ?>
             <p class="help-block"></p>
           </div>
           <?php echo form_label('position amino acid:','germline_amino_acid',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
-            <?php echo form_input(array('name'=>'germline_amino_acid','class'=>'form-control'),set_value('germline_amino_acid',$labs['germline_amino_acid'])); ?>
+            <?php echo form_input(array('name'=>'germline_amino_acid','class'=>'form-control'),set_value('germline_amino_acid',$labs['germline_amino_acid'],FALSE)); ?>
             <p class="help-block"></p>
           </div>
         </div>
         <div class="form-group">
           <?php echo form_label('type of mutation:','germline_type_mutation',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
-            <?php echo form_input(array('name'=>'germline_type_mutation','class'=>'form-control germline_type_mutation','autocomplete'=>'off'),set_value('germline_type_mutation',$labs['germline_type_mutation'])); ?>
+            <?php echo form_input(array('name'=>'germline_type_mutation','class'=>'form-control germline_type_mutation','autocomplete'=>'off'),set_value('germline_type_mutation',$labs['germline_type_mutation'],FALSE)); ?>
             <p class="help-block"></p>
           </div>
           <?php echo form_label('effect of mutation:','germline_effect_mutation',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
-            <?php echo form_input(array('name'=>'germline_effect_mutation','class'=>'form-control effect_mutation','autocomplete'=>'off'),set_value('germline_effect_mutation',$labs['germline_effect_mutation'])); ?>
+            <?php echo form_input(array('name'=>'germline_effect_mutation','class'=>'form-control effect_mutation','autocomplete'=>'off'),set_value('germline_effect_mutation',$labs['germline_effect_mutation'],FALSE)); ?>
             <p class="help-block"></p>
           </div>
         </div>
         <div class="form-group">
           <?php echo form_label('somatic (tumor15):','somatic',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-10">
-            <?php echo form_input(array('name'=>'somatic','class'=>'form-control somatic','autocomplete'=>'off'),set_value('somatic',$labs['somatic'])); ?>
+            <?php echo form_input(array('name'=>'somatic','class'=>'form-control somatic','autocomplete'=>'off'),set_value('somatic',$labs['somatic'],FALSE)); ?>
           </div>
         </div>
         <div class="form-group">
@@ -103,38 +103,38 @@
           <div class="col-md-4">
             <?php $dropdown_exon[''] = 'เลือกรายการ';
             foreach (range('1','30') as $key => $value) $dropdown_exon[++$key] = $value; ?>
-            <?php echo form_dropdown(array('name'=>'somatic_exon','class'=>'form-control'),$dropdown_exon,set_value('somatic_exon',$labs['somatic_exon'])); ?>
+            <?php echo form_dropdown(array('name'=>'somatic_exon','class'=>'form-control'),$dropdown_exon,set_value('somatic_exon',$labs['somatic_exon'],FALSE)); ?>
             <p class="help-block"></p>
           </div>
           <?php echo form_label('intron:','somatic_intron',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
             <?php $dropdown_intron[''] = 'เลือกรายการ';
             foreach (range('1','30') as $key => $value) $dropdown_intron[++$key] = $value; ?>
-            <?php echo form_dropdown(array('name'=>'somatic_intron','class'=>'form-control'),$dropdown_intron,set_value('somatic_intron',$labs['somatic_intron'])); ?>
+            <?php echo form_dropdown(array('name'=>'somatic_intron','class'=>'form-control'),$dropdown_intron,set_value('somatic_intron',$labs['somatic_intron'],FALSE)); ?>
             <p class="help-block"></p>
           </div>
         </div>
         <div class="form-group">
           <?php echo form_label('position codon:','somatic_codon',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
-            <?php echo form_input(array('name'=>'somatic_codon','class'=>'form-control'),set_value('somatic_codon',$labs['somatic_codon'])); ?>
+            <?php echo form_input(array('name'=>'somatic_codon','class'=>'form-control'),set_value('somatic_codon',$labs['somatic_codon'],FALSE)); ?>
             <p class="help-block"></p>
           </div>
           <?php echo form_label('position amino acid:','somatic_amino_acid',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
-            <?php echo form_input(array('name'=>'somatic_amino_acid','class'=>'form-control'),set_value('somatic_amino_acid',$labs['somatic_amino_acid'])); ?>
+            <?php echo form_input(array('name'=>'somatic_amino_acid','class'=>'form-control'),set_value('somatic_amino_acid',$labs['somatic_amino_acid'],FALSE)); ?>
             <p class="help-block"></p>
           </div>
         </div>
         <div class="form-group">
           <?php echo form_label('type of mutation:','somatic_type_mutation',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
-            <?php echo form_input(array('name'=>'somatic_type_mutation','class'=>'form-control somatic_type_mutation','autocomplete'=>'off'),set_value('somatic_type_mutation',$labs['somatic_type_mutation'])); ?>
+            <?php echo form_input(array('name'=>'somatic_type_mutation','class'=>'form-control somatic_type_mutation','autocomplete'=>'off'),set_value('somatic_type_mutation',$labs['somatic_type_mutation'],FALSE)); ?>
             <p class="help-block"></p>
           </div>
           <?php echo form_label('effect of mutation:','somatic_effect_mutation',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
-            <?php echo form_input(array('name'=>'somatic_effect_mutation','class'=>'form-control effect_mutation','autocomplete'=>'off'),set_value('somatic_effect_mutation',$labs['somatic_effect_mutation'])); ?>
+            <?php echo form_input(array('name'=>'somatic_effect_mutation','class'=>'form-control effect_mutation','autocomplete'=>'off'),set_value('somatic_effect_mutation',$labs['somatic_effect_mutation'],FALSE)); ?>
             <p class="help-block"></p>
           </div>
         </div>
@@ -143,8 +143,7 @@
     <?php echo form_fieldset_close(); ?>
   </div>
 </div>
-
-<?php print_data($labs); ?>
+<?php $this->load->view('admin/labs/assets'); ?>
 
 <?=script_tag('assets/admin/plugins/typeahead/typeahead.min.js');?>
 <script type="text/javascript">
@@ -153,9 +152,10 @@ $(document).ready(function() {
     parallelUploads: '10',
     maxFilesize: '1',
     maxFiles: '10',
-    params: { lab_id: '<?php echo $this->uri->segment('4'); ?>' },
-    acceptedFiles: 'image/*',
+    params: { labs_id: '<?php echo $this->uri->segment('4'); ?>' },
+    acceptedFiles: 'image/*,application/pdf,.doc,.docx',
     autoProcessQueue: false,
+    addRemoveLinks: true,
     init: function() {
       var submitButton = document.querySelector("#dropzone-submit")
       myDropzone = this;
@@ -164,7 +164,6 @@ $(document).ready(function() {
       });
     }
   };
-  // continue
   var gene = $('#gene');
   var gene_ctn = $('div#gene_ctn :input');
   <?php if ($labs['gene'] === '') : ?>
@@ -177,7 +176,6 @@ $(document).ready(function() {
       gene_ctn.prop('disabled',true);
     }
   });
-  // continue
   var msi_s = $('input#msi_s');
   var methylation = $('.methylation');
   methylation.iCheck('disable');

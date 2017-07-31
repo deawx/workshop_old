@@ -1,5 +1,6 @@
 <div class="row">
-  <?php echo form_open('admin/sample/add_outpatient',array('class'=>'form-horizontal')); ?>
+  <?php echo form_open(uri_string(),array('class'=>'form-horizontal')); ?>
+  <?php echo form_hidden('id',$sample['id']); ?>
   <div class="col-md-8">
     <div class="box box-primary">
       <div class="box-header">  <h3 class="box-title">Outpatient Details</h3> </div>

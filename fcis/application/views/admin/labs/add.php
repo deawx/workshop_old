@@ -14,8 +14,8 @@
           <p class="list-group-item-text">
             <dl class="dl-horizontal">
               <dt>id card:</dt> <dd><?php echo $patient['id_card']; ?></dd>
-              <dt>address:</dt> <dd><?php echo $patient['age']; ?></dd>
-              <dt>created:</dt> <dd><?php echo $patient['created']; ?></dd>
+              <dt>created:</dt> <dd><?php echo ($patient['created']) ? mdate('%d/%m/%Y',$patient['created']) : '-'; ?></dd>
+              <dt>updated:</dt> <dd><?php echo ($patient['updated']) ? mdate('%d/%m/%Y',$patient['updated']) : '-'; ?></dd>
             </dl>
           </p>
         </div>
@@ -72,7 +72,7 @@
         <?php echo form_open_multipart('admin/labs/upload_'.$tab,array(
           'class'=>'dropzone',
           'id'=>'dropzone-upload',
-          'style'=>'min-height:75px;padding:0;border:1px dotted;background:#f5f5f5;'))?>
+          'style'=>'min-height:75px;padding:0;border:1px dotted;background:#f5f5f5;')); ?>
       </div>
       <div class="box-footer clearfix">
         <span class="pull-right">

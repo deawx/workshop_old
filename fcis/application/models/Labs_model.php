@@ -25,14 +25,14 @@ class Labs_model extends MY_Model {
 
 	function create_labs($post=array(),$id=null)
 	{
-		$exist = $this->db->where('patient_id',$post['patient_id'])->get('labs');
+		$exist = $this->db->where('patient_id',$post['patient_id'])->get($this->table_name);
 		$this->db->set($post);
 
 		if ($exist->num_rows()) :
 			$this->db->where('patient_id',$post['patient_id']);
-			$this->db->update('labs');
+			$this->db->update($this->table_name);
 		else:
-			$this->db->insert('labs');
+			$this->db->insert($this->table_name);
 		endif;
 
 		return ($this->db->affected_rows())
