@@ -12,6 +12,7 @@ class MY_Controller extends CI_Controller {
       'page_header' => '',
       'page_header_small' => '',
       'parent' => '',
+      'menu' => '',
       'meta_tag' => array(),
       'css' => array(),
       'js' => array(),

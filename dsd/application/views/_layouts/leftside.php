@@ -17,37 +17,31 @@
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body style="padding-top:5em;">
 
   <div class="container">
-
     <div class="row">
       <?=$navbar;?>
     </div>
 
     <div class="row">
-
       <div class="col-md-4">
         <?=result_in_array($leftbar);?>
       </div>
-
       <div class="col-md-8">
         <?=result_in_array($header);?>
-
         <?=result_in_array($body);?>
       </div>
-
     </div>
 
     <div class="row">
       <?=$footer;?>
     </div>
-
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <?=result_in_array($js);?>
 
 </body>
