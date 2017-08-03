@@ -12,7 +12,7 @@
           <div id="infoMessage"><?php echo $message;?></div>
           <?php echo form_open("auth/login",array('class'=>'form-horizontal','autocomplete'=>'off'));?>
           <div class="form-group">
-            <?php echo lang('login_identity_label', 'identity',array('class'=>'control-label col-md-4'));?>
+            <?php echo form_label('ชื่อผู้ใช้:', 'identity',array('class'=>'control-label col-md-4'));?>
             <div class="col-md-8">
               <?php echo form_input($identity,'',array('class'=>'form-control'));?>
             </div>

@@ -27,17 +27,28 @@
     <p class="help-block">*ให้เลือกกรณีเคยมีประวัติการเข้าทดสอบ</p>
   </div>
 </div>
+<hr>
+<div class="form-group">
+  <?php echo form_label('ยอมรับการเปิดเผยข้อมูล','',array('class'=>'control-label col-md-4'));?>
+  <div class="col-md-8">
+    <div class="checkbox">
+      <label><?=form_checkbox(array('name'=>''),'');?></label>
+    </div>
+    <p class="help-block">*ข้าพเจ้ายินยอมเปิดเผยข้อมูลส่วนบุคคลให้กับหน่วยงานของรัฐและเอกชนทราบเพื่อประโยชน์ในการจัดหางานและบริหารแรงงานต่อไป</p>
+  </div>
+</div>
 
 <script type="text/javascript">
-$(document).ready(function(){
-  // var tf = $('#tf');
-  // var tf_t = $('#tf_t');
-  // tf.on('change',function(){
-  //   if (this.value === 'เคย') {
-  //     tf_t.attr('disabled',false);
-  //   } else {
-  //     tf_t.attr('disabled',true);
-  //   }
-  // });
+$(function(){
+  var tf = $('#tf');
+  var tf_t = $('#tf_t');
+  tf_t.prop('disabled',true);
+  tf.on('change',function(){
+    if (this.value === 'เคย') {
+      tf_t.prop('disabled',false);
+    } else {
+      tf_t.prop('disabled',true);
+    }
+  });
 });
 </script>
