@@ -4,6 +4,7 @@
     <div class="box box-primary">
       <div class="box-header"> </div>
       <div class="box-body">
+
         <?php echo form_fieldset('Information'); ?>
         <div class="form-group">
           <?php echo form_label('personal id:','id_card',array('class'=>'control-label col-md-2')); ?>
@@ -143,6 +144,7 @@
           </div>
         </div> -->
         <?php echo form_fieldset_close(); ?>
+
         <?php echo form_fieldset('Filtered'); ?>
         <!-- <div class="form-group">
           <?php echo form_label('a month ago activities:','',array('class'=>'control-label col-md-2')); ?>
@@ -214,61 +216,23 @@
         </div> -->
         <div class="form-group">
           <?php echo form_label('how to educate:','',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-10">
-            <div class="radio-inline">
-              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>บรรยาย
-              <p class="help-block"></p>
-            </div>
-            <div class="radio-inline">
-              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>จัดบอร์ด
-              <p class="help-block"></p>
-            </div>
-            <div class="radio-inline">
-              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>ให้ความรู้ คำปรึกษาแนะนำจากบุคลากรและทีมงาน
-              <p class="help-block"></p>
-            </div>
+          <div class="col-md-5">
+            <?php $edu = array(''=>'เลือกรายการ','บรรยาย'=>'บรรยาย','จัดบอร์ด'=>'จัดบอร์ด','ให้ความรู้ คำปรึกษาแนะนำจากบุคลากรและทีมงาน'=>'ให้ความรู้ คำปรึกษาแนะนำจากบุคลากรและทีมงาน');
+            echo form_dropdown(array('name'=>'','class'=>'form-control'),$edu,set_value('')); ?>
           </div>
         </div>
         <div class="form-group">
           <?php echo form_label('assessment:','',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-10">
-            <div class="radio-inline">
-              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>มากที่สุด
-              <p class="help-block"></p>
-            </div>
-            <div class="radio-inline">
-              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>มาก
-              <p class="help-block"></p>
-            </div>
-            <div class="radio-inline">
-              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>ปานกลาง
-              <p class="help-block"></p>
-            </div>
-            <div class="radio-inline">
-              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>น้อย
-              <p class="help-block"></p>
-            </div>
-            <div class="radio-inline">
-              <?php echo form_radio(array('name'=>'','class'=>'form-control'),'',set_value('')); ?>ควรปรับปรุง
-              <p class="help-block"></p>
-            </div>
+          <div class="col-md-5">
+            <?php $ass = array(''=>'เลือกรายการ','มากที่สุด'=>'มากที่สุด','มาก'=>'มาก','ปานกลาง'=>'ปานกลาง','น้อย'=>'น้อย','ควรปรับปรุง'=>'ควรปรับปรุง');
+            echo form_dropdown(array('name'=>'','class'=>'form-control'),$ass,set_value('')); ?>
           </div>
         </div>
         <div class="form-group">
           <?php echo form_label('endoscope result:','endoscope_result',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-10">
-            <div class="radio-inline">
-              <label><?php echo form_radio(array('name'=>'endoscope_result','class'=>'form-control'),''); ?>normal</label>
-              <p class="help-block"></p>
-            </div>
-            <div class="radio-inline">
-              <label><?php echo form_radio(array('name'=>'endoscope_result','class'=>'form-control'),''); ?>polyp</label>
-              <p class="help-block"></p>
-            </div>
-            <div class="radio-inline">
-              <label><?php echo form_radio(array('name'=>'endoscope_result','class'=>'form-control'),''); ?>tumor</label>
-              <p class="help-block"></p>
-            </div>
+          <div class="col-md-5">
+            <?php $res = array(''=>'เลือกรายการ','normal'=>'normal','polyp'=>'polyp','tumor'=>'tumor');
+            echo form_dropdown(array('name'=>'','class'=>'form-control'),$res,set_value('')); ?>
           </div>
         </div>
         <!-- <div class="form-group">
@@ -334,36 +298,44 @@
           </div>
         </div> -->
         <?php echo form_fieldset_close(); ?>
+
         <?php echo form_fieldset('Privileges'); ?>
         <div class="form-group">
           <?php echo form_label('groups:','groups',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-10">
-            <label class="radio-inline">
+            <?php $grp = array(''=>'เลือกรายการ','FAP'=>'FAP','HNPCC'=>'HNPCC','PJS/JPS'=>'PJS/JPS','OTHER'=>'OTHER');
+            echo form_dropdown(array('name'=>'','class'=>'form-control'),$grp,set_value('')); ?>
+            <!-- <div class="radio-inline">
               <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'FAP'); ?> FAP
-            </label>
-            <label class="radio-inline">
+            </div>
+            <div class="radio-inline">
               <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'HNPCC'); ?> HNPCC
-            </label>
-            <label class="radio-inline">
+            </div>
+            <div class="radio-inline">
               <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'PJS/JPS'); ?> PJS/JPS
-            </label>
-            <label class="radio-inline">
+            </div>
+            <div class="radio-inline">
               <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'OTHER'); ?> OTHER
-            </label>
+            </div> -->
           </div>
         </div> <br>
         <div class="form-group">
           <?php echo form_label('types:','types',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-10">
-            <div class="radio col-md-6">
-              <label><?php echo form_radio(array('name'=>'types','class'=>'form-control'),'คนไข้ออกหน่วย'); ?> คนไข้ออกหน่วย</label>
-            </div>
-            <div class="col-md-6">
-              <div class="input-group">
-                <?php echo form_number(array('name'=>'times','class'=>'form-control','placeholder'=>'ครั้งที่'),set_value('times')); ?>
-                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+            <div class="row">
+              <div class="col-md-6">
+                <?php $typ = array(''=>'เลือกรายการ','คนไข้ออกหน่วย'=>'คนไข้ออกหน่วย','กลุ่ม CRC of PSU'=>'กลุ่ม CRC of PSU','คนไข้ CRC ส่งต่อ'=>'คนไข้ CRC ส่งต่อ');
+                echo form_dropdown(array('name'=>'','class'=>'form-control','id'=>'types'),$typ,set_value('')); ?>
               </div>
-              <p class="help-block"></p>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <?php echo form_number(array('name'=>'times','class'=>'form-control','id'=>'times','placeholder'=>'ครั้งที่'),set_value('times')); ?>
+                  <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="radio">
+              <label><?php echo form_radio(array('name'=>'types','class'=>'form-control'),'คนไข้ออกหน่วย'); ?> คนไข้ออกหน่วย</label>
             </div>
             <div class="radio">
               <label><?php echo form_radio(array('name'=>'types','class'=>'form-control'),'กลุ่ม CRC of PSU'); ?> กลุ่ม CRC of PSU</label>
@@ -372,7 +344,7 @@
             <div class="radio">
               <label><?php echo form_radio(array('name'=>'types','class'=>'form-control'),'คนไข้ CRC ส่งต่อ'); ?> คนไข้ CRC ส่งต่อ</label>
               <p class="help-block"></p>
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- <div class="form-group">
@@ -405,8 +377,9 @@
           </div>
         </div> -->
         <?php echo form_fieldset_close(); ?>
-        <!-- <?php echo form_fieldset('Support Money'); ?>
-        <div class="form-group">
+
+        <?php echo form_fieldset('Support Money'); ?>
+        <!-- <div class="form-group">
           <?php echo form_label('all cost:','',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
             <div class="input-group">
@@ -455,8 +428,9 @@
             </div>
           </div>
           <p class="help-block col-md-6">* input number only</p>
-        </div>
-        <?php echo form_fieldset_close(); ?> -->
+        </div> -->
+        <?php echo form_fieldset_close(); ?>
+
       </div>
       <div class="box-footer clearfix"></div>
     </div>
@@ -481,7 +455,7 @@
 
 <!-- <?=script_tag('assets/admin/js/plugins/autoprovince/autoprovince.js');?> -->
 <script type="text/javascript">
-$(document).ready(function() {
+$(function() {
   // $('div#address').AutoProvince({
   //   PROVINCE: '#province',
   //   AMPHUR: '#amphur',
@@ -489,5 +463,17 @@ $(document).ready(function() {
   //   POSTCODE: '#postcode',
   //   arrangeByName: false
   // });
+
+  var types = $('#types');
+  var times = $('#times');
+  times.prop('disabled',true);
+  types.on('change',function(){
+    if (this.value == 'คนไข้ออกหน่วย') {
+      times.prop('disabled',false);
+    } else {
+      times.prop('disabled',true);
+    }
+  });
+
 });
 </script>

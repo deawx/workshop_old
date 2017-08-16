@@ -16,6 +16,15 @@ class Labs extends Admin_Controller {
 		$this->data['page_header'] = 'Labs';
 		$this->data['page_header_small'] = 'details';
 		$this->data['parent_menu'] = 'labs';
+		$this->data['msi_src'] = array();
+		$this->data['type_mutation_src'] = array(''=>'เลือกรายการ',
+			'substitution'=>'substitution','deletion'=>'deletion','insertion'=>'insertion',
+			'duplication'=>'duplication','Indel'=>'Indel','deletion-large (>1exon)'=>'deletion-large (>1exon)',
+			'deletion-small (1exon)'=>'deletion-small (1exon)','insertion-large (>1exon)'=>'insertion-large (>1exon)',
+			'insertion-small (1exon)'=>'insertion-small (1exon)','point mutation'=>'point mutation','Intronic variations'=>'Intronic variations');
+		$this->data['effect_mutation_src'] = array(''=>'เลือกรายการ',
+			'Nonsense'=>'Nonsense','frameshift'=>'frameshift','missense'=>'missense',
+			'deletion, large'=>'deletion, large','splice mutation'=>'splice mutation','silence'=>'silence');
 	}
 
 	function index()
@@ -119,9 +128,11 @@ class Labs extends Admin_Controller {
 			else:
 				$post = $this->input->post();
 				$post['msi_h'] = $this->input->post('msi_h') ? $this->input->post('msi_h') : '';
+				$post['msi_h_methylation'] = ($post['msi_h'] === 'D17S250') ? $this->input->post('msi_h_methylation') : '';
 				$post['msi_l'] = $this->input->post('msi_l') ? $this->input->post('msi_l') : '';
+				$post['msi_l_methylation'] = ($post['msi_l'] === 'D17S250') ? $this->input->post('msi_l_methylation') : '';
 				$post['msi_s'] = $this->input->post('msi_s') ? $this->input->post('msi_s') : '';
-				$post['msi_methylation'] = ($post['msi_s'] === 'D17S250') ? $this->input->post('methylation') : '';
+				$post['msi_s_methylation'] = ($post['msi_s'] === 'D17S250') ? $this->input->post('msi_s_methylation') : '';
 				$post['gene'] = $this->input->post('gene') ? $this->input->post('gene') : '';
 				if ( ! $post['gene']) :
 					$post['germline'] = '';
@@ -146,8 +157,6 @@ class Labs extends Admin_Controller {
 		$this->data['patient'] = $this->patient->search_id($id);
 		$this->data['assets'] = $this->assets->find_gallery('hnpcc',$id);
 		$this->data['labs'] = $this->labs->find_id($id);
-		$this->data['germline_type_mutation'] = $this->labs->find_type('germline_type_mutation');
-		$this->data['somatic_type_mutation'] = $this->labs->find_type('somatic_type_mutation');
 		$this->data['tab'] = 'hnpcc';
 		$this->render('admin/labs/add');
 	}

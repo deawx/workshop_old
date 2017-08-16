@@ -32,7 +32,7 @@ class Schedule extends Private_Controller {
 	function standard($step='1')
 	{
 		$this->session->set_flashdata('warning','');
-		$step = (intval($step) <= 4) ? $step : '1';
+		$step = (intval($step) > 0 && intval($step) <= 5) ? $step : '1';
 		$this->data['step'] = $step;
 		$this->data['prev'] = $step-1;
 		$this->data['next'] = $step+1;

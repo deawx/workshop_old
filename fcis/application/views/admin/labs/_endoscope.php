@@ -1,16 +1,9 @@
 <?php echo form_fieldset('ENDOSCOPE REPORT'); ?>
 <div class="form-group">
   <?php echo form_label('endoscope result:','endoscope',array('class'=>'control-label col-md-2')); ?>
-  <div class="col-md-10">
-    <div class="radio-inline">
-      <label><?php echo form_radio(array('name'=>'endoscope','class'=>'form-control'),'normal',set_radio('endoscope','normal',($labs['endoscope'] === 'normal'))); ?>normal</label>
-    </div>
-    <div class="radio-inline">
-      <label><?php echo form_radio(array('name'=>'endoscope','class'=>'form-control'),'polyp',set_radio('endoscope','polyp',($labs['endoscope'] === 'polyp'))); ?>polyp</label>
-    </div>
-    <div class="radio-inline">
-      <label><?php echo form_radio(array('name'=>'endoscope','class'=>'form-control'),'tumor',set_radio('endoscope','tumor',($labs['endoscope'] === 'tumor'))); ?>tumor</label>
-    </div>
+  <div class="col-md-5">
+    <?php $eds = array(''=>'เลือกรายการ','NORMAL'=>'NORMAL','POLYP'=>'POLYP','TUMOR'=>'TUMOR');
+    echo form_dropdown(array('name'=>'endoscope','class'=>'form-control'),$eds,set_value('')); ?>
   </div>
 </div>
 <?php echo form_fieldset_close(); ?>

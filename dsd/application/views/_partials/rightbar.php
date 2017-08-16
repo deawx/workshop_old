@@ -5,3 +5,4 @@
   <a href="<?=site_url('account/schedule/result');?>" class="list-group-item <?=($menu === 'result') ? 'active' : '';?>">รายการตรวจผลการสอบ</a>
   <a href="<?=site_url('account/schedule/calendar');?>" class="list-group-item <?=($menu === 'calendar') ? 'active' : '';?>">ตารางเลือกวันสอบ</a>
 </div>
+<?php $this->load->view('_partials/messages'); ?>
