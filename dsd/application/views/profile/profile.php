@@ -7,106 +7,60 @@
   <div class="panel-body">
     <?php echo form_open(uri_string(),array('class'=>'form-horizontal'));?>
     <?php echo form_hidden('id', $user['id']);?>
+    <?php echo form_hidden('profile_id', $profile['id']);?>
     <div class="form-group">
-      <?php echo form_label('คำนำหน้าชื่อ','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('คำนำหน้าชื่อ','title',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),array(''=>'เลือกรายการ'));?>
+        <?php $tt = array(''=>'เลือกรายการ','นาย'=>'นาย','นาง'=>'นาง','นางสาว'=>'นางสาว');
+        echo form_dropdown(array('name'=>'title','class'=>'form-control'),$tt,set_value('title',$profile['title']));?>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('ชื่อ','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('ชื่อ','firstname',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
+        <?php echo form_input(array('name'=>'firstname','class'=>'form-control'),set_value('firstname',$profile['firstname']));?>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('นามสกุล','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('นามสกุล','lastname',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
+        <?php echo form_input(array('name'=>'lastname','class'=>'form-control'),set_value('lastname',$profile['lastname']));?>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('ชื่อเต็ม','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('สัญชาติ','nationality',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control','disabled'=>TRUE));?>
+        <?php echo form_input(array('name'=>'nationality','class'=>'form-control'),set_value('nationality',$profile['nationality']));?>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('ศาสนา','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('ศาสนา','religion',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
+        <?php echo form_input(array('name'=>'religion','class'=>'form-control'),set_value('religion',$profile['religion']));?>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('สัญชาติ','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('หมายเลขบัตรประชาชน','id_card',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
+        <?php echo form_input(array('name'=>'id_card','class'=>'form-control','maxlength'=>'13'),set_value('id_card',$profile['id_card']));?>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('หมายเลขบัตรประชาชน','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
-      </div>
-    </div>
-    <div class="form-group">
-      <?php echo form_label('ว/ด/ป เกิด','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('ว/ด/ป เกิด','birthdate',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-2">
         <?php $d = array(''=>'วัน');
-        foreach (range('1','31') as $key => $value) $d[++$key] = $value;
-        echo form_dropdown(array('name'=>'','class'=>'form-control'),$d);?>
+        foreach (range('1','31') as $value) $d[$value] = $value;
+        echo form_dropdown(array('name'=>'d','class'=>'form-control'),$d,set_value('d',date('d',$profile['birthdate'])));?>
       </div>
       <div class="col-md-3">
         <?php $m = array(''=>'เดือน');
-        foreach (range('1','12') as $key => $value) $m[++$key] = $value;
-        echo form_dropdown(array('name'=>'','class'=>'form-control'),$m);?>
+        foreach (range('1','12') as $value) $m[$value] = $value;
+        echo form_dropdown(array('name'=>'m','class'=>'form-control'),$m,set_value('m',date('d',$profile['birthdate'])));?>
       </div>
       <div class="col-md-3">
         <?php $y = array(''=>'ปี พ.ศ.');
-        foreach (range('2520',(date('Y')+543)) as $key => $value) $y[++$key] = $value;
-        echo form_dropdown(array('name'=>'','class'=>'form-control'),$y);?>
-      </div>
-    </div>
-    <div class="form-group">
-      <?php echo form_label('อายุ','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control','disabled'=>TRUE));?>
-      </div>
-    </div>
-    <div class="form-group">
-      <?php echo form_label('ที่อยู่เลขที่','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
-      </div>
-    </div>
-    <div class="form-group">
-      <?php echo form_label('ถนน','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
-      </div>
-    </div>
-    <div class="form-group">
-      <?php echo form_label('ตำบล','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
-      </div>
-    </div>
-    <div class="form-group">
-      <?php echo form_label('อำเภอ','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
-      </div>
-    </div>
-    <div class="form-group">
-      <?php echo form_label('จังหวัด','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
-      </div>
-    </div>
-    <div class="form-group">
-      <?php echo form_label('รหัสไปรษณีย์','',array('class'=>'control-label col-md-4'));?>
-      <div class="col-md-8">
-        <?php echo form_input(array('name'=>'','class'=>'form-control'));?>
+        foreach (range('2520',(date('Y')+543)) as $value) $y[$value] = $value;
+        echo form_dropdown(array('name'=>'y','class'=>'form-control'),$y,set_value('y',date('Y',$profile['birthdate'])+543));?>
       </div>
     </div>
     <div class="form-group">

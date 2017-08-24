@@ -17,22 +17,20 @@
       <div class="col-md-10">
         <div class="checkbox">
           <label>
-            <?php echo form_checkbox(array('name'=>'','class'=>'form-control'),'Hereditary hamartomatous polyposis syndromes'); ?>
+            <?php echo form_checkbox(array('name'=>'','class'=>'form-control','id'=>'type'),'Hereditary hamartomatous polyposis syndromes'); ?>
             Hereditary hamartomatous polyposis syndromes
           </label>
           <p class="help-block"></p>
         </div>
-        <?php $dropdown_tpt = array(''=>'เลือกรายการ',
+        <?php $tpt = array(''=>'เลือกรายการ',
           'Familial juvenile polyposis syndromes'=>'Familial juvenile polyposis syndromes',
           'Peutz-jeghers syndromes'=>'Peutz-jeghers syndromes',
           'Cowden disease or syndromes'=>'Cowden disease or syndromes',
           'Bannayan-Rilay-Ruvalcaba syndromes'=>'Bannayan-Rilay-Ruvalcaba syndromes',
           'Hereditary mixed polyposis syndromes'=>'Hereditary mixed polyposis syndromes',
-          'Gorlin syndromes'=>'Gorlin syndromes',
-          'Neurofibromatosis'=>'Neurofibromatosis',
-          'Multiple endocrine neoplasia'=>'Multiple endocrine neoplasia'); ?>
-        <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),$dropdown_tpt,set_value('')); ?>
-        <p class="help-block"></p>
+          'Gorlin syndromes'=>'Gorlin syndromes','Neurofibromatosis'=>'Neurofibromatosis',
+          'Multiple endocrine neoplasia'=>'Multiple endocrine neoplasia');
+        echo form_dropdown(array('name'=>'','class'=>'form-control','id'=>'type_ctn'),$tpt,set_value('')); ?>
       </div>
     </div>
     <?php echo form_fieldset_close(); ?>
@@ -59,5 +57,11 @@ $(document).ready(function() {
       });
     }
   };
+  var type = $('#type');
+  var type_ctn = $('#type_ctn');
+  type_ctn.prop('disabled',true);
+  type.on('ifToggled',function(){
+    type_ctn.prop('disabled',function(i,v){ return !v; });
+  });
 });
 </script>

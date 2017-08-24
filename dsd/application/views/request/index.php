@@ -18,7 +18,7 @@ $order_by = $this->input->get('order_by');
       <?=form_input(array('name'=>'q','class'=>'form-control','placeholder'=>'คำค้นหา'));?>
     </div>
     <div class="form-group">
-      <?=form_submit('','ค้นหา',array('class'=>'btn btn-success pull-right'));?>
+      <?=form_submit('','ค้นหา',array('class'=>'btn btn-default pull-right'));?>
     </div>
     <?=form_close();?>
   </div>

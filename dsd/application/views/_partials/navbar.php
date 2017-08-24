@@ -24,8 +24,14 @@ $parent = isset($parent) ? $parent : '';
             <a href="#" class="dropdown-toggle <?=($parent === 'account') ? 'active' : '';?>" data-toggle="dropdown">บัญชีของคุณ <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li> <a href="<?=site_url('account/profile');?>">ข้อมูลส่วนตัว</a> </li>
-              <li> <a href="<?=site_url('account/exams');?>">ข้อมูลการสอบ</a> </li>
               <li class="divider"></li>
+              <?php if ($this->ion_auth->in_group('admin')) : ?>
+                <li> <a href="<?=site_url('admin/dashboard');?>">เข้าระบบผู้ดูแล</a> </li>
+                <li class="divider"></li>
+              <?php else: ?>
+                <li> <a href="<?=site_url('account/request');?>">ข้อมูลการสอบ</a> </li>
+                <li class="divider"></li>
+              <?php endif; ?>
               <li> <a href="<?=site_url('auth/logout');?>">ออกจากระบบ</a> </li>
             </ul>
           </li>

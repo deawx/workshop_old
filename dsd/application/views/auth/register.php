@@ -11,18 +11,6 @@
         <div class="panel-body">
           <div id="infoMessage"><?php echo $message;?></div>
           <?php echo form_open("auth/register",array('class'=>'form-horizontal','autocomplete'=>'off'));?>
-          <div class="form-group">
-            <?php echo lang('create_user_fname_label', 'first_name',array('class'=>'control-label col-md-4'));?>
-            <div class="col-md-8">
-              <?php echo form_input($first_name,'',array('class'=>'form-control'));?>
-            </div>
-          </div>
-          <div class="form-group">
-            <?php echo lang('create_user_lname_label', 'last_name',array('class'=>'control-label col-md-4'));?>
-            <div class="col-md-8">
-              <?php echo form_input($last_name,'',array('class'=>'form-control'));?>
-            </div>
-          </div>
           <?php if ($identity_column!=='email') : ?>
             <div class="form-group">
               <?php echo lang('create_user_identity_label', 'identity',array('class'=>'control-label col-md-4')); ?>

@@ -7,43 +7,43 @@
   <div class="panel-body">
     <?php echo form_open(uri_string(),array('class'=>'form-horizontal'));?>
     <?php echo form_hidden('id', $user['id']);?>
+    <?php echo form_hidden('profile_id', $profile['id']);?>
     <div class="form-group">
       <?php echo form_label('ชื่อผู้ใช้','',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input('','',array('class'=>'form-control','disabled'=>TRUE));?>
+        <?php echo form_input(array('name'=>'','class'=>'form-control','disabled'=>TRUE),set_value('',$user['username']));?>
       </div>
     </div>
     <div class="form-group">
       <?php echo form_label('อีเมล์','',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input('','',array('class'=>'form-control','disabled'=>TRUE));?>
+        <?php echo form_input(array('name'=>'','class'=>'form-control','disabled'=>TRUE),set_value('',$user['email']));?>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('ที่อยู่ไอพีแอดเดรส','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('วันที่สมัคร','',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input('','',array('class'=>'form-control','disabled'=>TRUE));?>
+        <?php echo form_input(array('name'=>'','class'=>'form-control','disabled'=>TRUE),set_value('',date('d-m-Y',$user['created_on'])));?>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('เข้าสู่ระบบล่าสุด','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('เข้าใช้ล่าสุด','',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input('','',array('class'=>'form-control','disabled'=>TRUE));?>
+        <?php echo form_input(array('name'=>'','class'=>'form-control','disabled'=>TRUE),set_value('',date('d-m-Y',$user['last_login'])));?>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('โทรศัพท์','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('โทรศัพท์','phone',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input('','',array('class'=>'form-control'));?>
+        <?php echo form_number(array('name'=>'phone','class'=>'form-control'),set_value('phone',$profile['phone']));?>
       </div>
     </div>
     <div class="form-group">
-      <?php echo form_label('โทรสาร','',array('class'=>'control-label col-md-4'));?>
+      <?php echo form_label('โทรสาร','fax',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">
-        <?php echo form_input('','',array('class'=>'form-control'));?>
+        <?php echo form_number(array('name'=>'fax','class'=>'form-control'),set_value('fax',$profile['fax']));?>
       </div>
     </div>
-    <hr>
     <div class="form-group">
       <?php echo form_label('','',array('class'=>'control-label col-md-4'));?>
       <div class="col-md-8">

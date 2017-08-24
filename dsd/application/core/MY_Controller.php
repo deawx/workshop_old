@@ -33,6 +33,7 @@ class Public_Controller extends MY_Controller {
   public function __construct()
   {
     parent::__construct();
+    // if ($this->ion_auth->in_group('member'))
   }
 
 }
@@ -42,6 +43,8 @@ class Private_Controller extends MY_Controller {
   public function __construct()
   {
     parent::__construct();
+    if ( ! $this->session->has_userdata('identity') === TRUE)
+      redirect('auth/logout');
   }
 
 }

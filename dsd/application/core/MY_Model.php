@@ -6,7 +6,7 @@ class MY_Model extends CI_Model {
   public $primary_key = 'id';
   public $order_by = 'id ASC';
 
-  function find($conditions=NULL,$limit=NULL,$offset=0,$order_by=NULL,$table_name=NULL)
+  function find($conditions=NULL,$table_name=NULL,$limit=NULL,$offset=0,$order_by=NULL)
 	{
     if ($table_name === NULL)
       $table_name = $this->table_name;
@@ -25,7 +25,7 @@ class MY_Model extends CI_Model {
 			->result_array();
 	}
 
-  function search($conditions=NULL,$limit=NULL,$offset=0,$order_by=NULL,$table_name=NULL)
+  function search($conditions=NULL,$table_name=NULL,$limit=NULL,$offset=0,$order_by=NULL)
   {
     if ($table_name === NULL)
       $table_name = $this->table_name;
@@ -58,7 +58,7 @@ class MY_Model extends CI_Model {
       ->row_array();
   }
 
-  function count($conditions=NULL,$type='where',$table_name=NULL)
+  function count($conditions=NULL,$table_name=NULL,$type='where')
   {
     if ($table_name === NULL)
       $table_name = $this->table_name;
@@ -118,7 +118,7 @@ class MY_Model extends CI_Model {
     return $this->db->affected_rows();
   }
 
-  protected function _filter_data($table_name, $data=array())
+  protected function _filter_data($table_name,$data=array())
   {
     if ($table_name === NULL)
       $table_name = $this->table_name;

@@ -13,12 +13,9 @@
           </h4>
           <p class="list-group-item-text">
             <dl class="dl-horizontal">
-              <dt>id card:</dt>
-              <dd><?php echo $patient['id_card']; ?></dd>
-              <dt>address:</dt>
-              <dd><?php echo $patient['age']; ?></dd>
-              <dt>created:</dt>
-              <dd><?php echo $patient['created']; ?></dd>
+              <dt>id card:</dt> <dd><?php echo $patient['id_card']; ?></dd>
+              <dt>created:</dt> <dd><?php echo ($patient['created']) ? mdate('%d/%m/%Y',$patient['created']) : '-'; ?></dd>
+              <dt>updated:</dt> <dd><?php echo ($patient['updated']) ? mdate('%d/%m/%Y',$patient['updated']) : '-'; ?></dd>
             </dl>
           </p>
         </div>
@@ -28,13 +25,13 @@
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs pull-right">
         <li class="<?php if ($tab === 'fap') echo 'active'; ?>">
-          <a href="<?php echo '?tab=fap'; ?>">FAP report</a>
+          <a href="<?php echo site_url('admin/clinic/add_fap/'.$patient['id']); ?>">FAP report</a>
         </li>
         <li class="<?php if ($tab === 'hnpcc') echo 'active'; ?>">
-          <a href="<?php echo '?tab=hnpcc'; ?>">HNPCC report</a>
+          <a href="<?php echo site_url('admin/clinic/add_hnpcc/'.$patient['id']); ?>">HNPCC report</a>
         </li>
         <li class="<?php if ($tab === 'pjsjps') echo 'active'; ?>">
-          <a href="<?php echo '?tab=pjsjps'; ?>">PJS/JPS report</a>
+          <a href="<?php echo site_url('admin/clinic/add_pjsjps/'.$patient['id']); ?>">PJS/JPS report</a>
         </li>
       </ul>
       <div class="tab-content">

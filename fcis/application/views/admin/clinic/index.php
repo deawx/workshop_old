@@ -1,9 +1,3 @@
-<?php
-$uri_get = $this->input->get();
-unset($uri_get['order_by']);
-$uri_get = http_build_query($uri_get);
-$uri_string = uri_string().'?'.$uri_get;
-?>
 <div class="row">
   <div class="col-md-8">
     <div class="box box-primary">
@@ -23,10 +17,9 @@ $uri_string = uri_string().'?'.$uri_get;
         </div>
         <?php echo form_close(); ?>
         <hr>
-
         <div class="list-group">
           <?php foreach ($results as $key => $value): ?>
-            <a href="<?php echo site_url('admin/clinic/add/'.$value['id']); ?>" class="list-group-item">
+            <a href="<?php echo site_url('admin/clinic/add_fap/'.$value['id']); ?>" class="list-group-item">
               <h4 class="list-group-item-heading">
                 <?php echo $value['title'].nbs().$value['firstname'].nbs().$value['lastname']?>
                 <small class="text-primary">(H.N. : <?php echo $value['hn']; ?>)</small>
@@ -34,22 +27,17 @@ $uri_string = uri_string().'?'.$uri_get;
               </h4>
               <p class="list-group-item-text">
                 <dl class="dl-horizontal">
-                  <dt>id card:</dt>
-                  <dd><?php echo $value['id_card']; ?></dd>
-                  <dt>address:</dt>
-                  <dd><?php echo $value['age']; ?></dd>
-                  <dt>created:</dt>
-                  <dd><?php echo $value['created']; ?></dd>
+                  <dt>id card:</dt> <dd><?php echo $value['id_card']; ?></dd>
+                  <dt>created:</dt> <dd><?php echo ($value['created']) ? mdate('%d/%m/%Y',$value['created']) : '-'; ?></dd>
+                  <dt>updated:</dt> <dd><?php echo ($value['updated']) ? mdate('%d/%m/%Y',$value['updated']) : '-'; ?></dd>
                 </dl>
               </p>
             </a>
           <?php endforeach; ?>
         </div>
-
       </div>
       <div class="box-footer clearfix"></div>
     </div>
-
   </div>
   <div class="col-md-4">
     <div class="box box-info">

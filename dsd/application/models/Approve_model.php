@@ -1,8 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Schedule_model extends MY_Model {
+class Approve_model extends MY_Model {
 
-  private $table_name = 'schedule';
+  public $table_name = 'approve';
 
   public function __construct()
   {

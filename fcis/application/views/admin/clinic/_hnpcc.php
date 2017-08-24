@@ -16,15 +16,27 @@
     <?php echo form_fieldset_close(); ?>
     <?php echo form_fieldset('Clinical'); ?>
     <div class="form-group">
-      <?php echo form_label('โรคร่วม Extracolonic cancer ใน Hereditary nopolyposis colorectal carcinoma (HNPCC):','',array('class'=>'control-label col-md-2')); ?>
+      <?php echo form_label('hnpcc:','',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-10">
-        <?php $dropdown_tof = array(''=>'เลือกรายการ',
-          'Lynch I syndromes'=>'Lynch I syndromes',
-          'Lynch II syndromes'=>'Lynch II syndromes',
-          'Lynch III syndromes'=>'Lynch III syndromes',
-          'Lynch IV syndromes'=>'Lynch IV syndromes'); ?>
-        <?php echo form_dropdown(array('name'=>'','class'=>'form-control'),$dropdown_tof,set_value('')); ?>
-        <p class="help-block"></p>
+        <div class="row">
+          <div class="col-md-6">
+            <?php $tof = array(''=>'เลือกรายการ',
+            'Lynch I syndromes'=>'Lynch I syndromes',
+            'Lynch II syndromes'=>'Lynch II syndromes',
+            'Lynch III syndromes'=>'Lynch III syndromes',
+            'Lynch IV syndromes'=>'Lynch IV syndromes');
+            echo form_dropdown(array('name'=>'','class'=>'form-control','id'=>'hnpcc'),$tof,set_value('')); ?>
+            <p class="help-block">โรคร่วม Extracolonic cancer ใน Hereditary nopolyposis colorectal carcinoma (HNPCC)</p>
+          </div>
+          <div class="col-md-6">
+            <?php $tof = array(''=>'เลือกรายการ',
+            'Endometrium'=>'Endometrium','Ovary'=>'Ovary','Breast'=>'Breast',
+            'Kidney'=>'Kidney','Ureter'=>'Ureter','Bladder'=>'Bladder',
+            'Brain'=>'Brain','Stomach'=>'Stomach','Esophagus'=>'Esophagus',
+            'Skin'=>'Skin','Thyroid'=>'Thyroid','Other'=>'Other');
+            echo form_dropdown(array('name'=>'','class'=>'form-control','id'=>'hnpcc_ctn'),$tof,set_value('')); ?>
+          </div>
+        </div>
       </div>
     </div>
     <?php echo form_fieldset_close(); ?>
@@ -51,5 +63,16 @@ $(document).ready(function() {
       });
     }
   };
+
+  var hnpcc = $('#hnpcc');
+  var hnpcc_ctn = $('#hnpcc_ctn');
+  hnpcc_ctn.prop('disabled',true);
+  hnpcc.on('change',function(){
+    if (this.value != '') {
+      hnpcc_ctn.prop('disabled',false);
+    } else {
+      hnpcc_ctn.prop('disabled',true);
+    }
+  });
 });
 </script>

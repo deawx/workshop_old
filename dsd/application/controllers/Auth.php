@@ -349,7 +349,6 @@ class Auth extends Public_Controller {
 		}
 	}
 
-
 	// activate the user
 	public function activate($id, $code=false)
 	{
@@ -809,7 +808,6 @@ class Auth extends Public_Controller {
 		// $this->_render_page('auth/edit_group', $this->data);
 	}
 
-
 	public function _get_csrf_nonce()
 	{
 		$this->load->helper('string');
@@ -880,12 +878,7 @@ class Auth extends Public_Controller {
 			$identity = ($identity_column==='email') ? $email : $this->input->post('identity');
 			$password = $this->input->post('password');
 
-			$additional_data = array(
-				'first_name' => $this->input->post('first_name'),
-				'last_name'  => $this->input->post('last_name'),
-				'company'    => $this->input->post('company'),
-				'phone'      => $this->input->post('phone'),
-			);
+			$additional_data = array();
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->register($identity, $password, $email, $additional_data))
 		{
@@ -900,18 +893,6 @@ class Auth extends Public_Controller {
 			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-			$this->data['first_name'] = array(
-			'name'  => 'first_name',
-			'id'    => 'first_name',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('first_name'),
-			);
-			$this->data['last_name'] = array(
-			'name'  => 'last_name',
-			'id'    => 'last_name',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('last_name'),
-			);
 			$this->data['identity'] = array(
 			'name'  => 'identity',
 			'id'    => 'identity',
@@ -923,18 +904,6 @@ class Auth extends Public_Controller {
 			'id'    => 'email',
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('email'),
-			);
-			$this->data['company'] = array(
-			'name'  => 'company',
-			'id'    => 'company',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('company'),
-			);
-			$this->data['phone'] = array(
-			'name'  => 'phone',
-			'id'    => 'phone',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('phone'),
 			);
 			$this->data['password'] = array(
 			'name'  => 'password',

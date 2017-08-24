@@ -2,10 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
-URL สำหรับหัวข้อ
+ไฟล์นี้ทำหน้าที่เขียนฟังก์ชั่นเพื่อจัดการการทำงานเรื่องการเขียนคำร้องขอสอบต่างๆ และจัดการกับตารางปฎิทินการนัดสอบของแต่ละคำร้อง
 */
 
-class Schedule extends Private_Controller {
+class Request extends Private_Controller {
 
 	private $id;
 
@@ -13,11 +13,12 @@ class Schedule extends Private_Controller {
 	{
 		parent::__construct();
     $this->load->model('Profile_model','profile');
-    $this->load->model('Ion_auth_model','auth');
+    $this->load->model('Standard_model','standard');
 		$this->id = $this->session->user_id;
-    $this->data['parent'] = 'account';
+    $this->data['parent'] = 'request';
     $this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
-		$this->data['user'] = $this->auth->user($this->id)->row_array();
+		$this->data['user'] = $this->ion_auth->user($this->id)->row_array();
+		$this->data['profile'] = $this->profile->get_id($this->id);
 	}
 
 	public function index()
@@ -25,24 +26,41 @@ class Schedule extends Private_Controller {
 		$this->data['menu'] = 'index';
 		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
 		$this->data['rightbar'] = $this->load->view('_partials/rightbar',$this->data,TRUE);
-		$this->data['body'] = $this->load->view('schedule/index',$this->data,TRUE);
+		$this->data['body'] = $this->load->view('request/index',$this->data,TRUE);
 		$this->load->view('_layouts/rightside',$this->data);
 	}
 
-	function standard($step='1')
+	function standard()
 	{
 		$this->session->set_flashdata('warning','');
-		$step = (intval($step) > 0 && intval($step) <= 5) ? $step : '1';
-		$this->data['step'] = $step;
-		$this->data['prev'] = $step-1;
-		$this->data['next'] = $step+1;
-
 		$post = $this->input->post();
 		if ($post) :
-			$this->form_validation->set_rules('used_to','ff','required');
+			// $this->form_validation->set_rules('department','หน่วยงาน','required');
+			// $this->form_validation->set_rules('branch','สาขาอาชีพ','required');
+			// $this->form_validation->set_rules('level','ระดับ','required');
+			// $this->form_validation->set_rules('category','ประเภทการสอบ','required');
+			// $this->form_validation->set_rules('used','ประวัติการเข้าทดสอบ','required');
+			// $this->form_validation->set_rules('used_place','สถานที่เข้ารับการทดสอบ','required');
+			// $this->form_validation->set_rules('reason','เหตุผลที่สมัครสอบ','required');
+			// $this->form_validation->set_rules('source','แหล่งที่ทราบข่าว','required');
+			//
+			// $this->form_validation->set_rules('title','','required');
+			// $this->form_validation->set_rules('firstname','','required');
+			// $this->form_validation->set_rules('lastname','','required');
+			// $this->form_validation->set_rules('fullname','','required');
+			// $this->form_validation->set_rules('religion','','required');
+			// $this->form_validation->set_rules('nationality','','required');
+			// $this->form_validation->set_rules('id_card','','required');
+			// $this->form_validation->set_rules('','','required');
+			// $this->form_validation->set_rules('','','required');
+			// $this->form_validation->set_rules('','','required');
+			// $this->form_validation->set_rules('','','required');
+			// $this->form_validation->set_rules('','','required');
+			// $this->form_validation->set_rules('','','required');
+
 			if ($this->form_validation->run() === TRUE) :
-				// print_data($this->input->post());
-				redirect('account/schedule/standard/'.$this->data['next']);
+				print_data($this->input->post()); die();
+				redirect('account/request/standard/'.$this->data['next']);
 			else:
 				$this->session->set_flashdata('warning',validation_errors());
 			endif;
@@ -53,16 +71,33 @@ class Schedule extends Private_Controller {
 		$this->data['menu'] = 'standard';
 		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
 		$this->data['rightbar'] = $this->load->view('_partials/rightbar',$this->data,TRUE);
-		$this->data['body'] = $this->load->view('schedule/standard',$this->data,TRUE);
+		$this->data['body'] = $this->load->view('request/standard',$this->data,TRUE);
 		$this->load->view('_layouts/rightside',$this->data);
 	}
 
-	function skill()
+	function skill($step='1')
 	{
+		$this->session->set_flashdata('warning','');
+		$step = (intval($step) > 0 && intval($step) <= 4) ? $step : '1';
+		$this->data['step'] = $step;
+		$this->data['prev'] = $step-1;
+		$this->data['next'] = $step+1;
+
+		$post = $this->input->post();
+		if ($post) :
+			$this->form_validation->set_rules('firstname','ชื่อ','required');
+			if ($this->form_validation->run() === TRUE) :
+				// print_data($this->input->post());
+				redirect('account/request/standard/'.$this->data['next']);
+			else:
+				$this->session->set_flashdata('warning',validation_errors());
+			endif;
+		endif;
+
 		$this->data['menu'] = 'skill';
 		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
 		$this->data['rightbar'] = $this->load->view('_partials/rightbar',$this->data,TRUE);
-		$this->data['body'] = $this->load->view('schedule/skill',$this->data,TRUE);
+		$this->data['body'] = $this->load->view('request/skill',$this->data,TRUE);
 		$this->load->view('_layouts/rightside',$this->data);
 	}
 
@@ -71,7 +106,7 @@ class Schedule extends Private_Controller {
 		$this->data['menu'] = 'result';
 		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
 		$this->data['rightbar'] = $this->load->view('_partials/rightbar',$this->data,TRUE);
-		$this->data['body'] = $this->load->view('schedule/register',$this->data,TRUE);
+		$this->data['body'] = $this->load->view('request/register',$this->data,TRUE);
 		$this->load->view('_layouts/rightside',$this->data);
 	}
 
@@ -80,7 +115,7 @@ class Schedule extends Private_Controller {
 		$this->data['menu'] = 'calendar';
 		$this->data['navbar'] = $this->load->view('_partials/navbar',$this->data,TRUE);
 		$this->data['rightbar'] = $this->load->view('_partials/rightbar',$this->data,TRUE);
-		$this->data['body'] = $this->load->view('schedule/register',$this->data,TRUE);
+		$this->data['body'] = $this->load->view('request/register',$this->data,TRUE);
 		$this->load->view('_layouts/rightside',$this->data);
 	}
 

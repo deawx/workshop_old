@@ -26,35 +26,72 @@ class Clinic extends Admin_Controller {
 		$this->render('admin/clinic/index');
 	}
 
-	function add($id=null)
+	function add_fap($id='')
+	{
+		if ( ! intval($id) > 0) :
+			$this->session->set_flashdata('message',message_box('no record found, check your data','danger'));
+			redirect('admin/labs');
+		else:
+			$this->form_validation->set_rules('patient_id','patient id','required');
+			if ($this->form_validation->run() === FALSE) :
+				$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
+			else:
+				$post = $this->input->post();
+				$post['negative'] = $this->input->post('negative') ? $post['negative'] : '';
+				print_data($post); die();
+				$this->clinic->create_clinic($post,$id);
+			endif;
+		endif;
+		$this->data['patient'] = $this->patient->search_id($id);
+		$this->data['assets'] = $this->assets->find_gallery('fap',$id);
+		$this->data['clinic'] = $this->clinic->find_id($id);
+		$this->data['tab'] = 'fap';
+		$this->render('admin/clinic/add');
+	}
+
+	function add_hnpcc($id='')
 	{
 		if ( ! intval($id) > 0) :
 			$this->session->set_flashdata('message',message_box('no record found, check your data','danger'));
 			redirect('admin/clinic');
 		else:
-			$patient = $this->patient->search_id($id);
-			$tab = $this->input->get('tab') ? $this->input->get('tab') : 'fap';
-			$tab = (in_array($tab,array('fap','hnpcc','pjsjps'))) ? $tab : 'fap';
-			$assets = $this->assets->find_gallery($tab,$id);
-			$select_emof = $this->input->get('select_emof') ? $this->input->get('select_emof') : '';
-			$select_emof = (in_array($select_emof,array('gastric_polyp','duodenal_polyps','desmoid_tumor','chrpe','nasopharyngeal_angiofibroma'))) ? $select_emof : '';
-			switch ($tab) :
-				case 'fap':
-					$this->form_validation->set_rules('','','required');
-					if ($this->form_validation->run() !== FALSE) :
-						print_data($this->input->post());
-					endif;
-					break;
-				case 'hnpcc':
-					break;
-				case 'pjsjps':
-					break;
-			endswitch;
+			$this->form_validation->set_rules('patient_id','patient id','required');
+			if ($this->form_validation->run() === FALSE) :
+				$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
+			else:
+				$post = $this->input->post();
+				$post['negative'] = $this->input->post('negative') ? $post['negative'] : '';
+				print_data($post); die();
+				$this->clinic->create_clinic($post,$id);
+			endif;
 		endif;
-		$this->data['select_emof'] = $select_emof;
-		$this->data['tab'] = $tab;
-		$this->data['assets'] = $assets;
-		$this->data['patient'] = $patient;
+		$this->data['patient'] = $this->patient->search_id($id);
+		$this->data['assets'] = $this->assets->find_gallery('fap',$id);
+		$this->data['clinic'] = $this->clinic->find_id($id);
+		$this->data['tab'] = 'hnpcc';
+		$this->render('admin/clinic/add');
+	}
+
+	function add_pjsjps($id='')
+	{
+		if ( ! intval($id) > 0) :
+			$this->session->set_flashdata('message',message_box('no record found, check your data','danger'));
+			redirect('admin/clinic');
+		else:
+			$this->form_validation->set_rules('patient_id','patient id','required');
+			if ($this->form_validation->run() === FALSE) :
+				$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
+			else:
+				$post = $this->input->post();
+				$post['negative'] = $this->input->post('negative') ? $post['negative'] : '';
+				print_data($post); die();
+				$this->clinic->create_clinic($post,$id);
+			endif;
+		endif;
+		$this->data['patient'] = $this->patient->search_id($id);
+		$this->data['assets'] = $this->assets->find_gallery('fap',$id);
+		$this->data['clinic'] = $this->clinic->find_id($id);
+		$this->data['tab'] = 'pjsjps';
 		$this->render('admin/clinic/add');
 	}
 
