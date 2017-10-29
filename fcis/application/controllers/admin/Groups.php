@@ -7,6 +7,9 @@ class Groups extends Admin_Controller {
 		parent::__construct();
 		$this->allow_group_access(array('special','admin'));
 		$this->load->model('Group');
+
+		$this->data['page_header'] = 'ข้อมูลกลุ่มผู้ใช้งานระบบ';
+		$this->data['page_header_small'] = 'รายละเอียดข้อมูล';
 		$this->data['parent_menu'] = 'setting';
 	}
 

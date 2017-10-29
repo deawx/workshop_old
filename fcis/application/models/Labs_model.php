@@ -28,16 +28,15 @@ class Labs_model extends MY_Model {
 		$exist = $this->db->where('patient_id',$post['patient_id'])->get($this->table_name);
 		$this->db->set($post);
 
-		if ($exist->num_rows()) :
+		if ($exist->num_rows() > 0) :
 			$this->db->where('patient_id',$post['patient_id']);
 			$this->db->update($this->table_name);
 		else:
 			$this->db->insert($this->table_name);
 		endif;
 
-		return ($this->db->affected_rows())
-			? $this->session->set_flashdata('message',message_box('FAP report has been saved.','success'))
-			: $this->session->set_flashdata('message',message_box($this->db->affected_rows().' record saved','warning'));
+		$this->session->set_flashdata('message',message_box('บันทึกข้อมูลเสร็จสิ้น','success'));
+		return ;
 	}
 
 }

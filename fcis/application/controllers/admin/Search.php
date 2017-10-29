@@ -8,8 +8,8 @@ class Search extends Admin_Controller {
 		parent::__construct();
 		$this->allow_group_access(array('special','admin','edior','member'));
 		$this->load->model('Patient_model', 'patient');
-		$this->data['page_header'] = 'Search';
-		$this->data['page_header_small'] = 'for patients';
+		$this->data['page_header'] = 'ค้นหาข้อมูล';
+		$this->data['page_header_small'] = 'รายการข้อมูลผู้ป่วย';
 		$this->data['parent_menu'] = 'search';
 	}
 
@@ -46,7 +46,19 @@ class Search extends Admin_Controller {
 	function _view($id=NULL)
 	{
 		$this->data['patient'] = $this->patient->search_id($id);
+		$this->data['sample'] = $this->patient->search_sample($id);
+		$this->data['labs'] = $this->patient->search_labs($id);
+		$this->data['clinic'] = $this->patient->search_clinic($id);
+		$this->data['assets'] = $this->patient->find_gallery($id);
+		// $this->data['sidebar'] = $this->load->view('admin/parts/sidebar',$this->data,TRUE);
+		// $this->data['content'] = $this->load->view('admin/search/view',$this->data,TRUE);
 		$this->render('admin/search/view');
+	}
+
+	function export()
+	{
+		$this->data['data'] = $this->db->get()->result_array();
+		$this->load->view('admin/search/export');
 	}
 
 }

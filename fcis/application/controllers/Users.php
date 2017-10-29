@@ -20,10 +20,10 @@ class Users extends MY_Controller {
 		{
 			redirect('admin');
 		}
-		$this->data['page_title'] = 'Sign In - FCIS';
+		$this->data['page_title'] = 'เข้าสู่ระบบ - FCIS';
 		//validate form input
-		$this->form_validation->set_rules('identity', 'Email', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('identity', 'อีเมล์', 'required');
+		$this->form_validation->set_rules('password', 'รหัสผ่าน', 'required');
 
 		if ($this->form_validation->run() == TRUE)
 		{
@@ -35,6 +35,12 @@ class Users extends MY_Controller {
 			{
 				//if the login is successful
 				//redirect them back to the home page
+				$this->db->insert('users_logs',array(
+					'user_id'=>$this->session->user_id,
+					'timestamp'=>time(),
+					'message'=>'ล็อกอินเข้าสู่ระบบเสร็จสิ้น',
+					'type'=>'login',
+				));
 				$this->session->set_flashdata('message', message_box($this->ion_auth->messages(),'success'));
 				redirect('admin', 'refresh');
 			}

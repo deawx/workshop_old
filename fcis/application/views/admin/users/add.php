@@ -1,55 +1,62 @@
 <div class="row">
   <div class="col-md-12">
     <div class="box box-primary">
-      <div class="box-header">
-        <h3 class="box-title">Create User</h3>
-      </div>
-      <?php echo form_open('admin/users/add'); ?>
+      <div class="box-header"> <h3 class="box-title"></h3> </div>
+      <?php echo form_open('admin/users/add',array('class'=>'form-horizontal')); ?>
         <div class="box-body">
           <?php echo $this->session->flashdata('message');?>
           <?php echo message_box(validation_errors(),'danger'); ?>
           <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text"  name="username" class="form-control" id="username" placeholder="Username" value="<?php echo set_value('username') ?>">
+            <label for="" class="control-label col-md-3">ชื่อผู้ใช้</label>
+            <div class="col-md-8">
+              <?=form_input(array('name'=>'username','class'=>'form-control','placeholder'=>'ชื่อผู้ใช้'),set_value('username'));?>
+            </div>
           </div>
           <div class="form-group">
-            <label for="username">Email</label>
-            <input type="text"  name="email" class="form-control" id="username" placeholder="Username" value="<?php echo set_value('email') ?>">
+            <label for="" class="control-label col-md-3">อีเมล์</label>
+            <div class="col-md-8">
+              <?=form_input(array('name'=>'email','class'=>'form-control','placeholder'=>'อีเมล์'),set_value('email'));?>
+            </div>
           </div>
           <div class="form-group">
-            <label for="username">New Password</label>
-            <input type="password" name="password" class="form-control" id="username" placeholder="New Password" value="">
+            <label for="" class="control-label col-md-3">รหัสผ่าน</label>
+            <div class="col-md-8">
+              <?=form_password(array('name'=>'password','class'=>'form-control','placeholder'=>'รหัสผ่าน'));?>
+            </div>
           </div>
           <div class="form-group">
-            <label for="username">Confirm Password</label>
-            <input type="password" name="confirm_password" class="form-control" id="username" placeholder="Confirm Password" value="">
+            <label for="" class="control-label col-md-3">รหัสผ่าน(ยืนยัน)</label>
+            <div class="col-md-8">
+              <?=form_password(array('name'=>'confirm_password','class'=>'form-control','placeholder'=>'รหัสผ่าน(ยืนยัน)'));?>
+            </div>
           </div>
           <div class="form-group">
-            <label for="username">First  Name</label>
-            <input type="text" name="first_name" class="form-control" id="username" placeholder="First name" value="<?php echo set_value('first_name') ?>">
+            <label for="" class="control-label col-md-3">ชื่อ</label>
+            <div class="col-md-8">
+              <?=form_input(array('name'=>'first_name','class'=>'form-control','placeholder'=>'ชื่อ'),set_value('first_name'));?>
+            </div>
           </div>
           <div class="form-group">
-            <label for="username">Last Name</label>
-            <input type="text" name="last_name" class="form-control" id="username" placeholder="Last name" value="<?php echo set_value('last_name') ?>">
+            <label for="" class="control-label col-md-3">นามสกุล</label>
+            <div class="col-md-8">
+              <?=form_input(array('name'=>'last_name','class'=>'form-control','placeholder'=>'นามสกุล'),set_value('last_name'));?>
+            </div>
           </div>
           <div class="form-group">
-            <label for="username">Company</label>
-            <input type="text" name="company" class="form-control" id="username" placeholder="Company" value="<?php echo set_value('company') ?>">
-          </div>
-          <div class="form-group">
-            <label for="username">Phone</label>
-            <input type="text" name="phone" class="form-control" id="username" placeholder="Phone" value="<?php echo set_value('phone') ?>">
-          </div>
-          <div class="form-group">
-            <label for="category_active">Groups</label>
-            <?php
-            echo form_dropdown('groups[]',$groups, null,array('class' => 'form-control','multiple' => true));
-            ?>
+            <label for="" class="control-label col-md-3">กลุ่มผู้ใช้</label>
+            <div class="col-md-8">
+              <?=form_dropdown(array('name'=>'groups[]','class'=>'form-control','multiple'=>TRUE),$groups,set_value('groups[]'));?>
+            </div>
           </div>
         </div>
         <div class="box-footer">
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <button type="button" class="btn btn-default" onclick="javascript:history.back()">Back</button>
+          <div class="form-group">
+            <label for="" class="control-label col-md-3"></label>
+            <div class="col-md-8">
+              <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+              <button type="button" class="btn btn-default" onclick="javascript:history.back()">ย้อนกลับ</button>
+            </div>
+          </div>
         </div>
       <?php echo form_close(); ?>
     </div>

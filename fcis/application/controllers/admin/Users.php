@@ -6,11 +6,14 @@ class Users extends Admin_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		// $this->allow_group_access(array('special','admin'));
+		$this->allow_group_access(array('special','admin'));
 		$this->load->model('Ion_auth_model');
 		$this->load->model('User');
 		$this->load->model('Group');
 		$this->load->library('Ion_auth');
+
+		$this->data['page_header'] = 'ข้อมูลผู้ใช้งานระบบ';
+		$this->data['page_header_small'] = 'รายละเอียดข้อมูล';
 		$this->data['parent_menu'] = 'setting';
 	}
 
@@ -29,11 +32,11 @@ class Users extends Admin_Controller {
 	public function add()
 	{
 		$this->allow_group_access(array('special','admin'));
-		$this->form_validation->set_rules('first_name', 'first name', 'required');
-		$this->form_validation->set_rules('last_name', 'first name', 'required');
-		$this->form_validation->set_rules('email', 'email', 'required|is_unique[users.email]');
-		$this->form_validation->set_rules('password', 'password', 'required');
-		$this->form_validation->set_rules('confirm_password', 'confirm password', 'required|matches[password]');
+		$this->form_validation->set_rules('first_name', 'ชื่อ', 'required');
+		$this->form_validation->set_rules('last_name', 'นามสกุล', 'required');
+		$this->form_validation->set_rules('email', 'อีเมล์', 'required|is_unique[users.email]');
+		$this->form_validation->set_rules('password', 'รหัสผ่าน', 'required');
+		$this->form_validation->set_rules('confirm_password', 'รหัสผ่าน(ยืนยัน)', 'required|matches[password]');
 		if ($this->form_validation->run() === TRUE)
 		{
 			$username = $this->input->post('username');
@@ -48,7 +51,7 @@ class Users extends Admin_Controller {
 			// if ()
 			$this->ion_auth->register($username, $password, $email, $additional_data,$this->input->post('groups'));
 			// {
-				$this->session->set_flashdata('message',message_box('User has been saved','success'));
+				$this->session->set_flashdata('message',message_box('บันทึกข้อมูลเสร็จสิ้น','success'));
 			// }
 			// else
 			// {
@@ -62,7 +65,7 @@ class Users extends Admin_Controller {
 
 	public function edit($id = null)
 	{
-		$this->allow_group_access(array('admin'));
+		$this->allow_group_access(array('special','admin'));
 		if ($id == null)
 		{
 			$id = $this->input->post('id');
@@ -75,8 +78,8 @@ class Users extends Admin_Controller {
 		$this->form_validation->set_rules('active', 'status', 'required');
 		if ($this->input->post('password'))
 		{
-			$this->form_validation->set_rules('password', 'password', 'required');
-			$this->form_validation->set_rules('confirm_password', 'konfirmasi password', 'required|matches[password]');
+			$this->form_validation->set_rules('password', 'รหัสผ่าน', 'required');
+			$this->form_validation->set_rules('confirm_password', 'ยืนยันรหัสผ่าน', 'required|matches[password]');
 		}
 		if ($this->form_validation->run() == true)
 		{
@@ -103,7 +106,7 @@ class Users extends Admin_Controller {
 					}
 				}
 			}
-			$this->session->set_flashdata('message',message_box('User has been saved','success'));
+			$this->session->set_flashdata('message',message_box('บันทึกข้อมูลเสร็จสิ้น','success'));
 			redirect('admin/users/index');
 		}
 		$this->data['user'] = $this->User->find_by_id($id);
@@ -111,34 +114,36 @@ class Users extends Admin_Controller {
 		$this->render('admin/users/edit');
 	}
 
-	public function delete($id = null){
+	public function delete($id = null)
+	{
 		$this->allow_group_access(array('admin'));
 		$user  = $this->User->find_by_id($id);
 		$user_groups = explode(',', $user['groups']);
 		if (in_array('admin', $user_groups))
 		{
-			$this->session->set_flashdata('message',message_box('Failed, could not delete admin user','danger'));
+			$this->session->set_flashdata('message',message_box('การลบข้อมูลล้มเหลว','danger'));
 			redirect('admin/users/index');
 		}
 		if ($current_user['user_id'] == $id)
 		{
-			$this->session->set_flashdata('message',message_box('Failed, you could not delete yourself','danger'));
+			$this->session->set_flashdata('message',message_box('การลบข้อมูลล้มเหลว','danger'));
 			redirect('admin/users/index');
 		}
 		if ( ! empty($id))
 		{
 			$this->User->delete($id);
-			$this->session->set_flashdata('message',message_box('User has been deleted','success'));
+			$this->session->set_flashdata('message',message_box('การลบข้อมูลเสร็จสิ้น','success'));
 			redirect('admin/users/index');
 		}
 		else
 		{
-			$this->session->set_flashdata('message',message_box('Invalid id','danger'));
+			$this->session->set_flashdata('message',message_box('ไอดีผิดพลาด','danger'));
 			redirect('admin/users/index');
 		}
 	}
 
-	public function profile(){
+	public function profile()
+	{
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
@@ -176,7 +181,7 @@ class Users extends Admin_Controller {
 
 				//check to see if we are creating the user
 				//redirect them back to the admin page
-				$this->session->set_flashdata('message', message_box('Profile saved','success'));
+				$this->session->set_flashdata('message', message_box('บันทึกข้อมูลเสร็จสิ้น','success'));
 				redirect('admin/users/profile');
 			}
 		}

@@ -1,367 +1,449 @@
+<?php
+$address = unserialize($patient['address']);
+$address_current = unserialize($patient['address_current']);
+$activity = unserialize($patient['activity']);
+$filtered = unserialize($patient['filtered']);
+$insurance = unserialize($patient['insurance']);
+?>
 <div class="row">
-  <?php echo form_open_multipart(uri_string(),array('class'=>'form-horizontal')); ?>
+  <?php echo form_open(uri_string(),array('class'=>'form-horizontal')); ?>
+  <?php echo form_hidden('id',$patient['id']); ?>
+  <?php echo form_hidden('old_id_card',$patient['id_card']); ?>
+  <?php echo form_hidden('old_hn',$patient['hn']); ?>
   <div class="col-md-8">
-    <div class="box box-warning">
-      <div class="box-header"> <!-- <h3 class="box-title">Edit Patient</h3> --> </div>
-      <?php echo form_hidden('id',$patient['id']); ?>
-      <?php echo form_hidden('old_id_card',$patient['id_card']); ?>
-      <div class="box-body">
-        <?php echo form_fieldset('Information'); ?>
-        <div class="form-group">
-          <?php echo form_label('personal id:','id_card',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-10">
-            <div class="input-group">
-              <?php echo form_input(array('name'=>'id_card','class'=>'form-control','placeholder'=>'personal id','maxlength'=>'13','pattern'=>'[0-9]{13}'),set_value('id_card')); ?>
-              <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <?php echo form_label('fullname:','fullname',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-2">
-            <?php echo form_dropdown(array('name'=>'title','class'=>'form-control'),array('นาย'=>'นาย','นาง'=>'นาง','นางสาว'=>'นางสาว')); ?>
-          </div>
-          <div class="col-md-3">
-            <?php echo form_input(array('name'=>'firstname','class'=>'form-control','placeholder'=>'firstname'),set_value('firstname')); ?>
-          </div>
-          <div class="col-md-5">
-            <?php echo form_input(array('name'=>'lastname','class'=>'form-control','placeholder'=>'lastname'),set_value('lastname')); ?>
-          </div>
-        </div>
-        <div class="form-group">
-          <?php echo form_label('age:','age',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <?php echo form_number(array('name'=>'age','class'=>'form-control','placeholder'=>'age'),set_value('age')); ?>
-          </div>
-          <?php echo form_label('hn:','hn',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <?php echo form_number(array('name'=>'hn','class'=>'form-control','placeholder'=>'hn'),set_value('hn')); ?>
-          </div>
-        </div>
-        <div class="form-group">
-          <?php echo form_label('history and family:','history',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-10">
-            <?php echo form_textarea(array('name'=>'history','class'=>'form-control','placeholder'=>''),set_value('history')); ?>
-          </div>
-        </div>
-        <div class="" id="address">
-          <div class="form-group">
-            <?php echo form_label('address:','',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-2">
-              <?php echo form_input(array('name'=>'address_number','class'=>'form-control','placeholder'=>'number'),set_value('address_number')); ?>
-            </div>
-            <div class="col-md-2">
-              <?php echo form_input(array('name'=>'address_soi','class'=>'form-control','placeholder'=>'soi'),set_value('address_soi')); ?>
-            </div>
-            <div class="col-md-4">
-              <?php echo form_input(array('name'=>'address_street','class'=>'form-control','placeholder'=>'street'),set_value('address_street')); ?>
-            </div>
-            <div class="col-md-2">
-              <?php echo form_number(array('name'=>'address_moo','class'=>'form-control','placeholder'=>'moo'),set_value('address_moo')); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <?php echo form_label('tambon:','tambon',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-4">
-              <?php echo form_input(array('name'=>'address_tambon','class'=>'form-control','id'=>'district','placeholder'=>'tambon'),set_value('address_tambon')); ?>
-            </div>
-            <?php echo form_label('amphur:','amphur',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-4">
-              <?php echo form_input(array('name'=>'address_amphur','class'=>'form-control','id'=>'amphur','placeholder'=>'amphur'),set_value('address_amphur')); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <?php echo form_label('province:','',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-4">
-              <?php echo form_input(array('name'=>'address_province','class'=>'form-control','id'=>'province','placeholder'=>'province'),set_value('address_province')); ?>
-            </div>
-            <?php echo form_label('zipcode:','',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-4">
-              <?php echo form_number(array('name'=>'address_zipcode','class'=>'form-control','id'=>'zipcode','placeholder'=>'zipcode'),set_value('address_zipcode')); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <?php echo form_label('telephone:','telephone',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-4">
-              <?php echo form_number(array('name'=>'telephone','class'=>'form-control','placeholder'=>'telephone'),set_value('telephone')); ?>
-            </div>
-            <?php echo form_label('mobile:','mobile',array('class'=>'control-label col-md-2')); ?>
-            <div class="col-md-4">
-              <?php echo form_number(array('name'=>'mobile','class'=>'form-control','placeholder'=>'mobile'),set_value('mobile')); ?>
-            </div>
-          </div>
-        </div>
-        <?php echo form_fieldset_close(); ?>
-        <?php echo form_fieldset('Filtered'); ?>
-        <div class="form-group">
-          <?php echo form_label('a month ago activities:','',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-10">
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'1',set_select('activity','1')); ?>
-              รับประทานอาหารมันๆ เป็นประจำ <small class="pull-right">[1]</small>
-              <p class="help-block"></p>
-            </div>
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'2',set_select('activity','2')); ?>
-              รับประทานเน้ือสัตว์ระเภททอดปิ้งย่างไส้กรอกกุนเชียงบ่อยๆ <small class="pull-right">[1]</small>
-              <p class="help-block"></p>
-            </div>
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'3',set_select('activity','3')); ?>
-              อ้วน <small class="pull-right">[1]</small>
-              <p class="help-block"></p>
-            </div>
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
-              เป็นโรคเบาหวาน <small class="pull-right">[1]</small>
-              <p class="help-block"></p>
-            </div>
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
-              ท้องผูกสลับท้องเสีย <small class="pull-right">[3]</small>
-              <p class="help-block"></p>
-            </div>
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
-              ถ่ายอุจจาระไม่สุด(รู้สึกว่าถ่ายไม่หมด) <small class="pull-right">[3]</small>
-              <p class="help-block"></p>
-            </div>
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
-              เคยอุจจาระมีเลือดปน <small class="pull-right">[3]</small>
-              <p class="help-block"></p>
-            </div>
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
-              ลักษณะอุจจาระลีบ เล็ก แบน <small class="pull-right">[9]</small>
-              <p class="help-block"></p>
-            </div>
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
-              เคยตรวจพบติ่งเนื้อในลำไส้ <small class="pull-right">[10]</small>
-              <p class="help-block"></p>
-            </div>
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
-              มีญาติที่ใกล้ชิดกันโดยสายเลือดเช่น พ่อ แม่ พี่ น้อง เป็นโรคมะเร็งลำไส้ใหญ่เมื่ออายุมากกว่า 50 ปี <small class="pull-right">[12]</small>
-              <p class="help-block"></p>
-            </div>
-            <div class="checkbox">
-              <?php echo form_checkbox(array('name'=>'activity','class'=>'form-control'),'',set_select('activity','')); ?>
-              มีญาติที่ใกล้ชิดกันโดยสายเลือดเช่น พ่อ แม่ พี่ น้อง เป็นโรคมะเร็งลำไส้ใหญ่เมื่ออายุน้อยกว่า 50 ปี <small class="pull-right">[11]</small>
-              <p class="help-block"></p>
-            </div>
-          </div>
-        </div>
-        <?php echo form_fieldset_close(); ?>
-        <?php echo form_fieldset('Family'); ?>
-        <div class="form-group">
-          <?php echo form_label('relationship:','relationship',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-10">
-            <?php echo form_dropdown(array('name'=>'relationship','class'=>'form-control'),array('1'=>'พ่อ','2'=>'แม่','3'=>'พี่','4'=>'น้อง','5'=>'5'),set_value('relationship')); ?>
-          </div>
-        </div>
-        <?php echo form_fieldset_close(); ?>
-        <?php echo form_fieldset('Privileges'); ?>
-        <div class="form-group">
-          <?php echo form_label('groups:','groups',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-10">
-            <label class="radio-inline">
-              <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'FAP',TRUE); ?> FAP
-            </label>
-            <label class="radio-inline">
-              <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'HNPCC'); ?> HNPCC
-            </label>
-            <label class="radio-inline">
-              <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'PJS/JPS'); ?> PJS/JPS
-            </label>
-            <label class="radio-inline">
-              <?php echo form_radio(array('name'=>'groups','class'=>'form-control'),'OTHER'); ?> OTHER
-            </label>
-          </div>
-        </div>
-        <br>
-        <div class="form-group">
-          <?php echo form_label('types:','types',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-10">
-            <div class="radio col-md-6">
-              <label><?php echo form_radio(array('name'=>'types','class'=>'form-control'),'คนไข้ออกหน่วย',TRUE); ?> คนไข้ออกหน่วย</label>
-            </div>
-            <div class="col-md-6">
-              <div class="input-group">
-                <?php echo form_number(array('name'=>'times','class'=>'form-control','placeholder'=>'times'),set_value('times')); ?>
-                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+    <div class="box-group " id="accordion">
+
+      <div class="panel box box-primary">
+        <div class="box-header with-border"> <h4 class="box-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed"> <?php echo form_fieldset('ข้อมูลทั่วไป'); ?> </a> </h4> </div>
+        <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true">
+          <div class="box-body">
+            <div class="form-group">
+              <?php echo form_label('หมายเลขบัตรประชาชน:','id_card',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10">
+                <div class="input-group">
+                  <?php echo form_input(array('name'=>'id_card','class'=>'form-control','placeholder'=>'หมายเลขบัตรประชาชน','maxlength'=>'13','pattern'=>'[0-9]{13}'),set_value('id_card',$patient['id_card'])); ?>
+                  <span class="input-group-addon"><i class="fa fa-address-card"></i></span>
+                </div>
               </div>
-              <p class="help-block"></p>
             </div>
-            <div class="radio">
-              <label><?php echo form_radio(array('name'=>'types','class'=>'form-control'),'กลุ่ม CRC of PSU'); ?> กลุ่ม CRC of PSU</label>
-              <p class="help-block"></p>
+            <div class="form-group">
+              <?php echo form_label('ชื่อ-นามสกุล:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-2"> <?php $tt = array(''=>'คำนำหน้าชื่อ','นาย'=>'นาย','นาง'=>'นาง','นางสาว'=>'นางสาว'); echo form_dropdown(array('name'=>'title','class'=>'form-control'),$tt,set_value('title',$patient['title'])); ?> </div>
+              <div class="col-md-3"> <?php echo form_input(array('name'=>'firstname','class'=>'form-control','placeholder'=>'ชื่อ'),set_value('firstname',$patient['firstname'])); ?> </div>
+              <div class="col-md-5"> <?php echo form_input(array('name'=>'lastname','class'=>'form-control','placeholder'=>'นามสกุล'),set_value('lastname',$patient['lastname'])); ?> </div>
             </div>
-            <div class="radio">
-              <label><?php echo form_radio(array('name'=>'types','class'=>'form-control'),'คนไข้ CRC ส่งต่อ'); ?> คนไข้ CRC ส่งต่อ</label>
-              <p class="help-block"></p>
+            <div class="form-group">
+              <?php echo form_label('อายุ:','age',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4"> <?php echo form_input(array('name'=>'age','class'=>'form-control','placeholder'=>'อายุ'),set_value('age',$patient['age'])); ?> </div>
+              <?php echo form_label('H.N.:','hn',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4"> <?php echo form_input(array('name'=>'hn','class'=>'form-control','placeholder'=>'รหัสผู้ป่วย(H.N.)'),set_value('hn',$patient['hn'])); ?> </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('ข้อมูลประวัติและครอบครัว:','history',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10"> <?php echo form_textarea(array('name'=>'history','class'=>'form-control','placeholder'=>'ประวัติส่วนตัว'),set_value('history',$patient['history'])); ?> </div>
+            </div>
+            <div class="" id="address">
+              <div class="form-group">
+                <?php echo form_label('ที่อยู่ตามบัตรประชาชน:','',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-2"> <?php echo form_input(array('name'=>'address[number]','class'=>'form-control','placeholder'=>'ที่อยู่'),set_value('address[number]',$address['number'])); ?> </div>
+                <div class="col-md-2"> <?php echo form_input(array('name'=>'address[soi]','class'=>'form-control','placeholder'=>'ซอย'),set_value('address[soi]',$address['soi'])); ?> </div>
+                <div class="col-md-4"> <?php echo form_input(array('name'=>'address[street]','class'=>'form-control','placeholder'=>'ถนน'),set_value('address[street]',$address['street'])); ?> </div>
+                <div class="col-md-2"> <?php echo form_input(array('name'=>'address[moo]','class'=>'form-control','placeholder'=>'หมู่'),set_value('address[moo]',$address['moo'])); ?> </div>
+              </div>
+              <div class="form-group">
+                <?php echo form_label('ตำบล:','',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-4"> <?php echo form_input(array('name'=>'address[tambon]','class'=>'form-control','id'=>'tambon','placeholder'=>'ตำบล'),set_value('address[tambon]',$address['tambon'])); ?> </div>
+                <?php echo form_label('อำเภอ:','amphur',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-4"> <?php echo form_input(array('name'=>'address[amphur]','class'=>'form-control','id'=>'amphur','placeholder'=>'อำเภอ'),set_value('address[amphur]',$address['amphur'])); ?> </div>
+              </div>
+              <div class="form-group">
+                <?php echo form_label('จังหวัด:','',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-4"> <?php echo form_input(array('name'=>'address[province]','class'=>'form-control','id'=>'province','placeholder'=>'จังหวัด'),set_value('address[province]',$address['province'])); ?> </div>
+                <?php echo form_label('รหัสไปรษณีย์:','',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-4"> <?php echo form_input(array('name'=>'address[zip]','class'=>'form-control','id'=>'zip','placeholder'=>'รหัสไปรษณีย์'),set_value('address[zip]',$address['zip'])); ?> </div>
+              </div>
+            </div>
+            <div class="well well-sm">
+              <div class="form-group">
+                <?php echo form_label('','same_address',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-4"> <?php echo form_checkbox(array('name'=>'same_address','class'=>'form-control'),'1',set_checkbox('same_address','1',($patient['address'] === $patient['address_current']))); ?> ใช้ที่อยู่ตามบัตร </div>
+              </div>
+              <div class="form-group">
+                <?php echo form_label('ที่อยู่ปัจจุบัน:','',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-2"> <?php echo form_input(array('name'=>'address_current[number]','class'=>'form-control','placeholder'=>'number'),set_value('address_current[number]',$address_current['number'])); ?> </div>
+                <div class="col-md-2"> <?php echo form_input(array('name'=>'address_current[soi]','class'=>'form-control','placeholder'=>'soi'),set_value('address_current[soi]',$address_current['soi'])); ?> </div>
+                <div class="col-md-4"> <?php echo form_input(array('name'=>'address_current[street]','class'=>'form-control','placeholder'=>'street'),set_value('address_current[street]',$address_current['street'])); ?> </div>
+                <div class="col-md-2"> <?php echo form_input(array('name'=>'address_current[moo]','class'=>'form-control','placeholder'=>'moo'),set_value('address_current[moo]',$address_current['moo'])); ?> </div>
+              </div>
+              <div class="form-group">
+                <?php echo form_label('ตำบล:','',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-4"> <?php echo form_input(array('name'=>'address_current[tambon]','class'=>'form-control','id'=>'','placeholder'=>'tambon'),set_value('address_current[tambon]',$address_current['tambon'])); ?> </div>
+                <?php echo form_label('อำเภอ:','',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-4"> <?php echo form_input(array('name'=>'address_current[amphur]','class'=>'form-control','id'=>'','placeholder'=>'amphur'),set_value('address_current[amphur]',$address_current['amphur'])); ?> </div>
+              </div>
+              <div class="form-group">
+                <?php echo form_label('จังหวัด:','',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-4"> <?php echo form_input(array('name'=>'address_current[province]','class'=>'form-control','id'=>'','placeholder'=>'province'),set_value('address_current[province]',$address_current['province'])); ?> </div>
+                <?php echo form_label('รหัสไปรษณีย์:','',array('class'=>'control-label col-md-2')); ?>
+                <div class="col-md-4"> <?php echo form_input(array('name'=>'address_current[zip]','class'=>'form-control','id'=>'','placeholder'=>'zip'),set_value('address_current[zip]',$address_current['zip'])); ?> </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('โทรศัพท์:','phone',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4"> <?php echo form_input(array('name'=>'phone','class'=>'form-control','placeholder'=>'เบอร์โทรศัพท์'),set_value('phone',$patient['phone'])); ?> </div>
+              <?php echo form_label('มือถือ:','mobile',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4"> <?php echo form_input(array('name'=>'mobile','class'=>'form-control','placeholder'=>'โทรศัพท์มือถือ','max_length'=>'10'),set_value('mobile',$patient['mobile'])); ?> </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('ความสัมพันธ์:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4">
+                <?php $rs = array(''=>'เลือกรายการ','ผู้ป่วย'=>'ผู้ป่วย','ปู่/ตาของผู้ป่วย'=>'ปู่/ตาของผู้ป่วย','ย่า/ยายของผู้ป่วย'=>'ย่า/ยายของผู้ป่วย',
+                'ลุง/อาของผู้ป่วย'=>'ลุง/อาของผู้ป่วย','ป้า/น้าของผู้ป่วย'=>'ป้า/น้าของผู้ป่วย','พ่อของผู้ป่วย'=>'พ่อของผู้ป่วย','แม่ของผู้ป่วย'=>'แม่ของผู้ป่วย',
+                'คู่สมรสของผู้ป่วย'=>'คู่สมรสของผู้ป่วย','พี่/น้องของผู้ป่วย'=>'พี่/น้องของผู้ป่วย','บุตร/ธิดาของผู้ป่วย'=>'บุตร/ธิดาของผู้ป่วย');
+                echo form_dropdown(array('name'=>'relationship','class'=>'form-control','id'=>'relationship'),$rs,set_value('relationship',$patient['relationship'])); ?>
+              </div>
+              <?php echo form_label('หมายเลขผู้ป่วย:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4">
+                <?php echo form_input(array('name'=>'relationship_by','class'=>'form-control','id'=>'relationship_by','placeholder'=>'รหัสผู้ป่วย(H.N.)'),set_value('relationship_by',$patient['relationship_by'])); ?>
+              </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('กลุ่มผู้ป่วย:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10">
+                <?php $grp = array(''=>'เลือกรายการ','FAP'=>'FAP','HNPCC'=>'HNPCC','PJS/JPS'=>'PJS/JPS','OTHER'=>'OTHER');
+                echo form_dropdown(array('name'=>'groups','class'=>'form-control'),$grp,set_value('groups',$patient['groups'])); ?>
+                <p class="help-block"></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('ประเภทผู้ป่วย:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-6">
+                    <?php $typ = array(''=>'เลือกรายการ','คนไข้ออกหน่วย'=>'คนไข้ออกหน่วย','กลุ่ม CRC of PSU'=>'กลุ่ม CRC of PSU','คนไข้ CRC ส่งต่อ'=>'คนไข้ CRC ส่งต่อ');
+                    echo form_dropdown(array('name'=>'types','class'=>'form-control','id'=>'types'),$typ,set_value('types',$patient['types'])); ?>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <?php echo form_input(array('name'=>'times','class'=>'form-control','id'=>'times','placeholder'=>'ครั้งที่'),set_value('times',$patient['times'])); ?>
+                      <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <?php echo form_label('insurance:','health insurance',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-10">
-            <div class="radio">
-              <label><?php echo form_radio(array('name'=>'insurance','class'=>'form-control'),'ผู้ยากไร้',TRUE); ?>ผู้ยากไร้</label>
-              <p class="help-block"></p>
-            </div>
-            <div class="radio">
-              <label><?php echo form_radio(array('name'=>'insurance','class'=>'form-control'),'บัตรประกันสุขภาพถ้วนหน้า'); ?>บัตรประกันสุขภาพถ้วนหน้า</label>
-              <p class="help-block"></p>
-            </div>
-            <div class="radio">
-              <label><?php echo form_radio(array('name'=>'insurance','class'=>'form-control'),'บัตรประกันสังคม'); ?>บัตรประกันสังคม</label>
-              <p class="help-block"></p>
-            </div>
-            <div class="radio">
-              <label><?php echo form_radio(array('name'=>'insurance','class'=>'form-control'),'ข้าราชการ'); ?>ข้าราชการ</label>
-              <p class="help-block"></p>
-            </div>
-            <div class="radio">
-              <label><?php echo form_radio(array('name'=>'insurance','class'=>'form-control'),'องค์กรปกครองส่วนท้องถิ่น'); ?>องค์กรปกครองส่วนท้องถิ่น</label>
-              <p class="help-block"></p>
-            </div>
-            <div class="radio col-md-6">
-              <label><?php echo form_radio(array('name'=>'insurance','class'=>'form-control'),'na_province'); ?>อื่นๆ(ระบุจังหวัด)</label>
-              <p class="help-block"></p>
-            </div>
-            <div class="col-md-6">
-              <?php echo form_input(array('name'=>'','class'=>'form-control','placeholder'=>'etc.'),set_value('')); ?>
-            </div>
-          </div>
-        </div>
-        <?php echo form_fieldset_close(); ?>
-        <?php echo form_fieldset('Support Money'); ?>
-        <div class="form-group">
-          <?php echo form_label('all cost:','',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <div class="input-group">
-              <?php echo form_number(array('name'=>'','class'=>'form-control','placeholder'=>'ค่าบริการทั้งหมด'),set_value('')); ?>
-              <span class="input-group-addon">฿</span>
-            </div>
-          </div>
-          <p class="help-block col-md-6">* input number only</p>
-        </div>
-        <div class="form-group">
-          <?php echo form_label('service 1:','',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <div class="input-group">
-              <?php echo form_number(array('name'=>'','class'=>'form-control','placeholder'=>'ค่าบริการตรวจโดยการส่องกล้อง'),set_value('')); ?>
-              <span class="input-group-addon">฿</span>
-            </div>
-          </div>
-          <p class="help-block col-md-6">* input number only</p>
-        </div>
-        <div class="form-group">
-          <?php echo form_label('service 2:','',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <div class="input-group">
-              <?php echo form_number(array('name'=>'','class'=>'form-control','placeholder'=>'ค่ารักษาพยาบาลและบริการอื่นๆ'),set_value('')); ?>
-              <span class="input-group-addon">฿</span>
-            </div>
-          </div>
-          <p class="help-block col-md-6">* input number only</p>
-        </div>
-        <div class="form-group">
-          <?php echo form_label('transport:','',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <div class="input-group">
-              <?php echo form_number(array('name'=>'','class'=>'form-control','placeholder'=>'ค่าพาหนะ'),set_value('')); ?>
-              <span class="input-group-addon">฿</span>
-            </div>
-          </div>
-          <p class="help-block col-md-6">* input number only</p>
-        </div>
-        <div class="form-group">
-          <?php echo form_label('etc.:','',array('class'=>'control-label col-md-2')); ?>
-          <div class="col-md-4">
-            <div class="input-group">
-              <?php echo form_number(array('name'=>'','class'=>'form-control','placeholder'=>'อื่นๆ(ระบุ)'),set_value('')); ?>
-              <span class="input-group-addon">฿</span>
-            </div>
-          </div>
-          <p class="help-block col-md-6">* input number only</p>
         </div>
         <?php echo form_fieldset_close(); ?>
       </div>
-      <div class="box-footer clearfix"> </div>
+
+      <div class="panel box box-primary">
+        <div class="box-header with-border"> <h4 class="box-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false"> <?php echo form_fieldset('ข้อมูลการคัดกรอง'); ?> </a> </h4> </div>
+        <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+          <div class="box-body">
+            <div class="form-group">
+              <?php echo form_label('','activity',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10">
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[1]','class'=>'form-control'),'1',set_checkbox('activity[1]','1',(array_key_exists('1',$activity)))); ?>
+                  รับประทานอาหารมันๆ เป็นประจำ <small class="pull-right">[1]</small>
+                  <p class="help-block"></p>
+                </div>
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[2]','class'=>'form-control'),'1',set_checkbox('activity[2]','1',(array_key_exists('2',$activity)))); ?>
+                  รับประทานเน้ือสัตว์ระเภททอดปิ้งย่างไส้กรอกกุนเชียงบ่อยๆ <small class="pull-right">[1]</small>
+                  <p class="help-block"></p>
+                </div>
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[3]','class'=>'form-control'),'1',set_checkbox('activity[3]','1',(array_key_exists('3',$activity)))); ?>
+                  อ้วน <small class="pull-right">[1]</small>
+                  <p class="help-block"></p>
+                </div>
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[4]','class'=>'form-control'),'1',set_checkbox('activity[4]','1',(array_key_exists('4',$activity)))); ?>
+                  เป็นโรคเบาหวาน <small class="pull-right">[1]</small>
+                  <p class="help-block"></p>
+                </div>
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[5]','class'=>'form-control'),'3',set_checkbox('activity[5]','3',(array_key_exists('5',$activity)))); ?>
+                  ท้องผูกสลับท้องเสีย <small class="pull-right">[3]</small>
+                  <p class="help-block"></p>
+                </div>
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[6]','class'=>'form-control'),'3',set_checkbox('activity[6]','3',(array_key_exists('6',$activity)))); ?>
+                  ถ่ายอุจจาระไม่สุด(รู้สึกว่าถ่ายไม่หมด) <small class="pull-right">[3]</small>
+                  <p class="help-block"></p>
+                </div>
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[7]','class'=>'form-control'),'3',set_checkbox('activity[7]','3',(array_key_exists('7',$activity)))); ?>
+                  เคยอุจจาระมีเลือดปน <small class="pull-right">[3]</small>
+                  <p class="help-block"></p>
+                </div>
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[8]','class'=>'form-control'),'9',set_checkbox('activity[8]','9',(array_key_exists('8',$activity)))); ?>
+                  ลักษณะอุจจาระลีบ เล็ก แบน <small class="pull-right">[9]</small>
+                  <p class="help-block"></p>
+                </div>
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[9]','class'=>'form-control'),'10',set_checkbox('activity[9]','10',(array_key_exists('9',$activity)))); ?>
+                  เคยตรวจพบติ่งเนื้อในลำไส้ <small class="pull-right">[10]</small>
+                  <p class="help-block"></p>
+                </div>
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[10]','class'=>'form-control'),'12',set_checkbox('activity[10]','12',(array_key_exists('10',$activity)))); ?>
+                  มีญาติที่ใกล้ชิดกันโดยสายเลือดเช่น พ่อ แม่ พี่ น้อง เป็นโรคมะเร็งลำไส้ใหญ่เมื่ออายุมากกว่า 50 ปี <small class="pull-right">[12]</small>
+                  <p class="help-block"></p>
+                </div>
+                <div class="checkbox">
+                  <?php echo form_checkbox(array('name'=>'activity[11]','class'=>'form-control'),'11',set_checkbox('activity[11]','11',(array_key_exists('11',$activity)))); ?>
+                  มีญาติที่ใกล้ชิดกันโดยสายเลือดเช่น พ่อ แม่ พี่ น้อง เป็นโรคมะเร็งลำไส้ใหญ่เมื่ออายุน้อยกว่า 50 ปี <small class="pull-right">[11]</small>
+                  <p class="help-block"></p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('วิธีการให้ความรู้:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10">
+                <?php $edu = array(''=>'เลือกรายการ','บรรยาย'=>'บรรยาย','จัดบอร์ด'=>'จัดบอร์ด','ให้ความรู้ คำปรึกษาแนะนำจากบุคลากรและทีมงาน'=>'ให้ความรู้ คำปรึกษาแนะนำจากบุคลากรและทีมงาน');
+                echo form_dropdown(array('name'=>'filtered[educate]','class'=>'form-control'),$edu,set_value('filtered[educate]',$filtered['educate'])); ?>
+              </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('การประเมินผล:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10">
+                <?php $ass = array(''=>'เลือกรายการ','มากที่สุด'=>'มากที่สุด','มาก'=>'มาก','ปานกลาง'=>'ปานกลาง','น้อย'=>'น้อย','ควรปรับปรุง'=>'ควรปรับปรุง');
+                echo form_dropdown(array('name'=>'filtered[assessment]','class'=>'form-control'),$ass,set_value('filtered[assessment]',$filtered['assessment'])); ?>
+              </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('ผลการส่องกล้อง:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10">
+                <?php $res = array(''=>'เลือกรายการ','NORMAL'=>'NORMAL','POLYP'=>'POLYP','TUMOR'=>'TUMOR');
+                echo form_dropdown(array('name'=>'filtered[endoscope]','class'=>'form-control'),$res,set_value('filtered[endoscope]',$filtered['endoscope'])); ?>
+              </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('แนวทางการป้องกัน:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10">
+                <?php $pt = array('แนะนำให้ทำการตรวจลำไส้ด้วยการส่องกล้อง เริ่มก่อน 10 ปี'=>'แนะนำให้ทำการตรวจลำไส้ด้วยการส่องกล้อง เริ่มก่อน 10 ปี',
+                  'แนะนำให้ทำการตรวจลำไส้ด้วยการส่องกล้อง เริ่มตั้งแต่อายุ 20-25 ปี'=>'แนะนำให้ทำการตรวจลำไส้ด้วยการส่องกล้อง เริ่มตั้งแต่อายุ 20-25 ปี',
+                  'ตรวจภายในและติดตามระดับสารบ่งชี้มะเร็ง CA-125 ในเลือด ตรวจทุกๆ 2 ปี ให้เริ่มเมื่ออายุ 30 ปี เพื่อป้องกันมะเร็งโพรงมดลูกและรังไข่'=>'ตรวจภายในและติดตามระดับสารบ่งชี้มะเร็ง CA-125 ในเลือด ตรวจทุกๆ 2 ปี ให้เริ่มเมื่ออายุ 30 ปี เพื่อป้องกันมะเร็งโพรงมดลูกและรังไข่',
+                  'ส่องกล้องดูกระเพาะอาหารและลำไส้เล็กและตรวจวัดระดับค่าการทำงานของตับหรืออัลตร้าซาวด์ตับทุกๆ 2 ปี เพื่อตรวจหาความผิดปกติของกระเพาะอาหารและระบบทางเดินน้ำดี'=>'ส่องกล้องดูกระเพาะอาหารและลำไส้เล็กและตรวจวัดระดับค่าการทำงานของตับหรืออัลตร้าซาวด์ตับทุกๆ 2 ปี เพื่อตรวจหาความผิดปกติของกระเพาะอาหารและระบบทางเดินน้ำดี',
+                  'ตรวจปัสสาวะทุกปีหรือทำการส่องกล้องของระบบทางเดินปัสสาวะทุก 2 ปี เพื่อตรวจหาเนื้องอกของระบบทางเดินปัสสาวะตั้งแต่ 30 ปี'=>'ตรวจปัสสาวะทุกปีหรือทำการส่องกล้องของระบบทางเดินปัสสาวะทุก 2 ปี เพื่อตรวจหาเนื้องอกของระบบทางเดินปัสสาวะตั้งแต่ 30 ปี',
+                  'การให้คำแนะนำด้านโภชนาการที่สอดคล้องกับผลการวินิจฉัยของแพทย์ตามมาตรฐานในการดูแลผู้ป่วยด้านโภชนบำบัด'=>'การให้คำแนะนำด้านโภชนาการที่สอดคล้องกับผลการวินิจฉัยของแพทย์ตามมาตรฐานในการดูแลผู้ป่วยด้านโภชนบำบัด');
+                  echo form_dropdown(array('name'=>'protect','class'=>'form-control','id'=>'pt'),$pt,set_value('protect',$patient['protect']));?>
+              </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('แนวทางการรักษา:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10">
+                <?php $tp = array('นัด Fu'=>'นัด Fu','ผ่าตัด'=>'ผ่าตัด','รับยาเคมีบำบัด'=>'รับยาเคมีบำบัด');
+                  echo form_dropdown(array('name'=>'treatment_planning','class'=>'form-control','id'=>'tp'),$tp,set_value('treatment_planning',$patient['treatment_planning']));?>
+              </div>
+            </div>
+          </div>
+        </div>
+        <?php echo form_fieldset_close(); ?>
+      </div>
+
+      <div class="panel box box-primary">
+        <div class="box-header with-border"> <h4 class="box-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" class="collapsed"> <?php echo form_fieldset('สิทธิ์ประกันสังคมและค่ารักษาพยาบาล'); ?> </a> </h4> </div>
+        <div id="collapseFive" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+          <div class="box-body">
+            <div class="form-group">
+              <?php echo form_label('สิทธิ์ประกัน:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-10">
+                <?php $lf = array('ผู้ยากไร้'=>'ผู้ยากไร้','บัตรประกันสุขภาพถ้วนหน้า'=>'บัตรประกันสุขภาพถ้วนหน้า','บัตรประกันสังคม'=>'บัตรประกันสังคม','ข้าราชการ'=>'ข้าราชการ','องค์กรปกครองส่วนท้องถิ่น'=>'องค์กรปกครองส่วนท้องถิ่น');
+                echo form_dropdown(array('name'=>'insurance[life]','class'=>'form-control','id'=>'lf'),$lf,set_value('insurance[life]',$insurance['life'])); ?>
+              </div>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('ค่ารักษาพยาบาลทั้งหมด:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <?php echo form_input(array('name'=>'insurance[cost]','class'=>'form-control','placeholder'=>'ค่าบริการทั้งหมด'),set_value('insurance[cost]',$insurance['cost'])); ?>
+                  <span class="input-group-addon">฿</span>
+                </div>
+              </div>
+              <p class="help-block col-md-6">* กรอกตัวเลขเท่านั้น</p>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('รายการที่ 1:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <?php echo form_input(array('name'=>'insurance[service1]','class'=>'form-control','placeholder'=>'ค่าบริการตรวจโดยการส่องกล้อง'),set_value('insurance[service1]',$insurance['service1'])); ?>
+                  <span class="input-group-addon">฿</span>
+                </div>
+              </div>
+              <p class="help-block col-md-6">* กรอกตัวเลขเท่านั้น</p>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('รายการที่ 2:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <?php echo form_input(array('name'=>'insurance[service2]','class'=>'form-control','placeholder'=>'ค่ารักษาพยาบาลและบริการอื่นๆ'),set_value('insurance[service2]',$insurance['service2'])); ?>
+                  <span class="input-group-addon">฿</span>
+                </div>
+              </div>
+              <p class="help-block col-md-6">* กรอกตัวเลขเท่านั้น</p>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('ค่าเดินทาง:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <?php echo form_input(array('name'=>'insurance[fare]','class'=>'form-control','placeholder'=>'ค่าพาหนะ'),set_value('insurance[fare]',$insurance['fare'])); ?>
+                  <span class="input-group-addon">฿</span>
+                </div>
+              </div>
+              <p class="help-block col-md-6">* กรอกตัวเลขเท่านั้น</p>
+            </div>
+            <div class="form-group">
+              <?php echo form_label('อื่นๆ:','',array('class'=>'control-label col-md-2')); ?>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <?php echo form_input(array('name'=>'insurance[etc]','class'=>'form-control','placeholder'=>'อื่นๆ(ระบุ)'),set_value('insurance[etc]',$insurance['etc'])); ?>
+                  <span class="input-group-addon">฿</span>
+                </div>
+              </div>
+              <p class="help-block col-md-6">* กรอกตัวเลขเท่านั้น</p>
+            </div>
+          </div>
+        </div>
+        <?php echo form_fieldset_close(); ?>
+      </div>
+
     </div>
   </div>
   <div class="col-md-4">
     <div class="box box-info">
       <div class="box-header"> </div>
       <div class="box-body">
-        <h4><i class="fa fa-info-circle"></i> message(s)</h4><hr>
+        <h4><i class="fa fa-info-circle"></i> รายการแจ้งเตือน</h4><hr>
         <?php echo $this->session->flashdata('message'); ?>
-        <p class="dz-error-message text-danger"></p>
-        <br>
-        <h4><i class="fa fa-info-circle"></i> file attachment</h4><hr>
-        <div class="dropzone" id="dropzoneUpload" style="min-height:75px;padding:0;border:1px dotted;background:#f5f5f5;"> </div>
-        <br>
-        <div class="col-md-12 well" id="assets">
-          <?php if (isset($assets_patients) && ! empty($assets_patients)) : ?>
-            <?php foreach ($assets_patients as $key => $value) : ?>
-              <div class="col-md-6" style="padding:0 2px;">
-                <a href="<?php echo base_url('uploads/patients/'.$value['file_name']); ?>"
-                  target="_blank"
-                  class="thumbnail"
-                  style="min-height:160px;">
-                  <img src="<?php echo base_url('uploads/patients/'.$value['file_name']); ?>" class="img-responsive">
-                  <div class="caption"> </div>
-                </a>
-              </div>
-            <?php endforeach; ?>
-          <?php endif; ?>
-        </div>
-        <br>
-        <h4><i class="fa fa-info-circle"></i> file description</h4><hr>
-        <p>* max file size 1 MB</p>
-        <p>* mime type is only image/jpeg</p>
-        <p>* file scale will change to 300x300px with maintain ratio</p>
       </div>
       <div class="box-footer clearfix">
         <?=anchor(uri_string(),'<i class="fa fa-refresh"></i>',array('class'=>'btn btn-default'));?>
         <span class="pull-right">
-          <?=form_submit('','Submit',array('class'=>'btn btn-success',''=>'','autocomplete'=>'off'));?>
+          <?=form_submit('','บันทึกข้อมูล',array('class'=>'btn btn-success','autocomplete'=>'off'));?>
         </span>
       </div>
+      <?php echo form_close(); ?>
+    </div>
+    <div class="box box-info">
+      <div class="box-header"></div>
+      <div class="box-body">
+        <h4><i class="fa fa-info-circle"></i> อัพโหลดไฟล์</h4><hr>
+        <?php echo form_open_multipart('admin/patients/upload/'.$patient['id'],array('class'=>'dropzone','id'=>'dropzone-upload','style'=>'min-height:75px;padding:0;border:1px dotted;background:#f5f5f5;'));?>
+      </div>
+      <div class="box-footer clearfix">
+        <span class="pull-right">
+          <?=form_submit('','อัพโหลด',array('class'=>'btn btn-info','id'=>'dropzone-submit'));?>
+        </span>
+      </div>
+      <?php echo form_close(); ?>
     </div>
   </div>
-  <?php echo form_close(); ?>
 </div>
 
+<div class="row">
+  <div class="col-md-8">
+    <?php echo form_fieldset('เอกสารที่เกี่ยวข้อง'); ?>
+    <?php if (isset($assets_patients) && ! empty($assets_patients)) : ?>
+      <table class="table table-condensed table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">ชนิดไฟล์</th>
+            <th class="text-center">ชื่อไฟล์</th>
+            <th class="text-center">ขนาดไฟล์</th>
+            <th class="text-center">วันที่อัพโหลด</th>
+            <th class="text-center">อัพโหลดโดย</th>
+            <th class="text-center"></th>
+          </tr>
+        </thead>
+        <?php foreach ($assets_patients as $key => $value) : ?>
+          <tbody>
+            <tr>
+              <td class="text-center"> <?php echo $value['file_type']; ?></td>
+              <td> <a href="<?php echo base_url('uploads/patients/'.$value['file_name']); ?>" target="_blank"><?php echo $value['client_name']; ?></a> </td>
+              <td class="text-center"> <?php echo byte_format($value['file_size']); ?> </td>
+              <td class="text-center"> <?php echo date('d/m/Y H:i:s',$value['upload_date']); ?> </td>
+              <td class="text-center"> <?php echo $value['username']; ?> </td>
+              <td class="text-center"> <a href="<?php echo base_url('admin/patients/delete_file/'.$value['id'].'/'.$value['file_name']); ?>" class="badge bg-red" onclick="return confirm('confirm to delete?');"> ลบ </a> </td>
+            </tr>
+          </tbody>
+        <?php endforeach; ?>
+      </table>
+    <?php else: ?>
+      ว่างเปล่า
+    <?php endif; ?>
+    <?php echo form_fieldset_close(); ?>
+  </div>
+  <div class="col-md-4"> </div>
+</div>
+
+
+<?=link_tag('assets/admin/plugins/editable-select/editable-select.min.css');?>
+<?=script_tag('assets/admin/plugins/editable-select/editable-select.min.js');?>
 <?=link_tag('assets/admin/plugins/dropzone/dropzone.min.css');?>
 <?=link_tag('assets/admin/plugins/dropzone/basic.min.css');?>
 <?=script_tag('assets/admin/plugins/dropzone/dropzone.min.js');?>
 <!-- <?=script_tag('assets/admin/js/plugins/autoprovince/autoprovince.js');?> -->
 <script type="text/javascript">
-$(document).ready(function() {
-  Dropzone.autoDiscover = false;
-  $("div#dropzoneUpload").dropzone({
-    url: "<?php echo site_url('admin/patients/upload'); ?>",
-    parallelUploads: '1',
-    paramName: 'file',
-    maxFiles: '10',
-    params: { patient_id: '<?php echo $this->uri->segment('4'); ?>' },
-    acceptedFiles: 'image/*',
-    success: function(file, response) {
-      var args = Array.prototype.slice.call(arguments);
-      console.log(response);
-      $('.dz-error-message').append(response);
-    }
-  });
+$(function() {
   // $('div#address').AutoProvince({
-  //   PROVINCE: '#province',
+  //   DISTRICT: '#tambon',
   //   AMPHUR: '#amphur',
-  //   DISTRICT: '#district',
-  //   POSTCODE: '#postcode',
+  //   PROVINCE: '#province',
+  //   POSTCODE: '#zip',
   //   arrangeByName: false
   // });
+
+  Dropzone.options.dropzoneUpload = {
+    parallelUploads: '10',
+    maxFilesize: '1',
+    maxFiles: '10',
+    params: { patient_id: '<?=$patient['id'];?>' },
+    acceptedFiles: 'image/*',
+    autoProcessQueue: false,
+    addRemoveLinks: true,
+    init: function() {
+      var submitButton = document.querySelector("#dropzone-submit")
+      myDropzone = this;
+      submitButton.addEventListener("click", function() {
+        myDropzone.processQueue();
+      });
+    }
+  };
+
+  var types = $('#types');
+  var times = $('#times');
+  <?php if ($patient['types'] == '' OR $patient['types'] !== 'คนไข้ออกหน่วย') : ?>
+  times.prop('disabled',true);
+  <?php endif; ?>
+  types.on('change',function(){
+    if (this.value == 'คนไข้ออกหน่วย') {
+      times.prop('disabled',false);
+    } else {
+      times.prop('disabled',true);
+    }
+  });
+
+  var relationship = $('#relationship');
+  var relationship_by = $('#relationship_by');
+  <?php if ($patient['relationship'] == '' OR $patient['relationship'] == 'ผู้ป่วย') : ?>
+  relationship_by.prop('disabled',true);
+  <?php endif; ?>
+  relationship.on('change',function(){
+    if (this.value == 'ผู้ป่วย') {
+      relationship_by.prop('disabled',true);
+    } else {
+      relationship_by.prop('disabled',false);
+    }
+  });
+
+  $('#lf').editableSelect();
+  $('#tp').editableSelect();
+  $('#pt').editableSelect();
+
 });
 </script>

@@ -1,67 +1,71 @@
 <div class="row">
-	<div class="col-md-12">
-		 <!-- general form elements -->
-        <div class="box box-primary">
-            <div class="box-header">
-                <h3 class="box-title">Edit User</h3>
-            </div><!-- /.box-header -->
-            <!-- form start -->
-						<?php echo form_open('admin/users/edit'); ?>
-                <input type="hidden" name="id" value="<?php echo $user['id']?>">
-                <div class="box-body">
-                    <?php echo $this->session->flashdata('message');?>
-                    <?php echo validation_errors(); ?>
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" readonly="readonly" name="username" class="form-control" id="username" placeholder="Username" value="<?php echo set_value('username', isset($user['username']) ? $user['username'] : '') ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Email</label>
-                        <input type="text" readonly="readonly" name="email" class="form-control" id="username" placeholder="Username" value="<?php echo set_value('email', isset($user['email']) ? $user['email'] : '') ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">New Password</label>
-                        <input type="password" name="password" class="form-control" id="username" placeholder="New Password" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Confirm Password</label>
-                        <input type="password" name="confirm_password" class="form-control" id="username" placeholder="Confirm Password" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">First  Name</label>
-                        <input type="text" name="first_name" class="form-control" id="username" placeholder="First name" value="<?php echo set_value('first_name', isset($user['first_name']) ? $user['first_name'] : '') ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Last Name</label>
-                        <input type="text" name="last_name" class="form-control" id="username" placeholder="Last name" value="<?php echo set_value('last_name', isset($user['last_name']) ? $user['last_name'] : '') ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Company</label>
-                        <input type="text" name="company" class="form-control" id="username" placeholder="Company" value="<?php echo set_value('company', isset($user['company']) ? $user['company'] : '') ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Phone</label>
-                        <input type="text" name="phone" class="form-control" id="username" placeholder="Phone" value="<?php echo set_value('phone', isset($user['phone']) ? $user['phone'] : '') ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="category_active">Groups</label>
-                        <?php
-                            echo form_dropdown('groups[]',$groups, explode(',', $user['group_ids']),array('class' => 'form-control','multiple' => true));
-                        ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="category_active">Status</label>
-                        <?php
-                            echo form_dropdown('active',$user_status, isset($user['active']) ? $user['active'] : '',array('class' => 'form-control'));
-                        ?>
-                    </div>
-                </div><!-- /.box-body -->
-
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-default" onclick="javascript:history.back()">Back</button>
-                </div>
-            <?php echo form_close(); ?>
-        </div><!-- /.box -->
-	</div>
+  <div class="col-md-12">
+    <div class="box box-primary">
+      <div class="box-header"> <h3 class="box-title"></h3> </div>
+      <?php echo form_open('admin/users/edit',array('class'=>'form-horizontal')); ?>
+			<?=form_hidden('id',$user['id']);?>
+        <div class="box-body">
+          <?php echo $this->session->flashdata('message');?>
+          <?php echo message_box(validation_errors(),'danger'); ?>
+          <div class="form-group">
+            <label for="" class="control-label col-md-3">ชื่อผู้ใช้</label>
+            <div class="col-md-8">
+              <?=form_input(array('name'=>'','class'=>'form-control','disabled'=>TRUE),set_value('',$user['username']));?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="control-label col-md-3">อีเมล์</label>
+            <div class="col-md-8">
+              <?=form_input(array('name'=>'','class'=>'form-control','disabled'=>TRUE),set_value('',$user['email']));?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="control-label col-md-3">รหัสผ่าน</label>
+            <div class="col-md-8">
+              <?=form_password(array('name'=>'password','class'=>'form-control','placeholder'=>'รหัสผ่าน'));?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="control-label col-md-3">รหัสผ่าน(ยืนยัน)</label>
+            <div class="col-md-8">
+              <?=form_password(array('name'=>'confirm_password','class'=>'form-control','placeholder'=>'รหัสผ่าน(ยืนยัน)'));?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="control-label col-md-3">ชื่อ</label>
+            <div class="col-md-8">
+              <?=form_input(array('name'=>'first_name','class'=>'form-control','placeholder'=>'ชื่อ'),set_value('first_name',$user['first_name']));?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="control-label col-md-3">นามสกุล</label>
+            <div class="col-md-8">
+              <?=form_input(array('name'=>'last_name','class'=>'form-control','placeholder'=>'นามสกุล'),set_value('last_name',$user['last_name']));?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="control-label col-md-3">กลุ่มผู้ใช้</label>
+            <div class="col-md-8">
+              <?=form_dropdown('groups[]',$groups,explode(',',$user['group_ids']),array('class'=>'form-control','multiple'=>TRUE));?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="control-label col-md-3">สถานะ</label>
+            <div class="col-md-8">
+              <?=form_dropdown('active',$user_status,isset($user['active']) ? $user['active']:'',array('class'=>'form-control'));?>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <div class="form-group">
+            <label for="" class="control-label col-md-3"></label>
+            <div class="col-md-8">
+              <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+              <button type="button" class="btn btn-default" onclick="javascript:history.back()">ย้อนกลับ</button>
+            </div>
+          </div>
+        </div>
+      <?php echo form_close(); ?>
+    </div>
+  </div>
 </div>

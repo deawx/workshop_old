@@ -16,6 +16,8 @@
   <?=link_tag('assets/admin/plugins/line_control_editor/editor.css');?>
   <?=link_tag('assets/admin/plugins/select2/select2.min.css');?>
   <?=link_tag('assets/admin/plugins/datepicker/datepicker.css');?>
+  <?=link_tag('assets/admin/plugins/dropzone/dropzone.min.css');?>
+  <?=link_tag('assets/admin/plugins/dropzone/basic.min.css');?>
 
   <?=script_tag('assets/admin/js/jquery.min.js');?>
   <?=script_tag('assets/admin/js/jquery-ui.min.js');?>
@@ -33,7 +35,7 @@
   <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="skin-black">
+<body class="skin-blue">
   <?php echo $header;?>
   <div class="wrapper row-offcanvas row-offcanvas-left">
     <aside class="left-side sidebar-offcanvas">
@@ -56,6 +58,7 @@
   <?=script_tag('assets/admin/plugins/select2/select2.full.min.js');?>
   <?=script_tag('assets/admin/plugins/line_control_editor/editor.js');?>
   <?=script_tag('assets/admin/plugins/datepicker/datepicker.js');?>
+  <?=script_tag('assets/admin/plugins/dropzone/dropzone.min.js');?>
   <?=script_tag('assets/admin/js/adminlte/app.js');?>
   <?=script_tag('assets/admin/js/custom.js');?>
 

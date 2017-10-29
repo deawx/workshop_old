@@ -1,9 +1,9 @@
-<?php echo form_fieldset('ENDOSCOPE REPORT'); ?>
+<?php echo form_fieldset('ENDOSCOPE'); ?>
 <div class="form-group">
-  <?php echo form_label('endoscope result:','endoscope',array('class'=>'control-label col-md-2')); ?>
+  <?php echo form_label('ผลตรวจการส่องกล้อง:','endoscope',array('class'=>'control-label col-md-2')); ?>
   <div class="col-md-5">
     <?php $eds = array(''=>'เลือกรายการ','NORMAL'=>'NORMAL','POLYP'=>'POLYP','TUMOR'=>'TUMOR');
-    echo form_dropdown(array('name'=>'endoscope','class'=>'form-control'),$eds,set_value('')); ?>
+    echo form_dropdown(array('name'=>'endoscope','class'=>'form-control'),$eds,set_value('endoscope',$labs['endoscope'])); ?>
   </div>
 </div>
 <?php echo form_fieldset_close(); ?>

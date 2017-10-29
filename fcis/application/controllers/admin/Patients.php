@@ -8,50 +8,52 @@ class Patients extends Admin_Controller {
 		parent::__construct();
 		$this->allow_group_access(array('special','admin'));
 		$this->load->model('Patient_model','patient');
-		$this->data['page_header_small'] = 'patient details';
+		$this->data['page_header_small'] = 'รายละเอียดข้อมูล';
 		$this->data['parent_menu'] = 'patient';
 	}
 
 	public function index()
 	{
-		$this->form_validation->set_rules('id_card', 'หมายเลขบัตรประชาชน', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
-		$this->form_validation->set_rules('types', 'ชนิก', 'required|in_list[คนไข้ออกหน่วย,กลุ่ม CRC of PSU,คนไข้ CRC ส่งต่อ]');
-		$this->form_validation->set_rules('groups', 'กลุ่ม', 'required|in_list[FAP,HNPCC,PJS/JPS]');
-		$this->form_validation->set_rules('title', 'คำนำหน้า', 'required|in_list[นาย,นาง,นางสาว]');
-		$this->form_validation->set_rules('firstname', 'ชื่อ', 'required|max_length[100]');
-		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required|max_length[150]');
-		$this->form_validation->set_rules('age', 'อายุ', 'is_numeric|max_length[3]');
-		$this->form_validation->set_rules('hn', 'H.M.', 'alpha_numeric|max_length[8]');
-		$this->form_validation->set_rules('zipcode', 'รหัสไปรษณีย์', 'is_numeric|max_length[7]');
-		$this->form_validation->set_rules('telephone', 'เบอร์โทรศัพท์', 'is_numeric|max_length[10]');
-		$this->form_validation->set_rules('mobile', 'โทรศัพท์มือถือ', 'is_numeric|max_length[10]');
+		$this->form_validation->set_rules('types','ชนิดของผู้ป่วย','required');
+		$this->form_validation->set_rules('groups','กลุ่มของผู้ป่วย','required');
+		$this->form_validation->set_rules('title','คำนำหน้าชื่อ','required');
+		$this->form_validation->set_rules('firstname','ชื่อ','required');
+		$this->form_validation->set_rules('lastname','นามสกุล','required');
+		$this->form_validation->set_rules('id_card','หมายเลขบัตรประชาชน','required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
+		$this->form_validation->set_rules('hn','รหัสผู้ป่วย(H.N.)','required|alpha_numeric|is_unique[patients.hn]');
+		$this->form_validation->set_rules('age','อายุ','is_numeric|max_length[3]');
+		$this->form_validation->set_rules('zip','รหัสไปรษณีย์','is_numeric|max_length[7]');
+		$this->form_validation->set_rules('phone','เบอร์โทรศัพท์','is_numeric|max_length[10]');
+		$this->form_validation->set_rules('mobile','เบอร์โทรศัพท์มือถือ','is_numeric|max_length[10]');
 		if ($this->form_validation->run() === TRUE) :
 			$post = $this->input->post();
 			$post['created'] = time();
 			$post['user_id'] = $this->session->user_id;
-			$post['address'] = serialize(array(
-				$this->input->post('address_number'),
-				$this->input->post('address_soi'),
-				$this->input->post('address_street'),
-				$this->input->post('address_moo'),
-				$this->input->post('address_tambon'),
-				$this->input->post('address_amphur'),
-				$this->input->post('address_province'),
-				$this->input->post('address_zipcode')
-			));
+			$post['address'] = serialize($this->input->post('address'));
+			$post['address_current'] = $this->input->post('same_address') ? serialize($this->input->post('address')) : serialize($this->input->post('address_current'));
+			$post['relationship_by'] = ($this->input->post('relationship') !== 'ผู้ป่วย') ? $this->input->post('relationship_by') : '';
+			$post['activity'] = serialize($this->input->post('activity'));
+			$post['filtered'] = serialize($this->input->post('filtered'));
+			$post['insurance'] = serialize($this->input->post('insurance'));
 			// print_data($post); die();
 			// $this->_upload(isset($patient['id_card']) ? $patient['id_card'] : $this->input->post('id_card'));
 			if ($this->patient->save($post)) :
-				$this->session->set_flashdata('message',message_box('patient has been saved','success'));
+				$this->db->insert('users_logs',array(
+					'user_id'=>$this->session->user_id,
+					'timestamp'=>time(),
+					'message'=>'เพิ่มข้อมูลผู้ป่วยเสร็จสิ้น',
+					'type'=>'patient',
+				));
+				$this->session->set_flashdata('message',message_box('บันทึกข้อมูลเสร็จสิ้น','success'));
 			else:
-				$this->session->set_flashdata('message',message_box('save failed, check your data','danger'));
+				$this->session->set_flashdata('message',message_box('บันทึกข้อมูลล้มเหลว','danger'));
 			endif;
 			redirect('admin/search');
 		else:
 			$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
 		endif;
 
-		$this->data['page_header'] = 'Add New';
+		$this->data['page_header'] = 'เพิ่มข้อมูลผู้ป่วย';
 		$this->render('admin/patient/add');
 	}
 
@@ -60,30 +62,56 @@ class Patients extends Admin_Controller {
 		if ( ! intval($id) > 0)
 			redirect('admin/search');
 
-		$post = $this->input->post();
-		$this->data['patient'] = $this->patient->search_id($id);
-
-		if ($this->input->post('old_id_card') !== '' && $this->input->post('old_id_card') !== $this->input->post('id_card'))
-			$this->form_validation->set_rules('id_card', 'personal id', 'required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
-
-		$this->form_validation->set_rules('types', 'types', 'required|in_list[คนไข้ออกหน่วย,กลุ่ม CRC of PSU,คนไข้ CRC ส่งต่อ]');
-		$this->form_validation->set_rules('groups', 'groups', 'required|in_list[FAP,HNPCC,PJS/JPS]');
-		$this->form_validation->set_rules('title', 'title', 'required|in_list[นาย,นาง,นางสาว]');
-		$this->form_validation->set_rules('firstname', 'firstname', 'required|max_length[100]');
-		$this->form_validation->set_rules('lastname', 'lastname', 'required|max_length[150]');
+		$this->form_validation->set_rules('types','ชนิดของผู้ป่วย','required');
+		$this->form_validation->set_rules('groups','กลุ่มของผู้ป่วย','required');
+		$this->form_validation->set_rules('title','คำนำหน้าชื่อ','required');
+		$this->form_validation->set_rules('firstname','ชื่อ','required');
+		$this->form_validation->set_rules('lastname','นามสกุล','required');
+		if ($this->input->post('id_card') !== $this->input->post('old_id_card')) :
+			$this->form_validation->set_rules('id_card','หมายเลขบัตรประชาชน','required|is_numeric|exact_length[13]|is_unique[patients.id_card]');
+		else:
+			$this->form_validation->set_rules('id_card','หมายเลขบัตรประชาชน','required|is_numeric|exact_length[13]');
+		endif;
+		if ($this->input->post('hn') !== $this->input->post('old_hn')) :
+			$this->form_validation->set_rules('hn','รหัสผู้ป่วย(H.N.)','required|alpha_numeric|is_unique[patients.hn]');
+		else:
+			$this->form_validation->set_rules('hn','รหัสผู้ป่วย(H.N.)','required|alpha_numeric');
+		endif;
+		$this->form_validation->set_rules('age','อายุ','is_numeric|max_length[3]');
+		$this->form_validation->set_rules('zip','รหัสไปรษณีย์','is_numeric|max_length[7]');
+		$this->form_validation->set_rules('phone','เบอร์โทรศัพท์','is_numeric|max_length[10]');
+		$this->form_validation->set_rules('mobile','เบอร์โทรศัพท์มือถือ','is_numeric|max_length[10]');
 		if ($this->form_validation->run() === TRUE) :
+			$post = $this->input->post();
 			$post['updated'] = time();
 			$post['user_id'] = $this->session->user_id;
+			$post['address'] = serialize($this->input->post('address'));
+			$post['address_current'] = $this->input->post('same_address') ? serialize($this->input->post('address')) : serialize($this->input->post('address_current'));
+			$post['relationship_by'] = ($this->input->post('relationship') !== 'ผู้ป่วย') ? $this->input->post('relationship_by') : '';
+			$post['address_current'] = $this->input->post('same_address') ? serialize($this->input->post('address')) : serialize($this->input->post('address_current'));
+			$post['activity'] = serialize($this->input->post('activity'));
+			$post['filtered'] = serialize($this->input->post('filtered'));
+			$post['insurance'] = serialize($this->input->post('insurance'));
+
+			// print_data($post); die();
+
 			if ($this->patient->save($post)) :
-				$this->session->set_flashdata('message',message_box('patient has been saved','success'));
+				$this->db->insert('users_logs',array(
+					'user_id'=>$this->session->user_id,
+					'timestamp'=>time(),
+					'message'=>'อัพเดทข้อมูลผู้ป่วยเสร็จสิ้น',
+					'type'=>'patient',
+				));
+				$this->session->set_flashdata('message',message_box('บันทึกข้อมูลเสร็จสิ้น','success'));
 			else:
-				$this->session->set_flashdata('message',message_box('save failed, check your data','warning'));
+				$this->session->set_flashdata('message',message_box('บันทึกข้อมูลล้มเหลว','danger'));
 			endif;
 		else:
 			$this->session->set_flashdata('message',message_box(validation_errors(),'danger'));
 		endif;
 
-		$this->data['page_header'] = 'Edit';
+		$this->data['page_header'] = 'แก้ไขข้อมูลผู้ป่วย';
+		$this->data['patient'] = $this->patient->search_id($id);
 		$this->data['assets_patients'] = $this->patient->find_gallery($id);
 		$this->render('admin/patient/edit');
 	}
@@ -91,23 +119,37 @@ class Patients extends Admin_Controller {
 	function delete($id=NULL)
 	{
 		if ($this->patient->remove($id)) :
-			$this->session->set_flashdata('message',message_box('patient has been deleted','success'));
+			$this->db->where('patient_id',$id)->delete('labs');
+			$this->db->where('patient_id',$id)->delete('clinic');
+			$this->db->where('patient_id',$id)->delete('samples');
+			$this->db->insert('users_logs',array(
+				'user_id'=>$this->session->user_id,
+				'timestamp'=>time(),
+				'message'=>'ลบข้อมูลผู้ป่วยเสร็จสิ้น',
+				'type'=>'patient',
+			));
+			$this->session->set_flashdata('message',message_box('ลบข้อมูลเสร็จสิ้น','success'));
 		else :
-			$this->session->set_flashdata('message',message_box('delete failed, check your data','danger'));
+			$this->session->set_flashdata('message',message_box('ลบข้อมูลล้มเหลว','danger'));
 		endif;
 		redirect($this->agent->referrer());
 	}
 
-	function delete_file($id=NULL)
+	function delete_file($id=NULL,$file=NULL)
 	{
-		if ($id === '')
+		if ($id === NULL OR $file === NULL)
 			return FALSE;
 
-		$file = FCPATH.'uploads/patients';
+		$file = FCPATH.'uploads/patients/'.$file;
 		if (unlink($file)) :
-			$this->session->set_flashdata('message',message_box('file has been deleted','success'));
+			if ($this->patient->remove($id,'assets')) :
+				$this->patient->remove($id,'assets_patients');
+				$this->session->set_flashdata('message',message_box('การลบไฟล์เสร็จสิ้น','success'));
+			else:
+				$this->session->set_flashdata('message',message_box($this->db->error(),'danger'));
+			endif;
 		else:
-			$this->session->set_flashdata('message',message_box('delete failed, check your data','danger'));
+			$this->session->set_flashdata('message',message_box('การลบไฟล์ล้มเหลว','danger'));
 		endif;
 
 		redirect($this->agent->referrer());
@@ -129,33 +171,22 @@ class Patients extends Admin_Controller {
       if ($this->upload->do_upload('file')) :
         $resize = array(
           'source_image' => $this->upload->data('full_path'),
-          'width' => '300',
-          'height' => '300'
+          'width' => '400',
+          'height' => '400'
         );
         $this->image_lib->initialize($resize);
         if ($this->image_lib->resize()) :
-					if ($this->patient->save(array(
-						'file_name' => $this->upload->data('file_name'),
-						'file_type' => $this->upload->data('file_type'),
-						'file_path' => $this->upload->data('file_path'),
-						'full_path' => $this->upload->data('full_path'),
-						'raw_name' => $this->upload->data('raw_name'),
-						'orig_name' => $this->upload->data('orig_name'),
-						'client_name' => $this->upload->data('client_name'),
-						'file_ext' => $this->upload->data('file_ext'),
-						'file_size' => $this->upload->data('file_size'),
-						'is_image' => $this->upload->data('is_image'),
-						'image_width' => $this->upload->data('image_width'),
-						'image_height' => $this->upload->data('image_height'),
-						'image_type' => $this->upload->data('image_type'),
-						'image_size_str' => $this->upload->data('image_size_str'),
-						'upload_date' => time(),
-						'upload_by' => $this->session->user_id
-					),'assets')) :
+					$data = array();
+					foreach ($this->upload->data() as $key => $value) :
+						$data[$key] = $value;
+					endforeach;
+					if ($this->patient->save($data,'assets')) :
 						$assets_id = $this->db->insert_id();
 						$this->patient->save(array(
 							'assets_id' => $assets_id,
-							'patients_id' => $this->input->post('patient_id')
+							'patients_id' => $this->input->post('patient_id'),
+							'upload_date' => time(),
+							'upload_by' => $this->session->user_id
 						),'assets_patients');
 					endif;
 				else :
@@ -169,6 +200,8 @@ class Patients extends Admin_Controller {
 					->set_output(json_encode($this->upload->display_errors()));
       endif;
     endif;
+
+		redirect($this->agent->referrer());
 	}
 
 }

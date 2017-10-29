@@ -21,7 +21,7 @@ $lang['account_creation_duplicate_email'] 	 = 'อีเมล์นี้ได
 $lang['account_creation_duplicate_username'] = 'ชื่อผู้ใช้นี้ได้ถูกใช้งานแล้ว';
 
 // Password
-$lang['password_change_successful'] 	 	 = 'Password Successfully Changed';
+$lang['password_change_successful'] 	 	 = 'เปลี่ยนรหัสผ่านเสร็จสิ้น';
 $lang['password_change_unsuccessful'] 	  	 = 'Unable to Change Password';
 $lang['forgot_password_successful'] 	 	 = 'Password Reset Email Sent';
 $lang['forgot_password_unsuccessful'] 	 	 = 'Unable to Reset Password';
@@ -35,14 +35,14 @@ $lang['activation_email_successful'] 	  	 = 'Activation Email Sent';
 $lang['activation_email_unsuccessful']   	 = 'Unable to Send Activation Email';
 
 // Login / Logout
-$lang['login_successful'] 		  	         = 'Logged In Successfully';
-$lang['login_unsuccessful'] 		  	     = 'Incorrect Login';
-$lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
+$lang['login_successful'] 		  	         = 'เข้าสู่ระบบสำเร็จ';
+$lang['login_unsuccessful'] 		  	     = 'การล็อกอินผิดพลาด';
+$lang['login_unsuccessful_not_active'] 		 = 'บัญชีนี้ถูกระงับ';
 $lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
 $lang['logout_successful'] 		 	         = 'Logged Out Successfully';
 
 // Account Changes
-$lang['update_successful'] 		 	         = 'Account Information Successfully Updated';
+$lang['update_successful'] 		 	         = 'อัพเดทข้อมูลเสร็จสิ้น';
 $lang['update_unsuccessful'] 		 	     = 'Unable to Update Account Information';
 $lang['delete_successful']               = 'User Deleted';
 $lang['delete_unsuccessful']           = 'Unable to Delete User';

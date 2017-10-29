@@ -6,24 +6,26 @@ $uri_string = uri_string().'?'.$uri_get;
 $order_by = $this->input->get('order_by');
 ?>
 <div class="row">
+  <!-- <div class="col-md-12">
+    <?//=anchor('admin/search/export','ส่งออกข้อมูล',array('target'=>'_blank','class'=>'btn btn-default'));?>
+    <hr>
+  </div> -->
   <div class="col-md-12">
     <div class="box box-success">
       <div class="box-header"> <!-- <h3 class="box-title">Search for Patients</h3> --> </div>
       <div class="box-body">
         <?php if ($this->input->get('mode') === NULL OR $this->input->get('mode') === 'list') : ?>
-          <table class="table table-condensed table-hover datatable">
+          <table class="table table-condensed table-bordered table-hover datatable">
             <thead>
               <tr>
                 <th>#</th>
-                <th><?php echo anchor($uri_string.'&order_by=types',($order_by === 'types') ? 'types <i class="fa fa-caret-up"></i>' : 'types'); ?></th>
-                <th><?php echo anchor($uri_string.'&order_by=groups',($order_by === 'groups') ? 'groups <i class="fa fa-caret-up"></i>' : 'groups'); ?></th>
-                <th><?php echo anchor($uri_string.'&order_by=id_card',($order_by === 'id_card') ? 'id_card <i class="fa fa-caret-up"></i>' : 'id_card'); ?></th>
-                <th><?php echo anchor($uri_string.'&order_by=title',($order_by === 'title') ? 'title <i class="fa fa-caret-up"></i>' : 'title'); ?></th>
-                <th><?php echo anchor($uri_string.'&order_by=firstname',($order_by === 'firstname') ? 'firstname <i class="fa fa-caret-up"></i>' : 'firstname'); ?></th>
-                <th><?php echo anchor($uri_string.'&order_by=lastname',($order_by === 'lastname') ? 'lastname <i class="fa fa-caret-up"></i>' : 'lastname'); ?></th>
-                <th><?php echo anchor($uri_string.'&order_by=created',($order_by === 'created') ? 'created <i class="fa fa-caret-up"></i>' : 'created'); ?></th>
-                <th><?php echo anchor($uri_string.'&order_by=updated',($order_by === 'updated') ? 'updated <i class="fa fa-caret-up"></i>' : 'updated'); ?></th>
-                <th>action</th>
+                <th>ประเภท</th>
+                <th>กลุ่ม</th>
+                <th>เลขบัตรประชาชน</th>
+                <th>ชื่อ-นามสกุล</th>
+                <th>วันที่บันทึก</th>
+                <th>วันที่อัพเดท</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -33,16 +35,14 @@ $order_by = $this->input->get('order_by');
                   <td><?php echo $value['types']; ?></td>
                   <td><?php echo $value['groups']; ?></td>
                   <td><?php echo $value['id_card']; ?></td>
-                  <td><?php echo $value['title']; ?></td>
-                  <td><?php echo $value['firstname']; ?></td>
-                  <td><?php echo $value['lastname']; ?></td>
-                  <td><?php echo unix_to_human($value['created']); ?></td>
-                  <td><?php echo unix_to_human($value['updated']); ?></td>
+                  <td><?php echo $value['title'].nbs().$value['firstname'].nbs().$value['lastname']; ?></td>
+                  <td><?php echo ($value['created']) ? date('d-m-Y H:i:s',$value['created']) : 'N/A'; ?></td>
+                  <td><?php echo ($value['updated']) ? date('d-m-Y H:i:s',$value['updated']) : 'N/A'; ?></td>
                   <td>
                     <?php
-                    // echo anchor('admin/search?id='.$value['id'],'<i class="fa fa-eye"></i>',array('class'=>'btn btn-default'));
+                    echo anchor('admin/search?id='.$value['id'],'ดู',array('class'=>'badge bg-green')).nbs();
                     if (any_in_array(array('special','admin','editor'),$current_groups)) :
-                      echo anchor('admin/search?id='.$value['id'],'view',array('class'=>'badge bg-green'));
+                      echo anchor('admin/patients/edit/'.$value['id'],'แก้ไข',array('class'=>'badge bg-info'));
                     endif;
                     ?>
                   </td>
@@ -67,7 +67,7 @@ $(document).ready(function() {
       aria: { sortAscending: ": activate to sort column ascending", sortDescending: ": activate to sort column descending" }
       , emptyTable:"No data available in table"
       , info:"Showing _START_ to _END_ of _TOTAL_ entries"
-      , infoEmpty:"No entries found"
+      , infoEmpty:"ว่างเปล่า"
       , infoFiltered:"(filtered1 from _MAX_ total entries)"
       , lengthMenu:"_MENU_ entries"
       , search:"Search:"

@@ -8,12 +8,12 @@ class Assets_model extends MY_Model {
 	function find_gallery($tab=null,$id=null)
 	{
 		$files = $this->db
-			->select('as.id,as.file_name,as.client_name,as.file_size,as.upload_date,us.username')
+			->select('as.id,as.file_type,as.file_name,as.client_name,as.file_size,ap.upload_date,us.username')
 			->order_by('as.id','desc')
-			->where('al.patients_id',$id)
-			->where('al.assets_from',$tab)
-			->join('users as us','us.id = as.upload_by')
-			->join('assets_patients as al','as.id = al.assets_id')
+			->where('ap.patients_id',$id)
+			->where('ap.assets_from',$tab)
+			->join('assets_patients as ap','as.id = ap.assets_id')
+			->join('users as us','us.id = ap.upload_by')
 			->get($this->table_name.' as as');
 
 		return $files->result_array();
@@ -21,15 +21,10 @@ class Assets_model extends MY_Model {
 
 	function delete($id=null)
 	{
-		if ($this->db
-			->where('id',$id)
-			->delete($this->table_name)) :
-			return $this->db
-				->where('assets_id',$id)
-				->delete('assets_patients');
-		endif;
+		$this->db->where('id',$id)->delete($this->table_name);
+		$this->db->where('assets_id',$id)->delete('assets_patients');
 
-		return FALSE;
+		return ;
 	}
 
 }

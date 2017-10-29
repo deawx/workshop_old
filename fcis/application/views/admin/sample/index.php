@@ -1,15 +1,15 @@
 <div class="row">
   <div class="col-md-8">
     <div class="box box-primary">
-      <div class="box-header">  <h3 class="box-title">Search for Inpatient <small>total : <?php echo count($results); ?> record(s)</small></h3> </div>
+      <div class="box-header">  <h3 class="box-title">ค้นหารายการผู้ป่วย <small>ทั้งหมด : <?php echo count($results); ?> รายการ</small></h3> </div>
       <div class="box-body">
         <?php $this->load->view('admin/sample/_search'); ?>
         <?php echo form_open(uri_string(),array('method'=>'get','class'=>'form-horizontal')); ?>
         <div class="form-group">
-          <?php echo form_label('type here:','',array('class'=>'control-label col-md-2')); ?>
+          <?php echo form_label('ค้นหาข้อมูล:','',array('class'=>'control-label col-md-2')); ?>
           <div class="col-md-4">
             <div class="input-group">
-              <?php echo form_input(array('name'=>'q','class'=>'form-control','placeholder'=>'search'),set_value('',$this->input->get('q'))); ?>
+              <?php echo form_input(array('name'=>'q','class'=>'form-control','placeholder'=>'เลขบัตรปชช/รหัสHN'),set_value('',$this->input->get('q'))); ?>
               <div class="input-group-btn">
                 <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
               </div>
@@ -28,9 +28,9 @@
               </h4>
               <p class="list-group-item-text">
                 <dl class="dl-horizontal">
-                  <dt>id card:</dt> <dd><?php echo $value['id_card']; ?></dd>
-                  <dt>created:</dt> <dd><?php echo ($value['created']) ? mdate('%d/%m/%Y',$value['created']) : '-'; ?></dd>
-                  <dt>updated:</dt> <dd><?php echo ($value['updated']) ? mdate('%d/%m/%Y',$value['updated']) : '-'; ?></dd>
+                  <dt>เลขบัตรปชช:</dt> <dd><?php echo $value['id_card']; ?></dd>
+                  <dt>วันที่บันทึก:</dt> <dd><?php echo ($value['created']) ? date('d-m-Y H:i:s',$value['created']) : 'N/A'; ?></dd>
+                  <dt>วันที่อัพเดท:</dt> <dd><?php echo ($value['updated']) ? date('d-m-Y H:i:s',$value['updated']) : 'N/A'; ?></dd>
                 </dl>
               </p>
             </a>
@@ -44,9 +44,9 @@
     <div class="box box-info">
       <div class="box-header"></div>
       <div class="box-body">
-        <h4><i class="fa fa-info-circle"></i> message(s)</h4><hr>
+        <h4><i class="fa fa-info-circle"></i> รายการแจ้งเตือน</h4><hr>
         <?php echo $this->session->flashdata('message'); ?>
-        <h4><i class="fa fa-info-circle"></i> description</h4><hr>
+        <h4><i class="fa fa-info-circle"></i> รายการคำอธิบาย</h4><hr>
         <p class="" id=""></p>
       </div>
       <div class="box-footer clearfix">

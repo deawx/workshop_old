@@ -53,10 +53,10 @@
 
     <?php echo form_fieldset('IHC'); ?>
     <div class="form-group">
-      <?php echo form_label('ihc:','ihc',array('class'=>'control-label col-md-2')); ?>
+      <?php echo form_label('ihc:','ihc[]',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-10">
         <?php $ihc = array('MLH1'=>'MLH1','PMS2'=>'PMS2','MSH2'=>'MSH2','MSH6'=>'MSH6');
-        echo form_dropdown(array('name'=>'ihc','class'=>'form-control','multiple'=>TRUE),$ihc,set_value('ihc',$labs['ihc'],FALSE)); ?>
+        echo form_dropdown(array('name'=>'ihc[]','class'=>'form-control','multiple'=>TRUE),$ihc,set_value('ihc',unserialize($labs['ihc']),FALSE)); ?>
       </div>
     </div>
     <?php echo form_fieldset_close(); ?>
@@ -66,7 +66,7 @@
       <?php echo form_label('gene:','gene',array('class'=>'control-label col-md-2')); ?>
       <div class="col-md-10">
         <?php $gen = array(''=>'เลือกรายการ','NO MUTATION'=>'NO MUTATION','MUTATION'=>'MUTATION');
-        echo form_dropdown(array('name'=>'gene','class'=>'form-control','id'=>'gene'),$gen,set_value('')); ?>
+        echo form_dropdown(array('name'=>'gene','class'=>'form-control','id'=>'gene'),$gen,set_value('gene',$labs['gene'])); ?>
       </div>
     </div>
     <div id="gene_ctn">
@@ -84,14 +84,14 @@
             <div class="col-md-4">
               <?php $dropdown_exon[''] = 'เลือกรายการ';
               foreach (range('1','30') as $key => $value) $dropdown_exon[++$key] = $value;
-              echo form_dropdown(array('name'=>'germline_exon','class'=>'form-control'),$dropdown_exon,set_select('germline_exon',$labs['germline_exon'])); ?>
+              echo form_dropdown(array('name'=>'germline_exon','class'=>'form-control'),$dropdown_exon,set_value('germline_exon',$labs['germline_exon'])); ?>
               <p class="help-block"></p>
             </div>
             <?php echo form_label('intron:','germline_intron',array('class'=>'control-label col-md-2')); ?>
             <div class="col-md-4">
               <?php $dropdown_intron[''] = 'เลือกรายการ';
               foreach (range('1','30') as $key => $value) $dropdown_intron[++$key] = $value;
-              echo form_dropdown(array('name'=>'germline_intron','class'=>'form-control'),$dropdown_intron,set_select('germline_intron',$labs['germline_intron'])); ?>
+              echo form_dropdown(array('name'=>'germline_intron','class'=>'form-control'),$dropdown_intron,set_value('germline_intron',$labs['germline_intron'])); ?>
               <p class="help-block"></p>
             </div>
           </div>
@@ -251,7 +251,9 @@ $(document).ready(function() {
     }
   });
 
+  <?php if ($labs['germline'] === ''): ?>
   germline_ctn.prop('disabled',true);
+  <?php endif; ?>
   germline.on('change',function(){
     if (this.value != '') {
       germline_ctn.prop('disabled',false);
@@ -260,7 +262,9 @@ $(document).ready(function() {
     }
   });
 
+  <?php if ($labs['somatic'] === ''): ?>
   somatic_ctn.prop('disabled',true);
+  <?php endif; ?>
   somatic.on('change',function(){
     if (this.value != '') {
       somatic_ctn.prop('disabled',false);

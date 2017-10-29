@@ -1,15 +1,15 @@
 <div class="row">
   <div class="col-md-12">
-    <?php echo form_fieldset('FILE(S)'); ?>
+    <?php echo form_fieldset('เอกสารที่เกี่ยวข้อง'); ?>
     <?php if (isset($assets) && ! empty($assets)) : ?>
       <table class="table table-condensed table-hover">
         <thead>
           <tr>
-            <th class="text-center">file type</th>
-            <th class="text-center">file name</th>
-            <th class="text-center">file size</th>
-            <th class="text-center">uploaded date</th>
-            <th class="text-center">uploaded by</th>
+            <th class="text-center">ชนิดไฟล์</th>
+            <th class="text-center">ชื่อไฟล์</th>
+            <th class="text-center">ขนาดไฟล์</th>
+            <th class="text-center">วันที่อัพโหลด</th>
+            <th class="text-center">อัพโหลดโดย</th>
             <th class="text-center"></th>
           </tr>
         </thead>
@@ -25,7 +25,7 @@
                 <a href="<?php echo base_url('admin/clinic/delete_file/'.$tab.'/'.$value['id'].'/'.$value['file_name']); ?>"
                   class="badge bg-red"
                   onclick="return confirm('confirm to delete?');">
-                  delete
+                  ลบ
                 </a>
               </td>
             </tr>
@@ -33,7 +33,7 @@
         <?php endforeach; ?>
       </table>
     <?php else: ?>
-      no file(s) uploaded.
+      ว่างเปล่า
     <?php endif; ?>
     <?php echo form_fieldset_close(); ?>
   </div>
