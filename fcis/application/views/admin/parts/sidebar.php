@@ -43,7 +43,12 @@
   </li>
   <li class="<?php echo ($parent_menu === 'genogram')? 'active' : '' ?>">
     <a href="<?php echo site_url('admin/genogram')?>">
-      <i class="fa fa-hospital-o"></i> <span>ข้อมูลความสัมพันธ์ครอบครัว</span>
+      <i class="fa fa-smile-o"></i> <span>ข้อมูลความสัมพันธ์ครอบครัว</span>
+    </a>
+  </li>
+  <li class="<?php echo ($parent_menu === 'attachments')? 'active' : '' ?>">
+    <a href="<?php echo site_url('admin/attachments')?>">
+      <i class="fa fa-files-o"></i> <span>ข้อมูลไฟล์ผู้ป่วย</span>
     </a>
   </li>
   <?php if(any_in_array(array('special','admin'),$current_groups)):?>

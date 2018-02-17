@@ -169,22 +169,24 @@ function init() {
   setupDiagram(myDiagram, [
     { key: 0, n: "<?=$patient['firstname'].' '.$patient['lastname'];?>", s: "<?=($patient['title']=='นาย')?'M':'F';?>", m:-11, f:-10, ux:1 },
     <?php foreach ($patients as $key => $value) : ?>
-      <?php if ($value['relationship'] === 'คู่สมรสของผู้ป่วย') : ?>
+      <?php if ($value['relationship'] == 'คู่สมรสของผู้ป่วย') : ?>
       { key: 1, n: "<?=$value['firstname'].' '.$value['lastname'];?>", s: "<?=($value['title']=='นาย')?'M':'F';?>", vir: 0 },
-      <?php elseif ($value['relationship'] === 'ปู่/ตาของผู้ป่วย') : ?>
+      <?php elseif ($value['relationship'] == 'ปู่/ตาของผู้ป่วย') : ?>
       { key: -20, n: "<?=$value['firstname'].' '.$value['lastname'];?>", s: "M", ux:-21 },
-      <?php elseif ($value['relationship'] === 'ย่า/ยายของผู้ป่วย') : ?>
+      <?php elseif ($value['relationship'] == 'ย่า/ยายของผู้ป่วย') : ?>
       { key: -21, n: "<?=$value['firstname'].' '.$value['lastname'];?>", s: "F" },
-      <?php elseif ($value['relationship'] === 'พ่อของผู้ป่วย') : ?>
+      <?php elseif ($value['relationship'] == 'พ่อของผู้ป่วย') : ?>
       { key: -10, n: "<?=$value['firstname'].' '.$value['lastname'];?>", s: "M", m:-21, f:-20, ux: -11 },
-      <?php elseif ($value['relationship'] === 'แม่ของผู้ป่วย') : ?>
+      <?php elseif ($value['relationship'] == 'แม่ของผู้ป่วย') : ?>
       { key: -11, n: "<?=$value['firstname'].' '.$value['lastname'];?>", s: "F" },
-
-      <?php elseif ($value['relationship'] === 'พี่/น้องของผู้ป่วย') : ?>
+      <?php elseif ($value['relationship'] == 'ลุง/อาของผู้ป่วย') : ?>
+      { key: <?=$value['id'];?>, n: "<?=$value['firstname'].' '.$value['lastname'];?>", s: "<?=($value['title']=='นาย')?'M':'F';?>", m:-21, f:-20 },
+      <?php elseif ($value['relationship'] == 'ป้า/น้าของผู้ป่วย') : ?>
+      { key: <?=$value['id'];?>, n: "<?=$value['firstname'].' '.$value['lastname'];?>", s: "<?=($value['title']=='นาย')?'M':'F';?>", m:-21, f:-20 },
+      <?php elseif ($value['relationship'] == 'พี่/น้องของผู้ป่วย') : ?>
       { key: <?=$value['id'];?>, n: "<?=$value['firstname'].' '.$value['lastname'];?>", s: "<?=($value['title']=='นาย')?'M':'F';?>", m:-11, f:-10 },
-      <?php elseif ($value['relationship'] === 'บุตร/ธิดาของผู้ป่วย') : ?>
+      <?php elseif ($value['relationship'] == 'บุตร/ธิดาของผู้ป่วย') : ?>
       { key: <?=$value['id'];?>, n: "<?=$value['firstname'].' '.$value['lastname'];?>", s: "<?=($value['title']=='นาย')?'M':'F';?>", m:1, f:0 },
-      <?php else: ?>
       <?php endif; ?>
     <?php endforeach; ?>
 

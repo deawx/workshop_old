@@ -19,6 +19,24 @@ class Assets_model extends MY_Model {
 		return $files->result_array();
 	}
 
+	function insert($post = null)
+	{
+		if ( ! $post)
+		{
+			return FALSE;
+		}
+		// print_data($post); die();
+		if ($this->labs->create_labs($post,$id)) :
+			$this->db->insert('users_logs',array(
+				'user_id'=>$this->session->user_id,
+				'timestamp'=>time(),
+				'message'=>'บันทึกข้อมูลผลทางห้องปฎิบัติการเสร็จสิ้น',
+				'type'=>'labs',
+			));
+			$this->session->set_flashdata('message',message_box('บันทึกข้อมูลเสร็จสิ้น','success'));
+		endif;
+	}
+
 	function delete($id=null)
 	{
 		$this->db->where('id',$id)->delete($this->table_name);
